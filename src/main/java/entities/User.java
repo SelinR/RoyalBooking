@@ -1,23 +1,19 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class User {
     private int id;
     private String name;
     private String surname;
     private String country;
-    private Date birthday;
-    private int phone;
+    private LocalDate birthday;
+    private String phone;
     private String email;
     private boolean isAdmin;
     
     public int getId() {
         return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
     }
     
     public String getName() {
@@ -44,19 +40,19 @@ public class User {
         this.country = country;
     }
     
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
     
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
     
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
     
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     
