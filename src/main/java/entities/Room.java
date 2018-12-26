@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * {@code area} - room area in square meters.
  */
 public class Room {
-    private int id;
+    private int roomId;
     private String roomClass;
     private int bedsAmount;
     private double area;
@@ -19,8 +19,8 @@ public class Room {
 
     }
 
-    public Room(int id, String roomClass, int bedsAmount, double area, BigDecimal dailyCost, String additionalInfo, boolean isFree) {
-        this.id = id;
+    public Room(int roomId, String roomClass, int bedsAmount, double area, BigDecimal dailyCost, String additionalInfo, boolean isFree) {
+        this.roomId = roomId;
         this.roomClass = roomClass;
         this.bedsAmount = bedsAmount;
         this.area = area;
@@ -29,12 +29,12 @@ public class Room {
         this.isFree = isFree;
     }
 
-    public int getId() {
-        return id;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     public String getRoomClass() {
