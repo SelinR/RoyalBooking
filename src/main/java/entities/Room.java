@@ -12,18 +12,20 @@ public class Room {
     private int bedsAmount;
     private double area;
     private BigDecimal dailyCost;
+    private String additionalInfo;
     private boolean isFree;
 
     public Room() {
 
     }
 
-    public Room(int id, String roomClass, int bedsAmount, double area, BigDecimal dailyCost, boolean isFree) {
+    public Room(int id, String roomClass, int bedsAmount, double area, BigDecimal dailyCost, String additionalInfo, boolean isFree) {
         this.id = id;
         this.roomClass = roomClass;
         this.bedsAmount = bedsAmount;
         this.area = area;
         this.dailyCost = dailyCost;
+        this.additionalInfo = additionalInfo;
         this.isFree = isFree;
     }
 
@@ -65,6 +67,14 @@ public class Room {
 
     public void setDailyCost(BigDecimal dailyCost) {
         this.dailyCost = dailyCost;
+    }
+
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
     public boolean isFree() {
