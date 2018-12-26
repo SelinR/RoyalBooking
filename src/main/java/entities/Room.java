@@ -1,18 +1,25 @@
 package entities;
 
+import java.math.BigDecimal;
+
+/**
+ * Room class.
+ * {@code area} - room area in square meters.
+ */
 public class Room {
     private int id;
     private String roomClass;
     private int bedsAmount;
     private double area;
-    private double dailyCost;
+    private BigDecimal dailyCost;
     private boolean isFree;
 
     public Room() {
 
     }
 
-    public Room(String roomClass, int bedsAmount, double area, double dailyCost, boolean isFree) {
+    public Room(int id, String roomClass, int bedsAmount, double area, BigDecimal dailyCost, boolean isFree) {
+        this.id = id;
         this.roomClass = roomClass;
         this.bedsAmount = bedsAmount;
         this.area = area;
@@ -22,6 +29,10 @@ public class Room {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRoomClass() {
@@ -48,11 +59,11 @@ public class Room {
         this.area = area;
     }
 
-    public double getDailyCost() {
+    public BigDecimal getDailyCost() {
         return dailyCost;
     }
 
-    public void setDailyCost(double dailyCost) {
+    public void setDailyCost(BigDecimal dailyCost) {
         this.dailyCost = dailyCost;
     }
 
