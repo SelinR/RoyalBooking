@@ -73,4 +73,3 @@ public class Room {
         this.additionalInfo = additionalInfo;
     }
 }
->>>>>>> 84b02eb... RB-4: Reworked dailyCost type, roomType type, removed isFree field.
