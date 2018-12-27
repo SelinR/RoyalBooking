@@ -7,7 +7,7 @@ import enums.RoomType;
  * {@code area} - room area in square meters.
  */
 public class Room {
-    private int roomId;
+    private int id;
     private RoomType roomType;
     private int bedsAmount;
     private double area;
@@ -18,8 +18,8 @@ public class Room {
 
     }
 
-    public Room(int roomId, RoomType roomType, int bedsAmount, double area, double dailyCost, String additionalInfo) {
-        this.roomId = roomId;
+    public Room(int id, RoomType roomType, int bedsAmount, double area, double dailyCost, String additionalInfo) {
+        this.id = id;
         this.roomType = roomType;
         this.bedsAmount = bedsAmount;
         this.area = area;
@@ -27,12 +27,12 @@ public class Room {
         this.additionalInfo = additionalInfo;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getId() {
+        return id;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public RoomType getRoomType() {
