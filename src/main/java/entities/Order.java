@@ -1,6 +1,5 @@
 package entities;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Order {
@@ -8,7 +7,27 @@ public class Order {
     Room bookedRoom;
     LocalDate entryDate;
     LocalDate leaveDate;
-    BigDecimal totalPrice;
+    double totalPrice;
+    User user;
+    OrderStatus status;
+
+    public Order(int orderId, Room bookedRoom, LocalDate entryDate, LocalDate leaveDate, double totalPrice, User user, OrderStatus status) {
+        this.orderId = orderId;
+        this.bookedRoom = bookedRoom;
+        this.entryDate = entryDate;
+        this.leaveDate = leaveDate;
+        this.totalPrice = totalPrice;
+        this.user = user;
+        this.status = status;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -42,11 +61,19 @@ public class Order {
         this.leaveDate = leaveDate;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
+    public User getUser() {
+        return user;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }
