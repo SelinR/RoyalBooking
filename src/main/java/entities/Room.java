@@ -1,5 +1,7 @@
 package entities;
 
+import enums.RoomType;
+
 /**
  * Room class.
  * {@code area} - room area in square meters.
