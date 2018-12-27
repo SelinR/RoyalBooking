@@ -1,9 +1,5 @@
 package entities;
 
-<<<<<<< HEAD
-public class Room {
-}
-=======
 /**
  * Room class.
  * {@code area} - room area in square meters.
