@@ -1,4 +1,4 @@
 package enums;
 
-public class RoomType {
+public enum RoomType {
 }
