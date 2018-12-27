@@ -1,32 +1,28 @@
 package entities;
 
-import java.math.BigDecimal;
-
 /**
  * Room class.
  * {@code area} - room area in square meters.
  */
 public class Room {
     private int roomId;
-    private String roomClass;
+    private RoomType roomType;
     private int bedsAmount;
     private double area;
-    private BigDecimal dailyCost;
+    private double dailyCost;
     private String additionalInfo;
-    private boolean isFree;
 
     public Room() {
 
     }
 
-    public Room(int roomId, String roomClass, int bedsAmount, double area, BigDecimal dailyCost, String additionalInfo, boolean isFree) {
+    public Room(int roomId, RoomType roomType, int bedsAmount, double area, double dailyCost, String additionalInfo) {
         this.roomId = roomId;
-        this.roomClass = roomClass;
+        this.roomType = roomType;
         this.bedsAmount = bedsAmount;
         this.area = area;
         this.dailyCost = dailyCost;
         this.additionalInfo = additionalInfo;
-        this.isFree = isFree;
     }
 
     public int getRoomId() {
@@ -37,12 +33,12 @@ public class Room {
         this.roomId = roomId;
     }
 
-    public String getRoomClass() {
-        return roomClass;
+    public RoomType getRoomType() {
+        return roomType;
     }
 
-    public void setRoomClass(String roomClass) {
-        this.roomClass = roomClass;
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 
     public int getBedsAmount() {
@@ -61,11 +57,11 @@ public class Room {
         this.area = area;
     }
 
-    public BigDecimal getDailyCost() {
+    public double getDailyCost() {
         return dailyCost;
     }
 
-    public void setDailyCost(BigDecimal dailyCost) {
+    public void setDailyCost(double dailyCost) {
         this.dailyCost = dailyCost;
     }
 
@@ -75,13 +71,5 @@ public class Room {
 
     public void setAdditionalInfo(String additionalInfo) {
         this.additionalInfo = additionalInfo;
-    }
-
-    public boolean isFree() {
-        return isFree;
-    }
-
-    public void setFree(boolean free) {
-        isFree = free;
     }
 }
