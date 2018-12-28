@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface RoomDAO {
     List<Room> getAll();
-    Room getById();
-    void save();
-    void delete();
+    Room getById(int id);
+    void save(Room room);
+    void update(Room room);
+    void delete(int id);
 }
