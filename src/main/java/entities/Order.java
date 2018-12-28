@@ -1,9 +1,11 @@
 package entities;
 
+import enums.OrderStatus;
+
 import java.time.LocalDate;
 
 public class Order {
-    int orderId;
+    int id;
     Room bookedRoom;
     LocalDate entryDate;
     LocalDate leaveDate;
@@ -11,8 +13,8 @@ public class Order {
     User user;
     OrderStatus status;
 
-    public Order(int orderId, Room bookedRoom, LocalDate entryDate, LocalDate leaveDate, double totalPrice, User user, OrderStatus status) {
-        this.orderId = orderId;
+    public Order(int id, Room bookedRoom, LocalDate entryDate, LocalDate leaveDate, double totalPrice, User user, OrderStatus status) {
+        this.id = id;
         this.bookedRoom = bookedRoom;
         this.entryDate = entryDate;
         this.leaveDate = leaveDate;
@@ -29,12 +31,12 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Room getBookedRoom() {
