@@ -49,6 +49,9 @@ public class RoomDAOImpl implements RoomDAO {
      */
     @Override
     public void save(Room room) {
+        if (room == null) {
+            throw new IllegalArgumentException("Please, check your input.");
+        }
         int idOfLastRoom = rooms.get(rooms.size() - 1).getId();
         room.setId(idOfLastRoom + 1);
         rooms.add(room);
@@ -56,11 +59,16 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public void update(Room room) {
+        if (room == null) {
+            throw new IllegalArgumentException("Please, check your input.");
+        }
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).getId() == room.getId()) {
                 rooms.set(i, room);
+                return;
             }
         }
+        throw new IllegalArgumentException("No room found with id: " + room.getId());
     }
 
     @Override
