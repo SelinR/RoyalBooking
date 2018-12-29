@@ -23,12 +23,12 @@ public class UserDAOImpl implements UserDAO {
         return users.get(id);
     }
 
-    public UserDAOImpl getInstance() {
+    public static UserDAOImpl getInstance() {
         return instance;
     }
 
     public void save(User user) {
-        user.setId(users.size);
+        user.setId(users.size());
         users.add(user);
     }
 
