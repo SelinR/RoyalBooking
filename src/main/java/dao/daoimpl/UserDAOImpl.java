@@ -9,23 +9,30 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
     private List<User> users;
 
-    public UserDAOImpl() {
+    private static UserDAOImpl instance = new UserDAOImpl();
+
+    private UserDAOImpl() {
         users = new ArrayList<User>();
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return users;
     }
 
-    public User getUserById(int id) {
+    public User getById(int id) {
         return users.get(id);
     }
 
-    public void saveUser(User user) {
+    public UserDAOImpl getInstance() {
+        return instance;
+    }
+
+    public void save(User user) {
+        user.setId(users.size);
         users.add(user);
     }
 
-    public void deleteUser(User user) {
-        users.remove(user);
+    public void delete(int id) {
+        users.remove(id);
     }
 }
