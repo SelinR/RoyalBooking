@@ -19,7 +19,7 @@ public class RoomDAOImpl implements RoomDAO {
         TempUtilRoomRandomizer.fillRooms();
     }
 
-    public RoomDAOImpl getInstance() {
+    public static RoomDAOImpl getInstance() {
         if (instance == null) {
             instance = new RoomDAOImpl();
         }
