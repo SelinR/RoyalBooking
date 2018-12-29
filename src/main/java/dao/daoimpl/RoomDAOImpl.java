@@ -11,13 +11,19 @@ import java.util.List;
 import java.util.Random;
 
 public class RoomDAOImpl implements RoomDAO {
-    private static List<Room> rooms;
+    private static RoomDAOImpl instance;
+    private List<Room> rooms;
 
-    public RoomDAOImpl() {
-        if (rooms == null) {
-            rooms = new ArrayList<>();
-            TempUtilRoomRandomizer.fillRooms();
+    private RoomDAOImpl() {
+        rooms = new ArrayList<>();
+        TempUtilRoomRandomizer.fillRooms();
+    }
+
+    public RoomDAOImpl getInstance() {
+        if (instance == null) {
+            instance = new RoomDAOImpl();
         }
+        return instance;
     }
 
     @Override
@@ -27,7 +33,12 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public Room getById(int id) {
-        return rooms.get(id);
+        for (Room room : rooms) {
+            if (room.getId() == id) {
+                return room;
+            }
+        }
+        throw new IllegalArgumentException("No room found with id: " + id);
     }
 
     /**
@@ -38,7 +49,8 @@ public class RoomDAOImpl implements RoomDAO {
      */
     @Override
     public void save(Room room) {
-        room.setId(rooms.size());
+        int idOfLastRoom = rooms.get(rooms.size() - 1).getId();
+        room.setId(idOfLastRoom + 1);
         rooms.add(room);
     }
 
@@ -49,7 +61,13 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public void delete(int id) {
-        rooms.remove(id);
+        for (Room room : rooms) {
+            if (room.getId() == id) {
+                rooms.remove(room);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No room found with id: " + id);
     }
 
     /**
@@ -68,7 +86,7 @@ public class RoomDAOImpl implements RoomDAO {
         private static void fillRooms() {
             for (int i = 0; i < 10; i++) {
                 Room room = new Room(i, randomRoomType(), i, i, i, "info");
-                rooms.add(room);
+                instance.rooms.add(room);
             }
         }
     }
