@@ -8,18 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 public class RoomServlet extends HttpServlet {
+    RoomService service = new RoomService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        req.setCharacterEncoding("UTF-8");
-        PrintWriter pw = resp.getWriter();
+        Map<String, String[]> parameters = req.getParameterMap();
+        service.getAll(parameters);
 
-        String query = req.getQueryString();
-        Room room = RoomService.get(query);
-        pw.println(room);
     }
 
     @Override
@@ -28,7 +26,7 @@ public class RoomServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         PrintWriter pw = resp.getWriter();
 
-        RoomService.save(id, roomType, bedsAmount, area, dailyCost, additionalInfo);
+        service.save(id, roomType, bedsAmount, area, dailyCost, additionalInfo);
     }
 
     @Override
