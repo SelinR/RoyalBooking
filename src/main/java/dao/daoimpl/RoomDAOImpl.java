@@ -56,7 +56,11 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public void update(Room room) {
-        rooms.set(room.getId(), room);
+        for (int i = 0; i < rooms.size(); i++) {
+            if (rooms.get(i).getId() == room.getId()) {
+                rooms.set(i, room);
+            }
+        }
     }
 
     @Override
@@ -84,7 +88,7 @@ public class RoomDAOImpl implements RoomDAO {
         }
 
         private static void fillRooms() {
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 0; i < 10; i++) {
                 Room room = new Room(i, randomRoomType(), i, i, i, "info");
                 instance.rooms.add(room);
             }
