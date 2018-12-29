@@ -32,14 +32,13 @@ public class RoomDAOImpl implements RoomDAO {
 
     /**
      * In this implementation it does not matter what ID do we set to the {@param room} in the constructor
-     * when creating it, id is roughly reset to the (id_of_the_last_room_in_the_list + 1).
+     * when creating it, id is roughly reset to the (rooms.size() + 1).
      * It is a temporal decision. Remove when database will be implemented.
      * @param room  room to be saved.
      */
     @Override
     public void save(Room room) {
-        int lastRoomInListId = rooms.get(rooms.size() - 1).getId();
-        room.setId(lastRoomInListId + 1);
+        room.setId(rooms.size());
         rooms.add(room);
     }
 
