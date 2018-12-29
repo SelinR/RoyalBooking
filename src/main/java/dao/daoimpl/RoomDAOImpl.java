@@ -84,7 +84,7 @@ public class RoomDAOImpl implements RoomDAO {
         }
 
         private static void fillRooms() {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 1; i <= 10; i++) {
                 Room room = new Room(i, randomRoomType(), i, i, i, "info");
                 instance.rooms.add(room);
             }
