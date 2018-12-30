@@ -16,7 +16,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     private RoomDAOImpl() {
         rooms = new ArrayList<>();
-        TempUtilRoomRandomizer.fillRooms();
+        fillRooms();
     }
 
     public static RoomDAOImpl getInstance() {
@@ -43,7 +43,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     /**
      * In this implementation it does not matter what ID do we set to the {@param room} in the constructor
-     * when creating it, id is roughly reset to the (rooms.size() + 1).
+     * when creating it, id is roughly reset to the (id_of_a_last_room_in_the_list + 1).
      * It is a temporal decision. Remove when database will be implemented.
      * @param room  room to be saved.
      */
@@ -82,24 +82,15 @@ public class RoomDAOImpl implements RoomDAO {
         throw new IllegalArgumentException("No room found with id: " + id);
     }
 
-    /**
-     * This nested class is used to choose a random RoomType when creating a Room instance for filling rooms list.
-     * Absolutely temporal, should be removed with rooms list field when database will be added.
-     */
-    private static class TempUtilRoomRandomizer {
-        private static final List<RoomType> VALUES = Collections.unmodifiableList(Arrays.asList(RoomType.values()));
-        private static final int SIZE = VALUES.size();
-        private static final Random RANDOM = new Random();
+    private void fillRooms() {
+        final List<RoomType> values = Collections.unmodifiableList(Arrays.asList(RoomType.values()));
+        final int size = values.size();
+        final Random random = new Random();
 
-        private static RoomType randomRoomType() {
-            return VALUES.get(RANDOM.nextInt(SIZE));
-        }
-
-        private static void fillRooms() {
-            for (int i = 0; i < 10; i++) {
-                Room room = new Room(i, randomRoomType(), i, i, i, "info");
-                instance.rooms.add(room);
-            }
+        for (int i = 0; i < 5; i++) {
+            RoomType randomRoomType = values.get(random.nextInt(size));
+            Room room = new Room(i, randomRoomType, i, i, i, "info");
+            rooms.add(room);
         }
     }
 }
