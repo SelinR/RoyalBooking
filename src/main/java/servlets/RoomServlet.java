@@ -3,30 +3,30 @@ package servlets;
 import entities.Room;
 import services.RoomService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
+import java.util.List;
 
 public class RoomServlet extends HttpServlet {
-    RoomService service = new RoomService();
+    private static final String index = "/view/rooms.jsp";
+    private final RoomService service = new RoomService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Map<String, String[]> parameters = req.getParameterMap();
-        service.getAll(parameters);
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        List<Room> rooms = service.getAll();
+        req.setAttribute("rooms", rooms);
+        req.getRequestDispatcher(index).forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html; charset = UTF-8");
         req.setCharacterEncoding("UTF-8");
-        PrintWriter pw = resp.getWriter();
-
-        service.save(id, roomType, bedsAmount, area, dailyCost, additionalInfo);
+        service.save(req);
+        doGet(req, resp);
     }
 
     @Override
