@@ -75,7 +75,7 @@ public class RoomDAOImpl implements RoomDAO {
     public void delete(int id) {
         for (Room room : rooms) {
             if (room.getId() == id) {
-                rooms.remove(room);
+                rooms.remove(id);
                 return;
             }
         }
