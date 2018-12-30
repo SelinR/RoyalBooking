@@ -9,7 +9,19 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class RoomService {
+    private static RoomService instance;
     private final RoomDAOImpl dao = RoomDAOImpl.getInstance();
+
+    private RoomService() {
+
+    }
+
+    public static RoomService getInstance() {
+        if (instance == null) {
+            instance = new RoomService();
+        }
+        return instance;
+    }
 
     public List<Room> getAll() {
         return dao.getAll();
@@ -18,14 +30,6 @@ public class RoomService {
     public void save(HttpServletRequest req) {
         Room room = create(req);
         dao.save(room);
-    }
-
-    public void update() {
-
-    }
-
-    public void delete() {
-
     }
 
     private Room create(HttpServletRequest req) {

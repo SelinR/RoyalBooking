@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RoomServlet extends HttpServlet {
     private static final String index = "/view/rooms.jsp";
-    private final RoomService service = new RoomService();
+    private final RoomService service = RoomService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -27,15 +27,5 @@ public class RoomServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         service.save(req);
         doGet(req, resp);
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-
     }
 }
