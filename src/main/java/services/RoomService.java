@@ -94,9 +94,9 @@ public class RoomService {
             } else if (key.equalsIgnoreCase("bedsAmount")) {
                 bedsAmount = Integer.parseInt(val);
             } else if (key.equalsIgnoreCase("area")) {
-                area = Double.parseDouble(val);
+                area = Double.parseDouble(val.replaceAll(",", "."));
             } else if (key.equalsIgnoreCase("dailyCost")) {
-                dailyCost = Double.parseDouble(val);
+                dailyCost = Double.parseDouble(val.replaceAll(",", "."));
             } else if (key.equalsIgnoreCase("additionalInfo")) {
                 additionalInfo = val;
             }
