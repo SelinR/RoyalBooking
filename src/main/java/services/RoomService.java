@@ -7,10 +7,12 @@ import enums.RoomType;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class RoomService {
     private static RoomService instance;
     private final RoomDAOImpl dao = RoomDAOImpl.getInstance();
+    private final String numberRegex = "^[0-9]*[.,]?[0-9]+$";
 
     private RoomService() {
 
@@ -49,14 +51,25 @@ public class RoomService {
                         roomType.equalsIgnoreCase("penthouse"))) {
             return false;
         }
-        int bedsAmount = 0;
-        double area = 0;
-        double dailyCost = 0;
+        int bedsAmount = -1;
+        double area = -1;
+        double dailyCost = -1;
+        String bedsParameter = req.getParameter("bedsAmount");
+        String areaParameter = req.getParameter("area");
+        String dailyCostParameter = req.getParameter("dailyCost");
+        if (!(Pattern.matches(numberRegex, bedsParameter) ||
+                Pattern.matches(numberRegex, areaParameter) ||
+                Pattern.matches(numberRegex, dailyCostParameter))) {
+            return false;
+        }
         try {
-            bedsAmount = Integer.parseInt(req.getParameter("bedsAmount"));
-            area = Double.parseDouble(req.getParameter("area"));
-            dailyCost = Double.parseDouble(req.getParameter("dailyCost"));
+            bedsAmount = Integer.parseInt(bedsParameter);
+            area = Double.parseDouble(areaParameter);
+            dailyCost = Double.parseDouble(dailyCostParameter);
         } catch (NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        if (bedsAmount < 0 || area < 0 || dailyCost < 0) {
             return false;
         }
         return true;
