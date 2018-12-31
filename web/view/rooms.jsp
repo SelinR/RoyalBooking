@@ -22,11 +22,30 @@
 
 <h2>Создание новой комнаты</h2><br />
 <form method="post" action="">
-    <label><input type="text" name="roomType">Room type</label>    Тип комнаты<br>
-    <label><input type="number" name="bedsAmount">Beds</label>    Количество кроватей<br>
-    <label><input type="number" name="area">Area</label>    Площадь комнаты<br>
-    <label><input type="number" name="dailyCost">Daily cost</label>    Суточная стоимость<br>
-    <label><input type="text" name="additionalInfo">Additional info</label>    Дополнительная информация<br>
+    <label>
+        Room type<br>
+        <input type="radio" name="roomType" value="BASIC" checked> Basic
+        <input type="radio" name="roomType" value = "FAMILY"> Family
+        <input type="radio" name="roomType" value = "LUXURY"> Luxury
+        <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
+    </label><br>
+    <label>
+        Beds <br>
+        <input type="number" name="bedsAmount" step="1" required>
+    </label><br>
+    <label>
+        Area <br>
+        <input type="number" name="area" step="0.1" required=>
+    </label><br>
+    <label>
+        Daily cost <br>
+        <input type="number" name="dailyCost" step="0.1" required>
+    </label><br>
+    <label>
+        Additional info <br>
+        <input type="text" name="additionalInfo">
+    </label><br>
+
     <input type="submit" value="Ok" name="Ok"><br>
 </form>
 
