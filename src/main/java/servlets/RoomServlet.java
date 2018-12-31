@@ -25,36 +25,9 @@ public class RoomServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html; charset = UTF-8");
         req.setCharacterEncoding("UTF-8");
-        if (!isRequestValid(req)) {
-            doGet(req, resp);
+        if (!service.save(req)) {
+            resp.getOutputStream().println("Please, check your query. Your request is invalid.");
         }
-        service.save(req);
         doGet(req, resp);
-    }
-
-    private boolean isRequestValid(HttpServletRequest req) {
-        if (req == null) {
-            return false;
-        }
-        String roomType = req.getParameter("roomType");
-        String additionalInfo = req.getParameter("additionalInfo");
-        if (roomType == null || additionalInfo == null ||
-                !(roomType.equalsIgnoreCase("basic") ||
-                roomType.equalsIgnoreCase("family") ||
-                roomType.equalsIgnoreCase("luxury") ||
-                roomType.equalsIgnoreCase("penthouse"))) {
-            return false;
-        }
-        int bedsAmount = 0;
-        double area = 0;
-        double dailyCost = 0;
-        try {
-            bedsAmount = Integer.parseInt(req.getParameter("bedsAmount"));
-            area = Double.parseDouble(req.getParameter("area"));
-            dailyCost = Double.parseDouble(req.getParameter("dailyCost"));
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
     }
 }

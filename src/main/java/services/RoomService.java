@@ -27,9 +27,39 @@ public class RoomService {
         return dao.getAll();
     }
 
-    public void save(HttpServletRequest req) {
+    public boolean save(HttpServletRequest req) {
+        if (!isRequestValid(req)) {
+            return false;
+        }
         Room room = create(req);
         dao.save(room);
+        return true;
+    }
+
+    private boolean isRequestValid(HttpServletRequest req) {
+        if (req == null) {
+            return false;
+        }
+        String roomType = req.getParameter("roomType");
+        String additionalInfo = req.getParameter("additionalInfo");
+        if (roomType == null || additionalInfo == null ||
+                !(roomType.equalsIgnoreCase("basic") ||
+                        roomType.equalsIgnoreCase("family") ||
+                        roomType.equalsIgnoreCase("luxury") ||
+                        roomType.equalsIgnoreCase("penthouse"))) {
+            return false;
+        }
+        int bedsAmount = 0;
+        double area = 0;
+        double dailyCost = 0;
+        try {
+            bedsAmount = Integer.parseInt(req.getParameter("bedsAmount"));
+            area = Double.parseDouble(req.getParameter("area"));
+            dailyCost = Double.parseDouble(req.getParameter("dailyCost"));
+        } catch (NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 
     private Room create(HttpServletRequest req) {
