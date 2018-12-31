@@ -33,9 +33,6 @@ public class RoomService {
     }
 
     private Room create(HttpServletRequest req) {
-        if (req == null) {
-            throw new RuntimeException("No data found. Please, specify a query.");
-        }
         int id = 0;
         RoomType roomType = null;
         int bedsAmount = 0;
