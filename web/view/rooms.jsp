@@ -22,12 +22,11 @@
 
 <h2>Создание новой комнаты</h2><br />
 <form method="post" action="">
-    <label><input type="number" name="id"></label>id<br>
-    <label><input type="text" name="roomType">Room type</label>Возраст<br>
-    <label><input type="number" name="bedsAmount">Beds</label>Возраст<br>
-    <label><input type="number" name="area">Area</label>Возраст<br>
-    <label><input type="number" name="dailyCost">Daily cost</label>Возраст<br>
-    <label><input type="text" name="additionalInfo">Additional info</label>Возраст<br>
+    <label><input type="text" name="roomType">Room type</label>    Тип комнаты<br>
+    <label><input type="number" name="bedsAmount">Beds</label>    Количество кроватей<br>
+    <label><input type="number" name="area">Area</label>    Площадь комнаты<br>
+    <label><input type="number" name="dailyCost">Daily cost</label>    Суточная стоимость<br>
+    <label><input type="text" name="additionalInfo">Additional info</label>    Дополнительная информация<br>
     <input type="submit" value="Ok" name="Ok"><br>
 </form>
 
