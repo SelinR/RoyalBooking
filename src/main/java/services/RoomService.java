@@ -52,15 +52,13 @@ public class RoomService {
             } else if (key.equalsIgnoreCase("roomType")) {
                 roomType = RoomType.valueOf(val);
             } else if (key.equalsIgnoreCase("bedsAmount")) {
-                bedsAmount = Integer.parseInt("bedsAmount");
+                bedsAmount = Integer.parseInt(val);
             } else if (key.equalsIgnoreCase("area")) {
-                area = Double.parseDouble("area");
+                area = Double.parseDouble(val);
             } else if (key.equalsIgnoreCase("dailyCost")) {
                 dailyCost = Double.parseDouble(val);
             } else if (key.equalsIgnoreCase("additionalInfo")) {
                 additionalInfo = val;
-            } else {
-                throw new RuntimeException("Something's gone bad, call your system administrator");
             }
         }
         return new Room(id, roomType, bedsAmount, area, dailyCost, additionalInfo);
