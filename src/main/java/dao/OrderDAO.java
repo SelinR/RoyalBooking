@@ -1,4 +1,4 @@
 package dao;
 
-public class OrderDAO {
+public interface OrderDAO {
 }
