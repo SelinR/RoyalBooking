@@ -31,7 +31,12 @@ public class OrderDAOImpl implements OrderDAO {
      */
     @Override
     public Order getById(int id) {
-        return orders.get(id);
+        for (Order order : orders) {
+            if (order.getId() == id) {
+                return order;
+            }
+        }
+        throw new IllegalArgumentException(id + " id of order didnt found!");
     }
 
     /**
@@ -39,8 +44,14 @@ public class OrderDAOImpl implements OrderDAO {
      */
     @Override
     public void save(Order order) {
-        order.setId(orders.size());
-        orders.add(order);
+        if (orders.size() != 0) {
+            int idOfLastOrder = orders.get(orders.size() - 1).getId();
+            order.setId(idOfLastOrder + 1);
+            orders.add(order);
+        } else{
+            order.setId(0);
+            orders.add(order);
+        }
     }
 
     /**
@@ -48,6 +59,12 @@ public class OrderDAOImpl implements OrderDAO {
      */
     @Override
     public void delete(int id) {
-        orders.remove(id);
+        for (Order order : orders) {
+            if (order.getId() == id) {
+                orders.remove(id);
+                return;
+            }
+        }
+        throw new IllegalArgumentException(id + " id of order didnt found!");
     }
 }
