@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class RoomServlet extends HttpServlet {
-    private static final String index = "/view/rooms.jsp";
-    private static final String error = "ErrorPage.html";
+    private static final String index = "/WEB-INF/view/rooms.jsp";
+    private static final String error = "/WEB-INF/view/ErrorPage.html";
     private final RoomService service = RoomService.getInstance();
 
     @Override
@@ -27,7 +27,7 @@ public class RoomServlet extends HttpServlet {
         resp.setContentType("text/html; charset = UTF-8");
         req.setCharacterEncoding("UTF-8");
         if (!service.save(req)) {
-            resp.sendRedirect(error);
+            req.getRequestDispatcher(error).forward(req, resp);
         } else {
             doGet(req, resp);
         }
