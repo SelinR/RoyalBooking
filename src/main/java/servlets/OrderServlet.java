@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrderServlet extends HttpServlet {
@@ -24,6 +25,8 @@ public class OrderServlet extends HttpServlet {
         List<Room> rooms = roomService.getAll();
         req.setAttribute("orders", orders);
         req.setAttribute("rooms", rooms);
+        req.setAttribute("minDate", LocalDate.now());
+        req.setAttribute("maxDate", LocalDate.now().plusYears(2));
         req.getRequestDispatcher(url).forward(req, resp);
     }
     @Override

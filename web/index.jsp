@@ -7,4 +7,8 @@
   <body>
     <button onclick="location.href='view/rooms'">Rooms</button>
   </body>
+  <br>
+  <body>
+     <button onclick="location.href='view/orders'">Orders</button>
+  </body>
 </html>
