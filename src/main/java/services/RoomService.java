@@ -1,6 +1,7 @@
 package services;
 
-import dao.daoimpl.RoomDAOImpl;
+import dao.RoomDAO;
+import dao.jdbcDaoImpl.JdbcRoomDAOImpl;
 import entities.Room;
 import enums.RoomType;
 
@@ -11,11 +12,10 @@ import java.util.regex.Pattern;
 
 public class RoomService {
     private static RoomService instance;
-    private final RoomDAOImpl dao = RoomDAOImpl.getInstance();
-    private final String numberRegex = "^[0-9]*[.,]?[0-9]+$";
+    private final RoomDAO dao;
 
     private RoomService() {
-
+        dao = JdbcRoomDAOImpl.getInstance();
     }
 
     public static RoomService getInstance() {
@@ -23,6 +23,11 @@ public class RoomService {
             instance = new RoomService();
         }
         return instance;
+    }
+
+    public void closeConnection() {
+        JdbcRoomDAOImpl jdbcDao = (JdbcRoomDAOImpl) dao;
+        jdbcDao.closeConnection();
     }
 
     public List<Room> getAll() {
@@ -57,6 +62,7 @@ public class RoomService {
         String bedsParameter = req.getParameter("bedsAmount");
         String areaParameter = req.getParameter("area");
         String dailyCostParameter = req.getParameter("dailyCost");
+        String numberRegex = "^[0-9]*[.,]?[0-9]+$";
         if (!(Pattern.matches(numberRegex, bedsParameter) ||
                 Pattern.matches(numberRegex, areaParameter) ||
                 Pattern.matches(numberRegex, dailyCostParameter))) {

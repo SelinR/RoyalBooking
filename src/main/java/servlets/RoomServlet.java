@@ -13,7 +13,12 @@ import java.util.List;
 public class RoomServlet extends HttpServlet {
     private static final String index = "/view/rooms.jsp";
     private static final String error = "ErrorPage.html";
-    private final RoomService service = RoomService.getInstance();
+    private RoomService service;
+
+    @Override
+    public void init() throws ServletException {
+        service = RoomService.getInstance();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -31,5 +36,10 @@ public class RoomServlet extends HttpServlet {
         } else {
             doGet(req, resp);
         }
+    }
+
+    @Override
+    public void destroy() {
+        service.closeConnection();
     }
 }
