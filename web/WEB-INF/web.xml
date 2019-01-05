@@ -17,4 +17,15 @@
         <servlet-name>RoomServlet</servlet-name>
         <url-pattern>/view/rooms</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>servlets.OrderServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/view/orders</url-pattern>
+    </servlet-mapping>
+
 </web-app>
