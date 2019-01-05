@@ -6,9 +6,7 @@ import entities.Room;
 import entities.User;
 import enums.OrderStatus;
 import enums.UserType;
-
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -18,12 +16,7 @@ public class OrderDAOImpl implements OrderDAO {
     /**
      * Temporary. The field required to create random users and fill Order List
      */
-    private static RoomDAOImpl roomDAOimlInstance = RoomDAOImpl.getInstance();
-
-    /**
-     * Temporary. The field is required to create random users and fill Order List
-     */
-    private static UserDAOImpl userDAOimlInstance = UserDAOImpl.getInstance();
+    private static RoomDAOImpl roomDAOImlInstance = RoomDAOImpl.getInstance();
 
     private OrderDAOImpl() {
         orders = new ArrayList<>();
@@ -88,7 +81,7 @@ public class OrderDAOImpl implements OrderDAO {
      * It"s temporary method
      */
     private void fillOrders() {
-        final List<Room> rooms = roomDAOimlInstance.getAll();
+        final List<Room> rooms = roomDAOImlInstance.getAll();
         final int sizeOfRoomsList = rooms.size();
         LocalDate entryDate = LocalDate.now();
         LocalDate leaveDate = entryDate.plusDays(1);
