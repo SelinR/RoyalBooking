@@ -28,7 +28,6 @@ public class OrderServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        resp.setContentType("text/html; charset = UTF-8");
         req.setCharacterEncoding("UTF-8");
         Order order = orderService.create(req);
         if (orderService.isOrderValid(order)){
@@ -36,7 +35,7 @@ public class OrderServlet extends HttpServlet {
             doGet(req,resp);
         }
         else {
-            resp.sendRedirect(error);
+            req.getRequestDispatcher(error).forward(req, resp);
         }
     }
 }
