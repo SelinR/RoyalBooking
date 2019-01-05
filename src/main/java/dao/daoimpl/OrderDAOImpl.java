@@ -2,16 +2,25 @@ package dao.daoimpl;
 
 import dao.OrderDAO;
 import entities.Order;
-
-import java.util.ArrayList;
-import java.util.List;
+import entities.Room;
+import entities.User;
+import enums.OrderStatus;
+import enums.UserType;
+import java.time.LocalDate;
+import java.util.*;
 
 public class OrderDAOImpl implements OrderDAO {
     private static OrderDAOImpl instance;
     private List<Order> orders;
 
+    /**
+     * Temporary. The field required to create random users and fill Order List
+     */
+    private static RoomDAOImpl roomDAOImlInstance = RoomDAOImpl.getInstance();
+
     private OrderDAOImpl() {
         orders = new ArrayList<>();
+        fillOrders();
     }
 
     public static OrderDAOImpl getInstance() {
@@ -48,7 +57,7 @@ public class OrderDAOImpl implements OrderDAO {
             int idOfLastOrder = orders.get(orders.size() - 1).getId();
             order.setId(idOfLastOrder + 1);
             orders.add(order);
-        } else{
+        } else {
             order.setId(0);
             orders.add(order);
         }
@@ -66,5 +75,21 @@ public class OrderDAOImpl implements OrderDAO {
             }
         }
         throw new IllegalArgumentException(id + " id of order didnt found!");
+    }
+
+    /**
+     * It"s temporary method
+     */
+    private void fillOrders() {
+        final List<Room> rooms = roomDAOImlInstance.getAll();
+        final int sizeOfRoomsList = rooms.size();
+        LocalDate entryDate = LocalDate.now();
+        LocalDate leaveDate = entryDate.plusDays(1);
+
+        for (int i = 0; i < sizeOfRoomsList; i++) {
+            User userExample = new User(i, "Boris", "Britva", "England", LocalDate.now(), "911", "hrenPopadesh@killer.com", UserType.USER);
+            Order randomOrder = new Order(i, rooms.get(i), entryDate.plusDays(i),leaveDate.plusDays(i), 100, userExample, OrderStatus.CREATED);
+            orders.add(randomOrder);
+        }
     }
 }
