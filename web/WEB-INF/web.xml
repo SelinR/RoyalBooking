@@ -5,7 +5,7 @@
          version="4.0">
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/index.jsp</welcome-file>
+        <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>
@@ -15,6 +15,6 @@
 
     <servlet-mapping>
         <servlet-name>RoomServlet</servlet-name>
-        <url-pattern>/WEB-INF/view/rooms</url-pattern>
+        <url-pattern>/view/rooms</url-pattern>
     </servlet-mapping>
 </web-app>
