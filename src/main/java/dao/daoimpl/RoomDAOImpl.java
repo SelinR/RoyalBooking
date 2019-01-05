@@ -52,8 +52,12 @@ public class RoomDAOImpl implements RoomDAO {
         if (room == null) {
             throw new IllegalArgumentException("Please, check your input.");
         }
-        int idOfLastRoom = rooms.get(rooms.size() - 1).getId();
-        room.setId(idOfLastRoom + 1);
+        if (rooms.size() != 0) {
+            int idOfLastRoom = rooms.get(rooms.size() - 1).getId();
+            room.setId(idOfLastRoom + 1);
+        } else {
+            room.setId(0);
+        }
         rooms.add(room);
     }
 
