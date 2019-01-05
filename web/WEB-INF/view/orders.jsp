@@ -26,23 +26,28 @@
 <form method="post" action="">
 
     <p>Choose Room Id to book</p>
-    <p><select size=1 name="roomId">
+    <p><label>
+        <select size=1 name="roomId">
         <c:forEach var="room" items="${requestScope.rooms}">
             <option><c:out value="${room.id}"/></option>
         </c:forEach>
-    </select></p>
+    </select>
+    </label></p>
 
     <label>
         Entry Date <br>
         <input type="date" id="entryDate" name="entryDate"
-               value="2019-01-05" min="2019-01-05" max="2020-12-31">
+               value="<c:out value="${requestScope.minDate}"/>"
+               min="<c:out value="${requestScope.minDate}"/>"
+               max="<c:out value="${requestScope.maxDate}"/>">
     </label><br>
 
     <label>
         Leave Date <br>
-        <input type="date" id="leaveDate" name="leaveDate"
-               value="2019-01-05"
-               min="2019-01-05" max="2019-12-31">
+        <input type="date" name="leaveDate"
+               value="<c:out value="${requestScope.minDate}"/>"
+               min="<c:out value="${requestScope.minDate}"/>"
+               max="<c:out value="${requestScope.maxDate}"/>">
     </label><br>
 
     <label>
