@@ -5,13 +5,13 @@ import enums.OrderStatus;
 import java.time.LocalDate;
 
 public class Order {
-    int id;
-    Room bookedRoom;
-    LocalDate entryDate;
-    LocalDate leaveDate;
-    double totalPrice;
-    User user;
-    OrderStatus status;
+    private int id;
+    private Room bookedRoom;
+    private LocalDate entryDate;
+    private LocalDate leaveDate;
+    private double totalPrice;
+    private User user;
+    private OrderStatus status;
 
     public Order(int id, Room bookedRoom, LocalDate entryDate, LocalDate leaveDate, double totalPrice, User user, OrderStatus status) {
         this.id = id;

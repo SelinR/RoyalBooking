@@ -13,4 +13,15 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/user</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>servlets.OrderServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/view/orders</url-pattern>
+    </servlet-mapping>
+
 </web-app>
