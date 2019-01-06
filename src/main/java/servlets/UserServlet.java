@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserServlet extends HttpServlet {
     private static final String index = "/view/users.jsp";
-    private static final String error = "ErroePage.jsp";
+    private static final String error = "ErrorPage.jsp";
     private final UserService service = UserService.getInstance();
 
     public void init() {
