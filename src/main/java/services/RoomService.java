@@ -82,7 +82,6 @@ public class RoomService {
     }
 
     private Room create(HttpServletRequest req) {
-        int id = 0;
         RoomType roomType = null;
         int bedsAmount = 0;
         double area = 0;
@@ -93,9 +92,7 @@ public class RoomService {
         while (parametersNames.hasMoreElements()) {
             String key = parametersNames.nextElement();
             String val = req.getParameter(key);
-            if (key.equalsIgnoreCase("id")) {
-                id = Integer.parseInt(val);
-            } else if (key.equalsIgnoreCase("roomType")) {
+            if (key.equalsIgnoreCase("roomType")) {
                 roomType = RoomType.valueOf(val);
             } else if (key.equalsIgnoreCase("bedsAmount")) {
                 bedsAmount = Integer.parseInt(val);
@@ -107,6 +104,6 @@ public class RoomService {
                 additionalInfo = val;
             }
         }
-        return new Room(id, roomType, bedsAmount, area, dailyCost, additionalInfo);
+        return new Room(roomType, bedsAmount, area, dailyCost, additionalInfo);
     }
 }

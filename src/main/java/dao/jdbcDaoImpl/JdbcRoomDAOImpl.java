@@ -4,6 +4,8 @@ import dao.RoomDAO;
 import entities.Room;
 import enums.RoomType;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,12 +14,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class JdbcRoomDAOImpl implements RoomDAO {
     private static JdbcRoomDAOImpl instance;
-    private final String url = "jdbc:postgresql://localhost:5432/royalbooking";
-    private final String username = "postgres";
-    private final String password = "pass";
+    private static final String path = JdbcRoomDAOImpl.class.getProtectionDomain().getCodeSource().getLocation().getPath() +
+            "\\config.properties";
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
@@ -34,11 +36,17 @@ public class JdbcRoomDAOImpl implements RoomDAO {
         return instance;
     }
 
-    public void openConnection() {
-        try {
+    private void openConnection() {
+        try (FileInputStream fileInputStream = new FileInputStream(path)) {
+            System.out.println(System.getProperty("user.dir"));
+            Properties properties = new Properties();
+            properties.load(fileInputStream);
+            String url = properties.getProperty("site");
+            String username = properties.getProperty("username");
+            String password = properties.getProperty("password");
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | IOException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -78,8 +86,8 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     @Override
     public Room getById(int id) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT rooms.id, rooms.roomtype," +
-                    "rooms.bedsamount, rooms.area, rooms.dailycost, rooms.additionalinfo FROM public.rooms WHERE ID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT rooms.id, rooms.room_type," +
+                    "rooms.beds_amount, rooms.area, rooms.daily_cost, rooms.additional_info FROM public.rooms WHERE ID = ?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -93,16 +101,14 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     @Override
     public void save(Room room) {
         try {
-            int id = getIdOfTheLastRoom();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("INSERT INTO rooms (id, roomtype, bedsamount, area, dailycost, additionalinfo) VALUES \n" +
-                            "(?, ?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, "'" + room.getRoomType() + "'");
-            preparedStatement.setInt(3, room.getBedsAmount());
-            preparedStatement.setDouble(4, room.getArea());
-            preparedStatement.setDouble(5, room.getDailyCost());
-            preparedStatement.setString(6, room.getAdditionalInfo());
+                    connection.prepareStatement("INSERT INTO public.rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES \n" +
+                            "(?, ?, ?, ?, ?);");
+            preparedStatement.setString(1, room.getRoomType().toString());
+            preparedStatement.setInt(2, room.getBedsAmount());
+            preparedStatement.setDouble(3, room.getArea());
+            preparedStatement.setDouble(4, room.getDailyCost());
+            preparedStatement.setString(5, room.getAdditionalInfo());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,33 +143,33 @@ public class JdbcRoomDAOImpl implements RoomDAO {
         }
     }
 
-    /**
-     * Creates a "rooms" table in a DB if one doesn't already exist.
-     */
     private void createRoomsTable() {
         try {
             statement = connection.createStatement();
-            String query = "CREATE TABLE IF NOT EXISTS public.rooms ( \n \"id\" integer, \"roomtype\" character varying(10)," +
-                    "\"bedsamount\" integer, \"area\" real, \"dailycost\" real, \"additionalinfo\" character varying(50), \n" +
-                    "CONSTRAINT \"primary\" PRIMARY KEY (id) ) \n WITH (OIDS = FALSE);";
-            statement.execute(query);
-            int result = statement.getUpdateCount();
-            if (result == 0) {
-                fillRooms();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void fillRooms() {
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO rooms (id, roomtype, bedsamount, area, dailycost, additionalinfo) VALUES\n" +
-                    "(1, 'BASIC', 1, 15.0, 15.0, 'Room #1'),\n" +
-                    "(2, 'FAMILY', 3, 20.0, 25.0, 'Room #2'),\n" +
-                    "(3, 'LUXURY', 2, 30, 30.0, 'Room #3'),\n" +
-                    "(4, 'PENTHOUSE', 5, 50.0, 50.0, 'Room #4');");
+            String sql = "DROP TABLE IF EXISTS public.rooms;\n" +
+                    "DROP SEQUENCE IF EXISTS public.id_rooms_seq;\n" +
+                    "CREATE SEQUENCE public.id_rooms_seq\n" +
+                    "   INCREMENT 1\n" +
+                    "   START 1\n" +
+                    "   MINVALUE 1\n" +
+                    "   MAXVALUE 9223372036854775807\n" +
+                    "   CACHE 1;\n" +
+                    "CREATE TABLE public.rooms\n" +
+                    "(\n" +
+                    "id INTEGER DEFAULT NEXTVAL('public.id_rooms_seq') NOT NULL,\n" +
+                    "room_type CHARACTER VARYING(10) NOT NULL,\n" +
+                    "beds_amount INTEGER NOT NULL,\n" +
+                    "area REAL NOT NULL,\n" +
+                    "daily_cost REAL NOT NULL,\n" +
+                    "additional_info CHARACTER VARYING(50),\n" +
+                    "CONSTRAINT prim PRIMARY KEY(id)\n" +
+                    ");\n" +
+                    "INSERT INTO public.rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES\n" +
+                    "('BASIC', 1, 1, 1, 'Room #1'),\n" +
+                    "('FAMILY', 2, 2, 2, 'Room #2'),\n" +
+                    "('LUXURY', 3, 3, 3, 'Room #3'),\n" +
+                    "('PENTHOUSE', 4, 4, 4, 'Room #4');";
+            statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -172,11 +178,11 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     private Room createRoom(ResultSet resultSet) {
         try {
             int id = resultSet.getInt("id");
-            RoomType roomType = RoomType.valueOf(resultSet.getString("roomtype").replaceAll("'", ""));
-            int beds = resultSet.getInt("bedsamount");
+            RoomType roomType = RoomType.valueOf(resultSet.getString("room_type").replaceAll("'", ""));
+            int beds = resultSet.getInt("beds_amount");
             double area = resultSet.getDouble("area");
-            double dailyCost = resultSet.getDouble("dailycost");
-            String info = resultSet.getString("additionalinfo");
+            double dailyCost = resultSet.getDouble("daily_cost");
+            String info = resultSet.getString("additional_info");
             return new Room(id, roomType, beds, area, dailyCost, info);
         } catch (SQLException e) {
             e.printStackTrace();
