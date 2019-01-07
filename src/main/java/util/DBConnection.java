@@ -8,19 +8,30 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBConnection {
-    private static final String path = DBConnection.class.getProtectionDomain().getCodeSource().getLocation().getPath() +
+    private static final String PATH = DBConnection.class.getProtectionDomain().getCodeSource().getLocation().getPath() +
             "\\config.properties";
+    private String url;
+    private String username;
+    private String password;
 
-    public Connection openConnection() {
-        try (FileInputStream fileInputStream = new FileInputStream(path)) {
+    public DBConnection() {
+        try (FileInputStream fileInputStream = new FileInputStream(PATH)) {
             Properties properties = new Properties();
             properties.load(fileInputStream);
-            String url = properties.getProperty("site");
-            String username = properties.getProperty("username");
-            String password = properties.getProperty("password");
+            url = properties.getProperty("site");
+            username = properties.getProperty("username");
+            password = properties.getProperty("password");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Could not find properties file: " + e);
+        }
+    }
+
+    public Connection openConnection() {
+        try {
             Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException | IOException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Could not open the DB connection: " + e);
         }
