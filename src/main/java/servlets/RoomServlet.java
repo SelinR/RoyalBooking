@@ -32,9 +32,4 @@ public class RoomServlet extends HttpServlet {
             doGet(req, resp);
         }
     }
-
-    @Override
-    public void destroy() {
-        service.closeConnection();
-    }
 }

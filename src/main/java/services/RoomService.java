@@ -25,11 +25,6 @@ public class RoomService {
         return instance;
     }
 
-    public void closeConnection() {
-        JdbcRoomDAOImpl jdbcDao = (JdbcRoomDAOImpl) dao;
-        jdbcDao.closeConnection();
-    }
-
     public List<Room> getAll() {
         return dao.getAll();
     }
