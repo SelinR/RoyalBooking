@@ -34,36 +34,38 @@ public class JdbcUserDAOImpl implements UserDAO {
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM users")) {
+        try (PreparedStatement statement = connection.prepareStatement(QueryType.GET_ALL.getQuery())) {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = createUser(resultSet);
                 users.add(user);
             }
-            return users;
         } catch (SQLException e) {
             throw new RuntimeException("getAll method failed.");
         }
+        return users;
     }
 
     @Override
     public User getById(int id) {
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = (?)")) {
+        User result;
+        try (PreparedStatement statement = connection.prepareStatement(QueryType.GET_BY_ID.getQuery())) {
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return createUser(resultSet);
+                result = createUser(resultSet);
+            } else {
+                throw new RuntimeException("There is no such user.");
             }
-            throw new RuntimeException("There is no such user.");
         } catch (SQLException e) {
             throw new RuntimeException("getById method failed.");
         }
+        return result;
     }
 
     @Override
     public void save(User user) {
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO users (id, name, surname, country, "
-                + "birthday, phone, email, user_type) VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?))")) {
+        try (PreparedStatement statement = connection.prepareStatement(QueryType.SAVE.getQuery())) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
             statement.setString(3, user.getCountry());
@@ -79,7 +81,7 @@ public class JdbcUserDAOImpl implements UserDAO {
 
     @Override
     public void delete(int id) {
-        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = (?)")) {
+        try (PreparedStatement statement = connection.prepareStatement(QueryType.DELETE.getQuery())) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
@@ -102,6 +104,26 @@ public class JdbcUserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Something went wrong with user creation!");
+        }
+    }
+
+    enum QueryType {
+        GET_ALL("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users"),
+        GET_BY_ID("SELECT * FROM users WHERE id = (?)"),
+        SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, user_type) " +
+                "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?))"),
+        UPDATE("UPDATE users SET name = (?), surname = (?), county = (?), birthday = (?), phone = (?), email = (?), " +
+                "user_type = (?) WHERE id = (?)"),
+        DELETE("DELETE FROM users WHERE id = (?)");
+
+        private String query;
+
+        QueryType(String query) {
+            this.query = query;
+        }
+
+        public String getQuery() {
+            return query;
         }
     }
 }
