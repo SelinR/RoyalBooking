@@ -3,6 +3,7 @@ package dao.jdbcDaoImpl;
 import dao.UserDAO;
 import entities.User;
 import enums.UserType;
+import util.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,15 +19,12 @@ public class JdbcUserDAOImpl implements UserDAO {
 
     /**
      * Temporary decision.
+     *
      * @return
      */
     public static JdbcUserDAOImpl getInstance() {
         if (instance == null) {
-            try {
-                instance = new JdbcUserDAOImpl(DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1"));
-            } catch (SQLException e) {
-                throw new RuntimeException("Something went wrong");
-            }
+            instance = new JdbcUserDAOImpl(DBConnection.openConnection());
         }
         return instance;
     }
