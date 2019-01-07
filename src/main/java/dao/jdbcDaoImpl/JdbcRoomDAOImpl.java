@@ -20,10 +20,9 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     private static final String SQL_SAVE_ROOM = "INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES (?, ?, ?, ?, ?);";
     private static final String SQL_UPDATE_ROOM = "UPDATE rooms SET roomtype = ?, bedsamount = ?, area = ?, dailycost = ? WHERE id = ?;";
     private static final String SQL_DELETE_ROOM = "DELETE FROM rooms WHERE id = ?;";
-    private DBConnection dbConnection;
 
     private JdbcRoomDAOImpl() {
-        dbConnection = new DBConnection();
+
     }
 
     public static JdbcRoomDAOImpl getInstance() {
@@ -36,7 +35,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     @Override
     public List<Room> getAll() {
         List<Room> rooms = new ArrayList<>();
-        try (Connection connection = dbConnection.openConnection(); Statement statement = connection.createStatement()) {
+        try (Connection connection = DBConnection.openConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SQL_GET_ALL_ROOMS);
             while (resultSet.next()) {
                 Room room = createRoom(resultSet);
@@ -51,7 +50,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
 
     @Override
     public Room getById(int id) {
-        try (Connection connection = dbConnection.openConnection();
+        try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_ROOM_BY_ID)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -65,7 +64,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
 
     @Override
     public void save(Room room) {
-        try (Connection connection = dbConnection.openConnection();
+        try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SAVE_ROOM)) {
             configurePreparedStatement(preparedStatement, room);
             preparedStatement.execute();
@@ -77,7 +76,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
 
     @Override
     public void update(Room room) {
-        try (Connection connection = dbConnection.openConnection();
+        try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_ROOM)) {
             configurePreparedStatement(preparedStatement, room);
             preparedStatement.execute();
@@ -89,7 +88,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
 
     @Override
     public void delete(int id) {
-        try (Connection connection = dbConnection.openConnection();
+        try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_ROOM)) {
             preparedStatement.setInt(1, id);
         } catch (SQLException e) {
