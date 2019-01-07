@@ -10,9 +10,9 @@ import java.util.Properties;
 public class DBConnection {
     private static final String PATH = DBConnection.class.getProtectionDomain().getCodeSource().getLocation().getPath() +
             "\\config.properties";
-    private String url;
-    private String username;
-    private String password;
+    private static String url;
+    private static String username;
+    private static String password;
 
     public DBConnection() {
         try (FileInputStream fileInputStream = new FileInputStream(PATH)) {
@@ -27,7 +27,7 @@ public class DBConnection {
         }
     }
 
-    public Connection openConnection() {
+    public static Connection openConnection() {
         try {
             Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(url, username, password);
