@@ -14,7 +14,7 @@ public class DBConnection {
     private static String username;
     private static String password;
 
-    public DBConnection() {
+    static {
         try (FileInputStream fileInputStream = new FileInputStream(PATH)) {
             Properties properties = new Properties();
             properties.load(fileInputStream);
