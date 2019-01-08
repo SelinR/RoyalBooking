@@ -107,7 +107,7 @@ public class JdbcUserDAOImpl implements UserDAO {
 
     enum QueryType {
         GET_ALL("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users"),
-        GET_BY_ID("SELECT * FROM users WHERE id = (?)"),
+        GET_BY_ID("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users WHERE id = (?)"),
         SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, user_type) " +
                 "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?))"),
         UPDATE("UPDATE users SET name = (?), surname = (?), county = (?), birthday = (?), phone = (?), email = (?), " +
