@@ -6,7 +6,6 @@
 </head>
 <body>
 
-<h1> Users </h1>
 <h2> All users </h2>
 <c:forEach var="user" items="${requestScope.users}">
     <ul>
@@ -49,7 +48,7 @@
     </label><br>
     <label> User type<br>
         <input type="radio" name="userType" value="USER"> User
-        <input type="radio" name="userType" value = "ADMIN"> Admin
+        <input type="radio" name="userType" value="ADMIN"> Admin
     </label><br>
     <input type="submit" value="OK" name="Ok">
 </form>
