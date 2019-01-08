@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS rooms;
 
 CREATE TABLE rooms
 (
-  id serial NOT NULL,
+  id serial,
   room_type CHARACTER VARYING(10) NOT NULL,
   beds_amount INTEGER NOT NULL,
   area REAL NOT NULL,
@@ -22,13 +22,15 @@ INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VA
 drop table if exists orders;
 
 create table orders (
-  id serial primary key ,
+  id serial primary key,
   status character varying not null,
-  booked_room_id  integer not null,
+  booked_room_id  integer references rooms(id),
   entry_date date not null,
   leave_date date not null,
   total_price real not null,
-  user_id integer not null
+  user_id integer not null /*here will be foreign key with reference to user id*/
+
+  /*foreign key (booked_room_id) references rooms(id)*/
 );
 
 insert into orders(status, booked_room_id, entry_date, leave_date, total_price, user_id) values
