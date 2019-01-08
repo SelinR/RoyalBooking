@@ -40,14 +40,13 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-        @Override
-        public void delete ( int id){
-            users.remove(id);
-        }
-
-        public static UserDAOImpl getInstance () {
-            return instance;
-        }
-
+    @Override
+    public void delete(int id) {
+        users.remove(id);
     }
+
+    public static UserDAOImpl getInstance() {
+        return instance;
+    }
+}
 
