@@ -13,11 +13,8 @@
     <li>Entry Date: <c:out value="${order.entryDate}"/></li>
     <li>Leave Date: <c:out value="${order.leaveDate}"/></li>
     <li>Total Price: <c:out value="${order.totalPrice}"/></li>
-    <li>User Name: <c:out value="${order.user.name}"/></li>
-    <li>User Surname: <c:out value="${order.user.surname}"/></li>
-    <li>User email: <c:out value="${order.user.email}"/></li>
-    <li>User id: <c:out value="${order.user.id}"/></li>
-    <li>Booked Room Id: <c:out value="${order.bookedRoom.id}"/></li>
+    <li>User id: <c:out value="${order.userID}"/></li>
+    <li>Booked Room Id: <c:out value="${order.bookedRoomID}"/></li>
 </ul>
 <hr/>
 </c:forEach>
@@ -51,18 +48,8 @@
     </label><br>
 
     <label>
-        Name<br>
-        <input type="text" name="name">
-    </label><br>
-
-    <label>
-        Surname<br>
-        <input type="text" name="surname">
-    </label><br>
-
-    <label>
-        Email<br>
-        <input type="text" name="email">
+        User ID<br>
+        <input type="number" name="userID">
     </label><br>
 
     <p><input type="submit" value="Create"></p>
