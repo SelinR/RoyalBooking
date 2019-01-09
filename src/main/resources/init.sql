@@ -17,7 +17,28 @@ INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VA
 ('LUXURY', 30, 30, 30, 'Room #3'),
 ('PENTHOUSE', 40, 40, 40, 'Room #4');
 /* rooms finish */
+/* users beginning*/
+DROP TABLE IF EXISTS users;
 
+CREATE TABLE users
+(
+  id SERIAL,
+  name VARCHAR NOT NULL,
+  surname VARCHAR NOT NULL,
+  country VARCHAR NOT NULL,
+  birthday DATE NOT NULL,
+  phone VARCHAR NOT NULL,
+  email VARCHAR NOT NULL,
+  user_type VARCHAR NOT NULL,
+  CONSTRAINT prim PRIMARY KEY(id)
+);
+INSERT INTO users (name, surname, country, birthday, phone, email, user_type) VALUES
+('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', 'USER'),
+('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', 'ADMIN'),
+('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', 'USER'),
+('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', 'USER');
+
+/* users end */
 /*orders*/
 drop table if exists orders;
 
