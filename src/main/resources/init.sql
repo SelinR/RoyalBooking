@@ -1,5 +1,5 @@
 /* rooms start */
-DROP TABLE IF EXISTS rooms;
+DROP TABLE IF EXISTS rooms CASCADE;
 
 CREATE TABLE rooms
 (
@@ -9,7 +9,7 @@ CREATE TABLE rooms
   area REAL NOT NULL,
   daily_cost REAL NOT NULL,
   additional_info CHARACTER VARYING(50),
-  CONSTRAINT prim PRIMARY KEY(id)
+  CONSTRAINT room_prim PRIMARY KEY(id)
 );
 INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES
 ('BASIC', 10, 10, 10, 'Room #1'),
@@ -18,7 +18,7 @@ INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VA
 ('PENTHOUSE', 40, 40, 40, 'Room #4');
 /* rooms finish */
 /* users beginning*/
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users
 (
@@ -30,7 +30,7 @@ CREATE TABLE users
   phone VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
   user_type VARCHAR NOT NULL,
-  CONSTRAINT prim PRIMARY KEY(id)
+  CONSTRAINT user_prim PRIMARY KEY(id)
 );
 INSERT INTO users (name, surname, country, birthday, phone, email, user_type) VALUES
 ('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', 'USER'),
@@ -40,7 +40,7 @@ INSERT INTO users (name, surname, country, birthday, phone, email, user_type) VA
 
 /* users end */
 /*orders*/
-drop table if exists orders;
+drop table if exists orders CASCADE;
 
 create table orders (
   id serial primary key,
