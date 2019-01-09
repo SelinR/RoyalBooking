@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class UserServlet extends HttpServlet {
-    private static final String index = "WEB-INF/view/users.jsp";
+    private static final String index = "/WEB-INF/view/users.jsp";
     private final UserService service = UserService.getInstance();
 
     public void init() {
