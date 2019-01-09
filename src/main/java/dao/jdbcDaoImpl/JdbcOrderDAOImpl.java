@@ -12,7 +12,7 @@ import java.util.List;
 
 public class JdbcOrderDAOImpl implements OrderDAO {
     private static JdbcOrderDAOImpl instance;
-    private static final String SQL_GET_ALL_Orders = "SELECT id,status, booked_room_id, " +
+    private static final String SQL_GET_ALL_ORDERS = "SELECT id,status, booked_room_id, " +
             "entry_date, leave_date, total_price, user_id FROM orders;";
     private static final String SQL_GET_ORDER_BY_ID = "SELECT id,status, booked_room_id, " +
             "entry_date, leave_date, total_price, user_id FROM orders WHERE ID = ?;";
@@ -33,7 +33,7 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     public List<Order> getAll() {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DBConnection.openConnection(); Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SQL_GET_ALL_Orders);
+            ResultSet resultSet = statement.executeQuery(SQL_GET_ALL_ORDERS);
 
             while (resultSet.next()) {
                Order order = createOrder(resultSet);

@@ -1,12 +1,9 @@
 package services;
 
-import dao.daoimpl.OrderDAOImpl;
-import dao.daoimpl.RoomDAOImpl;
+import dao.OrderDAO;
+import dao.jdbcDaoImpl.JdbcOrderDAOImpl;
 import entities.Order;
-import entities.Room;
-import entities.User;
 import enums.OrderStatus;
-import enums.UserType;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
@@ -15,10 +12,10 @@ import java.util.List;
 
 public class OrderService {
     private static OrderService instance = null;
-    private OrderDAOImpl orderDAO = OrderDAOImpl.getInstance();
-    private RoomDAOImpl roomDAO = RoomDAOImpl.getInstance();
+    private OrderDAO orderDAO;
 
     private OrderService() {
+        orderDAO = JdbcOrderDAOImpl.getInstance();
     }
 
     public static OrderService getInstance() {
@@ -37,36 +34,27 @@ public class OrderService {
     }
 
     public Order create(HttpServletRequest request) {
-        int roomId = -1;
+        int bookedRoomId = -1;
         LocalDate entryDate = null;
         LocalDate leaveDate = null;
-        String name = "";
-        String surname = "";
-        String email = "";
+        int userID = -1;
 
         Enumeration<String> parametersNames = request.getParameterNames();
         while (parametersNames.hasMoreElements()) {
             String key = parametersNames.nextElement();
             String value = request.getParameter(key);
             if (key.equalsIgnoreCase("roomId")) {
-                roomId = Integer.valueOf(value);
+                bookedRoomId = Integer.valueOf(value);
             } else if (key.equalsIgnoreCase("entryDate")) {
                 entryDate = LocalDate.parse(value);
             } else if (key.equalsIgnoreCase("leaveDate")) {
                 leaveDate = LocalDate.parse(value);
-            } else if (key.equalsIgnoreCase("name")) {
-                name = value;
-            } else if (key.equalsIgnoreCase("surname")) {
-                surname = value;
-            }else if (key.equalsIgnoreCase("email")) {
-                email = value;
+            } else if (key.equalsIgnoreCase("userID")){
+                userID = Integer.valueOf(value);
             }
         }
-        User user = new User(999, name, surname, "Lalaland", LocalDate.now(), "777", email, UserType.USER);
-        int orderId = orderDAO.getAll().size();
-        Room bookedRoom = roomDAO.getById(roomId);
         Double totalPrice = calculateTotalPrice();
-        return new Order(orderId, bookedRoom, entryDate, leaveDate, totalPrice,user, OrderStatus.CREATED );
+        return new Order(bookedRoomId, entryDate, leaveDate, totalPrice,userID, OrderStatus.ACCEPTED );
     }
 
     /**
