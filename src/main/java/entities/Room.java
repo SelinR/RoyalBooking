@@ -18,6 +18,14 @@ public class Room {
 
     }
 
+    public Room(RoomType roomType, int bedsAmount, double area, double dailyCost, String additionalInfo) {
+        this.roomType = roomType;
+        this.bedsAmount = bedsAmount;
+        this.area = area;
+        this.dailyCost = dailyCost;
+        this.additionalInfo = additionalInfo;
+    }
+
     public Room(int id, RoomType roomType, int bedsAmount, double area, double dailyCost, String additionalInfo) {
         this.id = id;
         this.roomType = roomType;

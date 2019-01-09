@@ -63,6 +63,20 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
+    public void update(Order order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Please, check your input.");
+        }
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getId() == order.getId()) {
+                orders.set(i, order);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("No room found with id: " + order.getId());
+    }
+
     /**
      * It"s temporary methods implementation, till then we are working with ArrayList
      */
