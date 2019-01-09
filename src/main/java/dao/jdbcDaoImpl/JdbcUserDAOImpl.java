@@ -64,16 +64,20 @@ public class JdbcUserDAOImpl implements UserDAO {
     @Override
     public void save(User user) {
         try (PreparedStatement statement = connection.prepareStatement(QueryType.SAVE.getQuery())) {
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getSurname());
-            statement.setString(3, user.getCountry());
-            statement.setDate(4, Date.valueOf(user.getBirthday()));
-            statement.setString(5, user.getPhone());
-            statement.setString(6, user.getEmail());
-            statement.setString(7, user.getUserType().toString());
+            configurePreparedStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException("save method failed.");
+        }
+    }
+
+    @Override
+    public void update(User user) {
+        try (PreparedStatement statement = connection.prepareStatement(QueryType.UPDATE.getQuery())) {
+            configurePreparedStatement(statement, user);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("update method failed");
         }
     }
 
@@ -103,6 +107,16 @@ public class JdbcUserDAOImpl implements UserDAO {
             e.printStackTrace();
             throw new RuntimeException("Something went wrong with user creation!");
         }
+    }
+
+    private void configurePreparedStatement(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(1, user.getName());
+        statement.setString(2, user.getSurname());
+        statement.setString(3, user.getCountry());
+        statement.setDate(4, Date.valueOf(user.getBirthday()));
+        statement.setString(5, user.getPhone());
+        statement.setString(6, user.getEmail());
+        statement.setString(7, user.getUserType().toString());
     }
 
     enum QueryType {
