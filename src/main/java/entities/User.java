@@ -14,8 +14,7 @@ public class User {
     private String email;
     private UserType userType;
 
-    public User(int id, String name, String surname, String country, LocalDate birthday, String phone, String email, UserType userType) {
-        this.id = id;
+    public User(String name, String surname, String country, LocalDate birthday, String phone, String email, UserType userType) {
         this.name = name;
         this.surname = surname;
         this.country = country;
