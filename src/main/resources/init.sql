@@ -40,21 +40,20 @@ INSERT INTO users (name, surname, country, birthday, phone, email, user_type) VA
 
 /* users end */
 /*orders*/
-drop table if exists orders CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
 
-create table orders (
-  id serial primary key,
-  status character varying not null,
-  booked_room_id  integer references rooms(id),
-  entry_date date not null,
-  leave_date date not null,
-  total_price real not null,
-  user_id integer not null /*here will be foreign key with reference to user id*/
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  status CHARACTER VARYING NOT NULL,
+  booked_room_id  INTEGER REFERENCES rooms(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  entry_date date NOT NULL,
+  leave_date date NOT NULL,
+  total_price REAL NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 
-  /*foreign key (booked_room_id) references rooms(id)*/
 );
 
-insert into orders(status, booked_room_id, entry_date, leave_date, total_price, user_id) values
+INSERT INTO orders(status, booked_room_id, entry_date, leave_date, total_price, user_id) VALUES
 ('ACCEPTED', 1, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.0, 1),
 ('ACCEPTED', 2, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.0, 1),
 ('ACCEPTED', 3, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.1, 1),
