@@ -14,8 +14,7 @@ public class WelcomeServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        context = new ClassPathXmlApplicationContext("spring.xml");
-        System.out.println("smth");
+        context = new ClassPathXmlApplicationContext("spring/spring.xml");
     }
 
     @Override

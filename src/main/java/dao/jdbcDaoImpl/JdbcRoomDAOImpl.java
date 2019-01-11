@@ -14,23 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcRoomDAOImpl implements RoomDAO {
-    private static JdbcRoomDAOImpl instance;
     private static final String SQL_GET_ALL_ROOMS = "SELECT id, room_type, beds_amount, area, daily_cost, additional_info FROM rooms;";
     private static final String SQL_GET_ROOM_BY_ID = "SELECT id, room_type, beds_amount, area, daily_cost, additional_info FROM rooms WHERE ID = ?;";
     private static final String SQL_SAVE_ROOM = "INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES (?, ?, ?, ?, ?);";
     private static final String SQL_UPDATE_ROOM = "UPDATE rooms SET roomtype = ?, bedsamount = ?, area = ?, dailycost = ? WHERE id = ?;";
     private static final String SQL_DELETE_ROOM = "DELETE FROM rooms WHERE id = ?;";
-
-    private JdbcRoomDAOImpl() {
-
-    }
-
-    public static JdbcRoomDAOImpl getInstance() {
-        if (instance == null) {
-            instance = new JdbcRoomDAOImpl();
-        }
-        return instance;
-    }
 
     @Override
     public List<Room> getAll() {

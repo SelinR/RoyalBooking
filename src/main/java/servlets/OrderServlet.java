@@ -17,7 +17,7 @@ public class OrderServlet extends HttpServlet {
     private static final String url = "/WEB-INF/view/orders.jsp";
     private static final String error = "/WEB-INF/view/ErrorPage.html";
     private final OrderService orderService = OrderService.getInstance();
-    private final RoomService roomService = RoomService.getInstance();
+    private final RoomService roomService = WelcomeServlet.getContext().getBean(RoomService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
