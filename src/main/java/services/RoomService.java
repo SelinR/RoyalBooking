@@ -4,7 +4,6 @@ import dao.RoomDAO;
 import dao.jdbcDaoImpl.JdbcRoomDAOImpl;
 import entities.Room;
 import enums.RoomType;
-import servlets.WelcomeServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -12,14 +11,14 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class RoomService {
-    private RoomDAO jdbcDao;
+    private RoomDAO dao;
 
     public RoomService(JdbcRoomDAOImpl dao) {
-        this.jdbcDao = WelcomeServlet.getContext().getBean(JdbcRoomDAOImpl.class);
+        this.dao = dao;
     }
 
     public List<Room> getAll() {
-        return jdbcDao.getAll();
+        return dao.getAll();
     }
 
     public boolean save(HttpServletRequest req) {
@@ -27,7 +26,7 @@ public class RoomService {
             return false;
         }
         Room room = create(req);
-        jdbcDao.save(room);
+        dao.save(room);
         return true;
     }
 
@@ -95,11 +94,11 @@ public class RoomService {
         return new Room(roomType, bedsAmount, area, dailyCost, additionalInfo);
     }
 
-    public RoomDAO getJdbcDao() {
-        return jdbcDao;
+    public void setJdbcDao(JdbcRoomDAOImpl jdbcDao) {
+        this.dao = jdbcDao;
     }
 
-    public void setJdbcDao(RoomDAO jdbcDao) {
-        this.jdbcDao = jdbcDao;
+    public RoomDAO getJdbcDao() {
+        return dao;
     }
 }
