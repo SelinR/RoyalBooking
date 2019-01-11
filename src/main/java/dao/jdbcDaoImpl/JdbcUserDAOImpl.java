@@ -101,7 +101,7 @@ public class JdbcUserDAOImpl implements UserDAO {
                     resultSet.getDate("birthday").toLocalDate(),
                     resultSet.getString("phone"),
                     resultSet.getString("email"),
-                    UserType.valueOf(resultSet.getString("email").replaceAll("'", ""))
+                    UserType.valueOf(resultSet.getString("user_type").replaceAll("'", ""))
             );
         } catch (SQLException e) {
             e.printStackTrace();

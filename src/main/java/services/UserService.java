@@ -1,7 +1,7 @@
 package services;
 
 import dao.UserDAO;
-import dao.daoimpl.UserDAOImpl;
+import dao.jdbcDaoImpl.JdbcUserDAOImpl;
 import entities.User;
 import enums.UserType;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserService {
     private static UserService instance;
-    private UserDAO userDAO = UserDAOImpl.getInstance();
+    private UserDAO userDAO = JdbcUserDAOImpl.getInstance();
 
     public List<User> getAll() {
         return userDAO.getAll();
@@ -23,14 +23,6 @@ public class UserService {
         userDAO.save(user);
     }
 
-    public void update() {
-
-    }
-
-    public void delete() {
-
-    }
-
     public static UserService getInstance() {
         if (instance == null) {
             instance = new UserService();
@@ -39,7 +31,6 @@ public class UserService {
     }
 
     private User create(HttpServletRequest request) {
-        int id = 0;
         String name = null;
         String surname = null;
         String country = null;
@@ -52,9 +43,7 @@ public class UserService {
         while (parametersNames.hasMoreElements()) {
             String key = parametersNames.nextElement();
             String val = request.getParameter(key);
-            if (key.equalsIgnoreCase("id")) {
-                id = Integer.parseInt(val);
-            } else if (key.equalsIgnoreCase("name")) {
+            if (key.equalsIgnoreCase("name")) {
                 name = val;
             } else if (key.equalsIgnoreCase("surname")) {
                 surname = val;
@@ -70,6 +59,6 @@ public class UserService {
                 userType = UserType.valueOf(val);
             }
         }
-       return new User(id, name, surname, country, birthday, phone, email, userType);
+       return new User(name, surname, country, birthday, phone, email, userType);
     }
 }
