@@ -9,6 +9,10 @@
   </body>
   <br>
   <body>
+    <button onclick="location.href='view/users'">Users</button>
+  </body>
+  <br>
+  <body>
      <button onclick="location.href='view/orders'">Orders</button>
   </body>
 </html>
