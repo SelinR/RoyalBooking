@@ -1,7 +1,6 @@
 package services;
 
 import dao.RoomDAO;
-import dao.jdbcDaoImpl.JdbcRoomDAOImpl;
 import entities.Room;
 import enums.RoomType;
 
@@ -90,7 +89,7 @@ public class RoomService {
         return new Room(roomType, bedsAmount, area, dailyCost, additionalInfo);
     }
 
-    public void setDao(JdbcRoomDAOImpl dao) {
+    public void setDao(RoomDAO dao) {
         this.dao = dao;
     }
 
