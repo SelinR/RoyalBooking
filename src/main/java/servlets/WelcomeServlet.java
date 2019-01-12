@@ -25,8 +25,4 @@ public class WelcomeServlet extends HttpServlet {
     public static ConfigurableApplicationContext getContext() {
         return context;
     }
-
-    public static void setContext(ConfigurableApplicationContext context) {
-        WelcomeServlet.context = context;
-    }
 }

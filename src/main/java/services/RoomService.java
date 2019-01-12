@@ -13,10 +13,6 @@ import java.util.regex.Pattern;
 public class RoomService {
     private RoomDAO dao;
 
-    public RoomService(JdbcRoomDAOImpl dao) {
-        this.dao = dao;
-    }
-
     public List<Room> getAll() {
         return dao.getAll();
     }
@@ -94,11 +90,11 @@ public class RoomService {
         return new Room(roomType, bedsAmount, area, dailyCost, additionalInfo);
     }
 
-    public void setJdbcDao(JdbcRoomDAOImpl jdbcDao) {
-        this.dao = jdbcDao;
+    public void setDao(JdbcRoomDAOImpl dao) {
+        this.dao = dao;
     }
 
-    public RoomDAO getJdbcDao() {
+    public RoomDAO getDao() {
         return dao;
     }
 }

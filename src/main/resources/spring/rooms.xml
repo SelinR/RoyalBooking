@@ -5,12 +5,9 @@
 
     <bean id="room" class="entities.Room" scope="prototype"/>
 
-    <bean id="roomDao" class="dao.RoomDAO" abstract="true"/>
-
-    <bean id="jdbcRoomDAO" class="dao.jdbcDaoImpl.JdbcRoomDAOImpl" parent="roomDao"/>
+    <bean id="jdbcRoomDAO" class="dao.jdbcDaoImpl.JdbcRoomDAOImpl"/>
 
     <bean id="roomService" class="services.RoomService" depends-on="jdbcRoomDAO">
-        <property name="jdbcDao" ref="jdbcRoomDAO"/>
-        <constructor-arg name="dao" ref="jdbcRoomDAO"/>
+        <property name="dao" ref="jdbcRoomDAO"/>
     </bean>
 </beans>
