@@ -1,7 +1,6 @@
 package services;
 
 import dao.RoomDAO;
-import dao.jdbcDaoImpl.JdbcRoomDAOImpl;
 import entities.Room;
 import enums.RoomType;
 
@@ -11,19 +10,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class RoomService {
-    private static RoomService instance;
-    private final RoomDAO dao;
-
-    private RoomService() {
-        dao = JdbcRoomDAOImpl.getInstance();
-    }
-
-    public static RoomService getInstance() {
-        if (instance == null) {
-            instance = new RoomService();
-        }
-        return instance;
-    }
+    private RoomDAO dao;
 
     public List<Room> getAll() {
         return dao.getAll();
@@ -100,5 +87,13 @@ public class RoomService {
             }
         }
         return new Room(roomType, bedsAmount, area, dailyCost, additionalInfo);
+    }
+
+    public void setDao(RoomDAO dao) {
+        this.dao = dao;
+    }
+
+    public RoomDAO getDao() {
+        return dao;
     }
 }
