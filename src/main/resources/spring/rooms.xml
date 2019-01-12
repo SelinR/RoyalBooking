@@ -3,8 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="room" class="entities.Room" scope="prototype"/>
-
     <bean id="jdbcRoomDAO" class="dao.jdbcDaoImpl.JdbcRoomDAOImpl"/>
 
     <bean id="roomService" class="services.RoomService" depends-on="jdbcRoomDAO">
