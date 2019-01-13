@@ -1,7 +1,6 @@
 package services;
 
 import dao.OrderDAO;
-import dao.jdbcDaoImpl.JdbcOrderDAOImpl;
 import entities.Order;
 import enums.OrderStatus;
 
@@ -11,19 +10,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class OrderService {
-    private static OrderService instance = null;
     private OrderDAO orderDAO;
-
-    private OrderService() {
-        orderDAO = JdbcOrderDAOImpl.getInstance();
-    }
-
-    public static OrderService getInstance() {
-        if (instance == null) {
-            return new OrderService();
-        }
-        return instance;
-    }
 
     public List<Order> getAll() {
         return orderDAO.getAll();
@@ -72,5 +59,13 @@ public class OrderService {
      */
     public Double calculateTotalPrice(){
         return 777.0;
+    }
+
+    public OrderDAO getOrderDAO() {
+        return orderDAO;
+    }
+
+    public void setOrderDAO(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
     }
 }

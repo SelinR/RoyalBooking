@@ -16,8 +16,14 @@ import java.util.List;
 public class OrderServlet extends HttpServlet {
     private static final String url = "/WEB-INF/view/orders.jsp";
     private static final String error = "/WEB-INF/view/ErrorPage.html";
-    private final OrderService orderService = OrderService.getInstance();
-    private final RoomService roomService = WelcomeServlet.getContext().getBean(RoomService.class);
+    private  OrderService orderService;
+    private  RoomService roomService ;
+
+    @Override
+    public void init() {
+        orderService = WelcomeServlet.getContext().getBean(OrderService.class);
+        roomService = WelcomeServlet.getContext().getBean(RoomService.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
