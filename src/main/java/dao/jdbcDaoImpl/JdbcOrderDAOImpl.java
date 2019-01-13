@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcOrderDAOImpl implements OrderDAO {
-    private static JdbcOrderDAOImpl instance;
     private static final String SQL_GET_ALL_ORDERS = "SELECT id,status, booked_room_id, " +
             "entry_date, leave_date, total_price, user_id FROM orders;";
     private static final String SQL_GET_ORDER_BY_ID = "SELECT id,status, booked_room_id, " +
@@ -21,13 +20,6 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     private static final String SQL_UPDATE_ORDER = "UPDATE orders SET status = ?, " +
             "booked_room_id = ?, entry_date = ?, leave_date = ?, total_price = ?, user_id = ? WHERE id = ?;";
     private static final String SQL_DELETE_ORDER = "DELETE FROM orders WHERE id = ?;";
-
-    public static JdbcOrderDAOImpl getInstance() {
-        if (instance == null) {
-            instance = new JdbcOrderDAOImpl();
-        }
-        return instance;
-    }
 
     @Override
     public List<Order> getAll() {
