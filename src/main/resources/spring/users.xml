@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="jdbcUsersDAO" class="dao.jdbcDaoImpl.JdbcUserDAOImpl">
+        <constructor-arg ref="dbConnection"/>
+    </bean>
+
+    <bean id="dbConnection" class="util.DBConnection" factory-method="openConnection"/>
+
+    <bean id="userService" class="services.UserService">
+        <constructor-arg ref="jdbcUsersDAO"/>
+    </bean>
+
+    <bean id="userServlet" class="servlets.UserServlet">
+        <constructor-arg ref="userService"/>
+    </bean>
+
+</beans>

@@ -3,30 +3,16 @@ package dao.jdbcDaoImpl;
 import dao.UserDAO;
 import entities.User;
 import enums.UserType;
-import util.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcUserDAOImpl implements UserDAO {
-    public static JdbcUserDAOImpl instance;
     private Connection connection;
 
-    private JdbcUserDAOImpl(Connection connection) {
+    public JdbcUserDAOImpl(Connection connection) {
         this.connection = connection;
-    }
-
-    /**
-     * Temporary decision.
-     *
-     * @return
-     */
-    public static JdbcUserDAOImpl getInstance() {
-        if (instance == null) {
-            instance = new JdbcUserDAOImpl(DBConnection.openConnection());
-        }
-        return instance;
     }
 
     @Override
