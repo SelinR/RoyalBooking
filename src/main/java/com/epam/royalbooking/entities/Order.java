@@ -1,12 +1,15 @@
 package com.epam.royalbooking.entities;
 
 import com.epam.royalbooking.enums.OrderStatus;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 public class Order {
     private int id;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate entryDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate leaveDate;
     private double totalPrice;
     private OrderStatus status;

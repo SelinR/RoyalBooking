@@ -107,7 +107,7 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     }
 
     private void configurePreparedStatement(PreparedStatement preparedStatement, Order order) throws SQLException {
-        preparedStatement.setString(1,order.getStatus().toString());
+        preparedStatement.setString(1, "ACCEPTED");
         preparedStatement.setInt(2, order.getBookedRoomID());
         preparedStatement.setDate(3, Date.valueOf(order.getEntryDate()));
         preparedStatement.setDate(4, Date.valueOf(order.getLeaveDate()));

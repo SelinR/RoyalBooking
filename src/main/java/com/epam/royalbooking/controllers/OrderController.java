@@ -20,7 +20,7 @@ public class OrderController {
     private OrderService orderService;
     private RoomService roomService;
 
-    @RequestMapping(value = "/view/orders", method = RequestMethod.GET)
+    @RequestMapping(value = "view/orders", method = RequestMethod.GET)
     public String getAll(Model model) {
         List<Order> orders = orderService.getAll();
         List<Room> rooms = roomService.getAll();
@@ -31,13 +31,13 @@ public class OrderController {
         return "/orders";
     }
 
-    @RequestMapping(value = "/view/orders/order/{id}")
+    @RequestMapping(value = "view/orders/order/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("order", orderService.getById(id));
         return "/order";
     }
 
-    @RequestMapping(value = "/view/orders", method = RequestMethod.POST)
+    @RequestMapping(value = "view/orders", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order) {
         if (orderService.isOrderValid(order)){
             orderService.save(order);

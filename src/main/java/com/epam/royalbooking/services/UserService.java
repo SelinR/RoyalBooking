@@ -27,6 +27,10 @@ public class UserService {
         dao.delete(id);
     }
 
+    public void update(User user) {
+        dao.update(user);
+    }
+
     @Autowired
     public void setDao(UserDAO dao) {
         this.dao = dao;

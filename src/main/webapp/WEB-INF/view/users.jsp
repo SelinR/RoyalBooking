@@ -47,7 +47,7 @@
         <input type="text" name="email">
     </label><br>
     <label> User type<br>
-        <input type="radio" name="userType" value="USER"> User
+        <input type="radio" name="userType" value="USER" checked> User
         <input type="radio" name="userType" value="ADMIN"> Admin
     </label><br>
     <input type="submit" value="OK" name="Ok">

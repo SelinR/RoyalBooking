@@ -29,14 +29,18 @@ public class UserController {
 
     @RequestMapping(value = "view/users", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
-        userService.save(user);
-        return "redirect:view/users";
+        if(user.getId() == 0) {
+            userService.save(user);
+        } else {
+            userService.update(user);
+        }
+        return "redirect:/view/users";
     }
 
     @RequestMapping(value = "view/users/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:view/users";
+        return "redirect:/view/users";
     }
 
     @RequestMapping(value = "view/users/edit/{id}")
@@ -47,7 +51,7 @@ public class UserController {
     }
 
     @Autowired
-    public void setService(UserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 }

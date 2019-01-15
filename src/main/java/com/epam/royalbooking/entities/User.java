@@ -1,6 +1,7 @@
 package com.epam.royalbooking.entities;
 
 import com.epam.royalbooking.enums.UserType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -9,6 +10,7 @@ public class User {
     private String name;
     private String surname;
     private String country;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
     private String phone;
     private String email;
