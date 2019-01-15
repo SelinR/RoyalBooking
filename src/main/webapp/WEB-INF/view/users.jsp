@@ -21,7 +21,7 @@
 </c:forEach>
 
 <h2> Add new user</h2>
-<form method="post" action="">
+<form method="post" action="<c:url value="/view/users"/>">
     <label>
         Name<br>
         <input type="text" name="name">

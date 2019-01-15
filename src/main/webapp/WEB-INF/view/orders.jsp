@@ -20,7 +20,7 @@
 </c:forEach>
 
 <h2>Order Creation</h2><br/>
-<form method="post" action="">
+<form method="post" action="<c:url value="/view/orders"/>">
 
     <p>Choose Room Id to book</p>
     <p><label>
