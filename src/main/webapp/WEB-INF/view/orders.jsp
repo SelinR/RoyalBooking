@@ -24,7 +24,7 @@
 
     <p>Choose Room Id to book</p>
     <p><label>
-        <select size=1 name="roomId">
+        <select size=1 name="bookedRoomID">
         <c:forEach var="room" items="${requestScope.rooms}">
             <option><c:out value="${room.id}"/></option>
         </c:forEach>
