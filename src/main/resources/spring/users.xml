@@ -4,17 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="jdbcUsersDAO" class="dao.jdbcDaoImpl.JdbcUserDAOImpl">
-        <constructor-arg ref="dbConnection"/>
     </bean>
-
-    <bean id="dbConnection" class="util.DBConnection" factory-method="openConnection"/>
 
     <bean id="userService" class="services.UserService">
-        <constructor-arg ref="jdbcUsersDAO"/>
-    </bean>
-
-    <bean id="userServlet" class="servlets.UserServlet">
-        <constructor-arg ref="userService"/>
+        <property name="dao" ref="jdbcUsersDAO"/>
     </bean>
 
 </beans>

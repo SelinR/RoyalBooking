@@ -12,10 +12,6 @@ import java.util.List;
 public class UserService {
     private UserDAO dao;
 
-    public UserService(UserDAO dao) {
-        this.dao = dao;
-    }
-
     public List<User> getAll() {
         return dao.getAll();
     }
@@ -55,5 +51,9 @@ public class UserService {
             }
         }
        return new User(name, surname, country, birthday, phone, email, userType);
+    }
+
+    public void setDao(UserDAO dao) {
+        this.dao = dao;
     }
 }

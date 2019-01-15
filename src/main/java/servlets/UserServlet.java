@@ -19,6 +19,8 @@ public class UserServlet extends HttpServlet {
     }
 
     public void init() {
+        service = WelcomeServlet.getContext().getBean("userService", UserService.class);
+
     }
 
     @Override
