@@ -14,13 +14,8 @@ public class UserServlet extends HttpServlet {
     private static final String index = "/WEB-INF/view/users.jsp";
     private UserService service;
 
-    public UserServlet(UserService service) {
-        this.service = service;
-    }
-
     public void init() {
         service = WelcomeServlet.getContext().getBean("userService", UserService.class);
-
     }
 
     @Override
@@ -35,6 +30,5 @@ public class UserServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         service.save(request);
         doGet(request, response);
-
     }
 }

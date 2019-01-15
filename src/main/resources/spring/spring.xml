@@ -5,4 +5,5 @@
 
     <import resource="rooms.xml"/>
     <import resource="users.xml"/>
+    <import resource="orders.xml"/>
 </beans>
