@@ -5,42 +5,13 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>RoomServlet</servlet-name>
-        <servlet-class>servlets.RoomServlet</servlet-class>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>RoomServlet</servlet-name>
-        <url-pattern>/view/rooms</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>servlets.OrderServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>OrderServlet</servlet-name>
-        <url-pattern>/view/orders</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>UserServlet</servlet-name>
-        <servlet-class>servlets.UserServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/view/users</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>WelcomeServlet</servlet-name>
-        <servlet-class>servlets.WelcomeServlet</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>WelcomeServlet</servlet-name>
+        <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
