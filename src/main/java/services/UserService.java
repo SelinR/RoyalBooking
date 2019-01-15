@@ -1,7 +1,6 @@
 package services;
 
 import dao.UserDAO;
-import dao.jdbcDaoImpl.JdbcUserDAOImpl;
 import entities.User;
 import enums.UserType;
 
@@ -11,23 +10,15 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class UserService {
-    private static UserService instance;
-    private UserDAO userDAO = JdbcUserDAOImpl.getInstance();
+    private UserDAO dao;
 
     public List<User> getAll() {
-        return userDAO.getAll();
+        return dao.getAll();
     }
 
     public void save(HttpServletRequest request) {
         User user = create(request);
-        userDAO.save(user);
-    }
-
-    public static UserService getInstance() {
-        if (instance == null) {
-            instance = new UserService();
-        }
-        return instance;
+        dao.save(user);
     }
 
     private User create(HttpServletRequest request) {
@@ -60,5 +51,9 @@ public class UserService {
             }
         }
        return new User(name, surname, country, birthday, phone, email, userType);
+    }
+
+    public void setDao(UserDAO dao) {
+        this.dao = dao;
     }
 }

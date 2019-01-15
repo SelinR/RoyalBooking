@@ -34,6 +34,9 @@ public class User {
         this.userType = userType;
     }
 
+    public User() {
+    }
+
     public int getId() {
         return id;
     }

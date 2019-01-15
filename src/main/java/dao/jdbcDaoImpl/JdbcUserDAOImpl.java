@@ -10,29 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcUserDAOImpl implements UserDAO {
-    public static JdbcUserDAOImpl instance;
-    private Connection connection;
-
-    private JdbcUserDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
-
-    /**
-     * Temporary decision.
-     *
-     * @return
-     */
-    public static JdbcUserDAOImpl getInstance() {
-        if (instance == null) {
-            instance = new JdbcUserDAOImpl(DBConnection.openConnection());
-        }
-        return instance;
-    }
 
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(QueryType.GET_ALL.getQuery())) {
+        try (Connection connection = DBConnection.openConnection(); PreparedStatement statement = connection.prepareStatement(QueryType.GET_ALL.getQuery())) {
             final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = createUser(resultSet);
@@ -47,7 +29,7 @@ public class JdbcUserDAOImpl implements UserDAO {
     @Override
     public User getById(int id) {
         User result;
-        try (PreparedStatement statement = connection.prepareStatement(QueryType.GET_BY_ID.getQuery())) {
+        try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.GET_BY_ID.getQuery())) {
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -63,7 +45,7 @@ public class JdbcUserDAOImpl implements UserDAO {
 
     @Override
     public void save(User user) {
-        try (PreparedStatement statement = connection.prepareStatement(QueryType.SAVE.getQuery())) {
+        try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.SAVE.getQuery())) {
             configurePreparedStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
@@ -73,7 +55,7 @@ public class JdbcUserDAOImpl implements UserDAO {
 
     @Override
     public void update(User user) {
-        try (PreparedStatement statement = connection.prepareStatement(QueryType.UPDATE.getQuery())) {
+        try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.UPDATE.getQuery())) {
             configurePreparedStatement(statement, user);
             statement.execute();
         } catch (SQLException e) {
@@ -83,7 +65,7 @@ public class JdbcUserDAOImpl implements UserDAO {
 
     @Override
     public void delete(int id) {
-        try (PreparedStatement statement = connection.prepareStatement(QueryType.DELETE.getQuery())) {
+        try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.DELETE.getQuery())) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
