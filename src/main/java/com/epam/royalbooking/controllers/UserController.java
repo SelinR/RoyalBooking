@@ -23,11 +23,11 @@ public class UserController {
 
     @RequestMapping("view/users/user/{id}")
     public String getById(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", userService.getById(id));
+        model.addAttribute("user", userService.getById(id));
         return "/user";
     }
 
-    @RequestMapping(value = "view/users", method = RequestMethod.POST)
+    @RequestMapping(value = "view/users/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
         if(user.getId() == 0) {
             userService.save(user);
@@ -47,7 +47,7 @@ public class UserController {
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("users", userService.getAll());
-        return "/users";
+        return "userEdit";
     }
 
     @Autowired
