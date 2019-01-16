@@ -23,7 +23,7 @@ public class UserController {
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
     public String userRegistrationSubmit(@ModelAttribute User user, Model model) {
-        if (userService.isRequestValid(model)) {
+        if (userService.isSubmitRequestValid(model)) {
             user.setUserType(UserType.USER);
             userService.save(user);
             return "redirect:/";
