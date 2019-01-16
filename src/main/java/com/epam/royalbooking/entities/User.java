@@ -14,6 +14,8 @@ public class User {
     private LocalDate birthday;
     private String phone;
     private String email;
+    private String password;
+    private String passwordRepeat;
     private UserType userType;
 
     public User() {
@@ -102,5 +104,21 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordRepeat() {
+        return passwordRepeat;
+    }
+
+    public void setPasswordRepeat(String passwordRepeat) {
+        this.passwordRepeat = passwordRepeat;
     }
 }

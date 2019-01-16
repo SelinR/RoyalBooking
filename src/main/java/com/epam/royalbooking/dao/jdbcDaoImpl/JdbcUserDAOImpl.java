@@ -6,7 +6,11 @@ import com.epam.royalbooking.enums.UserType;
 import com.epam.royalbooking.util.DBConnection;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,16 +104,17 @@ public class JdbcUserDAOImpl implements UserDAO {
         statement.setDate(4, Date.valueOf(user.getBirthday()));
         statement.setString(5, user.getPhone());
         statement.setString(6, user.getEmail());
-        statement.setString(7, user.getUserType().toString());
+        statement.setString(7, user.getPassword());
+        statement.setString(8, user.getUserType().toString());
     }
 
     enum QueryType {
         GET_ALL("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users"),
         GET_BY_ID("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users WHERE id = (?)"),
-        SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, user_type) " +
-                "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?))"),
+        SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, password, user_type) " +
+                "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?), (?))"),
         UPDATE("UPDATE users SET name = (?), surname = (?), county = (?), birthday = (?), phone = (?), email = (?), " +
-                "user_type = (?) WHERE id = (?)"),
+                "password = (?), user_type = (?) WHERE id = (?)"),
         DELETE("DELETE FROM users WHERE id = (?)");
 
         private String query;

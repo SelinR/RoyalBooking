@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta content="text/html" charset="UTF-8"/>
     <title>Users</title>
 </head>
-<body>
 
+<body bgcolor="#fff8dc">
 <h2> All users </h2>
 <c:forEach var="user" items="${requestScope.users}">
     <ul>

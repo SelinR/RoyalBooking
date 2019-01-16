@@ -29,14 +29,15 @@ CREATE TABLE users
   birthday DATE NOT NULL,
   phone VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
+  password VARCHAR(20) NOT NULL,
   user_type VARCHAR NOT NULL,
   CONSTRAINT user_prim PRIMARY KEY(id)
 );
-INSERT INTO users (name, surname, country, birthday, phone, email, user_type) VALUES
-('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', 'USER'),
-('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', 'ADMIN'),
-('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', 'USER'),
-('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', 'USER');
+INSERT INTO users (name, surname, country, birthday, phone, email, password, user_type) VALUES
+('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', 'password', 'USER'),
+('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', 'password', 'ADMIN'),
+('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', 'password', 'USER'),
+('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', 'password', 'USER');
 
 /* users end */
 /*orders*/
