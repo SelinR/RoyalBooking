@@ -36,7 +36,7 @@
         </label>
         <label>
             Repeat password
-            <input type="password" name="passwordRepeat" required>
+            <input type="password" name="passwordValidation" required>
         </label>
         <input type="submit" value="OK" name="Ok">
         </form>

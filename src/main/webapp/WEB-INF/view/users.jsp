@@ -26,28 +26,32 @@
 <form method="post" action="<c:url value="/view/users"/>">
     <label>
         Name<br>
-        <input type="text" name="name">
+        <input type="text" name="name" required>
     </label><br>
     <label>
         Surname<br>
-        <input type="text" name="surname">
+        <input type="text" name="surname" required>
     </label><br>
     <label>
         Country<br>
-        <input type="text" name="country">
+        <input type="text" name="country" required>
     </label><br>
     <label>
         Birthday<br>
-        <input type="text" name="birthday">
+        <input type="text" name="birthday" required>
     </label><br>
     <label>
         Phone<br>
-        <input type="text" name="phone">
+        <input type="text" name="phone" required>
     </label><br>
     <label>
         Email<br>
-        <input type="text" name="email">
+        <input type="email" name="email" required>
     </label><br>
+    <label>
+        Password<br>
+        <input type="password" name="password" required>
+    </label>
     <label> User type<br>
         <input type="radio" name="userType" value="USER" checked> User
         <input type="radio" name="userType" value="ADMIN"> Admin

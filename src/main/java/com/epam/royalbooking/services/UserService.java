@@ -2,6 +2,7 @@ package com.epam.royalbooking.services;
 
 import com.epam.royalbooking.dao.UserDAO;
 import com.epam.royalbooking.entities.User;
+import com.epam.royalbooking.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -38,9 +39,7 @@ public class UserService {
         this.dao = dao;
     }
 
-    public boolean isSubmitRequestValid(Model model) {
-        Map<String, Object> request = model.asMap();
-        User user = (User) request.get("user");
-        return user.getPassword().equals(user.getPasswordRepeat());
+    public boolean isSubmitRequestValid(User user, UserValidation userValidation) {
+        return user.getPassword().equals(userValidation.getPasswordValidation());
     }
 }

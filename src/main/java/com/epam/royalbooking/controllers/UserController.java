@@ -1,7 +1,6 @@
 package com.epam.royalbooking.controllers;
 
 import com.epam.royalbooking.entities.User;
-import com.epam.royalbooking.enums.UserType;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,23 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UserController {
     private UserService userService;
-
-    @RequestMapping(value = "registration")
-    public String userRegistrationGreeting(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
-
-    @RequestMapping(value = "registration", method = RequestMethod.POST)
-    public String userRegistrationSubmit(@ModelAttribute User user, Model model) {
-        if (userService.isSubmitRequestValid(model)) {
-            user.setUserType(UserType.USER);
-            userService.save(user);
-            return "redirect:/";
-        } else {
-            return "registration";
-        }
-    }
 
     @RequestMapping(value = "view/users", method = RequestMethod.GET)
     public String getAll(Model model) {

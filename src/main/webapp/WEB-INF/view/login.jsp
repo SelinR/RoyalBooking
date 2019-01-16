@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: razraz
-  Date: 16.01.2019
-  Time: 13:51
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,5 +6,16 @@
 </head>
 <body bgcolor="#fff8dc">
 
+<form method="post" action="<c:url value="/login"/>">
+    <label>
+        Email<br>
+        <input type="email" name="email">
+    </label><br>
+    <label>
+        Password<br>
+        <input type="password" name="password">
+    </label><br>
+    <input type="submit" value="OK" name="Ok">
+</form>
 </body>
 </html>

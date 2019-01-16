@@ -15,7 +15,6 @@ public class User {
     private String phone;
     private String email;
     private String password;
-    private String passwordRepeat;
     private UserType userType;
 
     public User() {
@@ -112,13 +111,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPasswordRepeat() {
-        return passwordRepeat;
-    }
-
-    public void setPasswordRepeat(String passwordRepeat) {
-        this.passwordRepeat = passwordRepeat;
     }
 }
