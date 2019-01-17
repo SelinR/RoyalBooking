@@ -30,13 +30,13 @@ public class UserController {
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/users/users";
+        return "redirect:/users";
     }
 
     @RequestMapping(value = "users/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/users/users";
+        return "redirect:/users";
     }
 
     @RequestMapping(value = "user/edit/{id}", method = RequestMethod.POST)
