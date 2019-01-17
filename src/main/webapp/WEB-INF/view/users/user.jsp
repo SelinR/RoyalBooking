@@ -1,10 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>Title</title>
     <style type="text/css">
         .tg {
             border-collapse: collapse;
@@ -46,8 +45,7 @@
 </head>
 <body>
 <a href="<c:url value='../'/>">Back to previous page</a>
-
-<h2> All users </h2>
+<h1> User details </h1>
 <table class="tg">
     <tr>
         <th width="40">ID</th>
@@ -58,32 +56,32 @@
         <th width="120">Phone</th>
         <th width="140">Email</th>
         <th width="60">User Type</th>
-        <th width="60">Edit</th>
         <th width="60">Delete</th>
     </tr>
-    <c:forEach var="user" items="${requestScope.users}">
-        <tr>
-            <td><a href="<c:url value='/view/users/user/${user.id}'/>"> <c:out value="${user.id}"/> </a></td>
-            <td><c:out value="${user.name}"/></td>
-            <td><c:out value="${user.surname}"/></td>
-            <td><c:out value="${user.country}"/></td>
-            <td><c:out value="${user.birthday}"/></td>
-            <td><c:out value="${user.phone}"/></td>
-            <td><c:out value="${user.email}"/></td>
-            <td><c:out value="${user.userType}"/></td>
-            <td><a href="<c:url value='/view/users/edit/${user.id}'/>">Edit</a></td>
-            <td><a href="<c:url value='/view/users/delete/${user.id}'/>">Delete</a></td>
-        </tr>
-    </c:forEach>
+    <tr>
+        <td><a href="<c:url value='/view/users/user/${user.id}'/>"> <c:out value="${user.id}"/> </a></td>
+        <td><c:out value="${user.name}"/></td>
+        <td><c:out value="${user.surname}"/></td>
+        <td><c:out value="${user.country}"/></td>
+        <td><c:out value="${user.birthday}"/></td>
+        <td><c:out value="${user.phone}"/></td>
+        <td><c:out value="${user.email}"/></td>
+        <td><c:out value="${user.userType}"/></td>
+        <td><a href="<c:url value='/view/users/delete/${user.id}'/>">Delete</a></td>
+    </tr>
 </table>
 
-<h2> Add new user</h2>
+<h2> Edit user </h2>
 
-<form:form method="POST" action="/view/users/add/" modelAttribute="user">
+<c:if test=
+
+<c:url var="editAction" value="/view/users/user/edit/${user.id}"/>
+
+<form:form method="POST" action="${editAction}" modelAttribute="user">
     <table>
         <tr>
             <td><form:label path="name">Name</form:label></td>
-            <td><form:input path="name"/></td>
+            <td width="200"><form:input path="name"/></td>
         </tr>
         <tr>
             <td><form:label path="surname">Surname</form:label></td>
@@ -106,43 +104,16 @@
             <td><form:input path="email"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/> </td>
+            <td><form:label path="userType">User Type</form:label></td>
+            <td>
+                <form:radiobutton path="userType" value="USER"/>User
+                <form:radiobutton path="userType" value="ADMIN"/>Admin
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>
-
-<%--
-<form method="post" action="<c:url value="/view/users/add"/>">
-    <label>
-        Name<br>
-        <input type="text" name="name">
-    </label><br>
-    <label>
-        Surname<br>
-        <input type="text" name="surname">
-    </label><br>
-    <label>
-        Country<br>
-        <input type="text" name="country">
-    </label><br>
-    <label>
-        Birthday<br>
-        <input type="text" name="birthday">
-    </label><br>
-    <label>
-        Phone<br>
-        <input type="text" name="phone">
-    </label><br>
-    <label>
-        Email<br>
-        <input type="text" name="email">
-    </label><br>
-    <label> User type<br>
-        <input type="radio" name="userType" value="USER" checked> User
-        <input type="radio" name="userType" value="ADMIN"> Admin
-    </label><br>
-    <input type="submit" value="OK" name="Ok">
-</form>
---%>
 </body>
 </html>
