@@ -59,6 +59,7 @@ public class JdbcUserDAOImpl implements UserDAO {
     public void update(User user) {
         try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.UPDATE.getQuery())) {
             configurePreparedStatement(statement, user);
+            statement.setInt(8, user.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException("update method failed");

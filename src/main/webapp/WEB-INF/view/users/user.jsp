@@ -73,10 +73,14 @@
 
 <h2> Edit user </h2>
 
-<c:url var="editAction" value="edit/${user.id}"/>
+<c:url var="editAction" value="/user/edit"/>
 
 <form:form method="POST" action="${editAction}" modelAttribute="user">
     <table>
+        <tr>
+            <td><form:label path="id">ID</form:label></td>
+            <td><form:input path="id" readonly="true" disabled="true"/></td>
+        </tr>
         <tr>
             <td><form:label path="name">Name</form:label></td>
             <td width="200"><form:input path="name"/></td>

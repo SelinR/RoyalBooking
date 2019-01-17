@@ -39,8 +39,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "user/edit/{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute("user") @PathVariable("id") User user) {
+    @RequestMapping(value = "user/edit", method = RequestMethod.POST)
+    public String update(@ModelAttribute("user") User user) {
         userService.update(user);
         return "users/user";
     }
