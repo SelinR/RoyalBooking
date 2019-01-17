@@ -4,12 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class UtilityController {
-
-    @RequestMapping(value = "/home")
-    public String hello() {
-        return "home";
-    }
+public class AdminStartPageController {
 
     @RequestMapping(value = "/adminpage")
     public String goAdmin() {
