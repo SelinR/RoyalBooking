@@ -60,7 +60,7 @@
     </tr>
     <c:forEach var="user" items="${requestScope.users}">
         <tr>
-            <td><a href="<c:url value='/view/users/user/${user.id}'/>"> <c:out value="${user.id}"/> </a></td>
+            <td><a href="<c:url value='user/${user.id}'/>"> <c:out value="${user.id}"/> </a></td>
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.surname}"/></td>
             <td><c:out value="${user.country}"/></td>
@@ -68,14 +68,14 @@
             <td><c:out value="${user.phone}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.userType}"/></td>
-            <td><a href="<c:url value='/view/users/edit/${user.id}'/>">Edit</a></td>
-            <td><a href="<c:url value='/view/users/delete/${user.id}'/>">Delete</a></td>
+            <td><a href="<c:url value='user/${user.id}'/>">Edit</a></td>
+            <td><a href="<c:url value='users/delete/${user.id}'/>">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
 
 <h2> Add new user</h2>
-<c:url var="addAction" value="/view/users/add"/>
+<c:url var="addAction" value="users/add"/>
 
 <form:form method="POST" action="${addAction}" modelAttribute="user">
     <table>

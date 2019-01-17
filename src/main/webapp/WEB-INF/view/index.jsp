@@ -9,7 +9,7 @@
   </body>
   <br>
   <body>
-    <button onclick="location.href='view/users'">Users</button>
+    <button onclick="location.href='users'">Users</button>
   </body>
   <br>
   <body>

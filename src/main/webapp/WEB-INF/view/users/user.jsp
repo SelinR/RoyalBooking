@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-<a href="<c:url value='../'/>">Back to previous page</a>
+<a href="<c:url value='../..'/>">Back to previous page</a>
 <h1> User details </h1>
 <table class="tg">
     <tr>
@@ -59,7 +59,7 @@
         <th width="60">Delete</th>
     </tr>
     <tr>
-        <td><a href="<c:url value='/view/users/user/${user.id}'/>"> <c:out value="${user.id}"/> </a></td>
+        <td><c:out value="${user.id}"/></td>
         <td><c:out value="${user.name}"/></td>
         <td><c:out value="${user.surname}"/></td>
         <td><c:out value="${user.country}"/></td>
@@ -67,15 +67,13 @@
         <td><c:out value="${user.phone}"/></td>
         <td><c:out value="${user.email}"/></td>
         <td><c:out value="${user.userType}"/></td>
-        <td><a href="<c:url value='/view/users/delete/${user.id}'/>">Delete</a></td>
+        <td><a href="<c:url value='users/delete/${user.id}'/>">Delete</a></td>
     </tr>
 </table>
 
 <h2> Edit user </h2>
 
-<c:if test=
-
-<c:url var="editAction" value="/view/users/user/edit/${user.id}"/>
+<c:url var="editAction" value="edit/${user.id}"/>
 
 <form:form method="POST" action="${editAction}" modelAttribute="user">
     <table>
