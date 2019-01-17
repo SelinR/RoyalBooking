@@ -6,8 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UtilityController {
 
-    @RequestMapping(value = "/")
-    public String welcome() {
-        return "index";
+    @RequestMapping(value = "/home")
+    public String hello() {
+        return "home";
+    }
+
+    @RequestMapping(value = "/adminpage")
+    public String goAdmin() {
+        return "adminpage";
     }
 }

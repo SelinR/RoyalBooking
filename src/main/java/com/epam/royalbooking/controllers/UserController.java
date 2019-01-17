@@ -29,7 +29,7 @@ public class UserController {
 
     @RequestMapping(value = "view/users", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
-        if(user.getId() == 0) {
+        if (user.getId() == 0) {
             userService.save(user);
         } else {
             userService.update(user);
