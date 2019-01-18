@@ -3,7 +3,6 @@ package com.epam.royalbooking.controllers;
 import com.epam.royalbooking.entities.User;
 import com.epam.royalbooking.enums.UserType;
 import com.epam.royalbooking.services.UserService;
-import com.epam.royalbooking.validation.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,21 +26,16 @@ public class UserRegistrationLoginController {
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.GET)
-    public String userRegistrationForm(Model userModel, Model userValidationModel) {
+    public String userRegistrationForm(Model userModel) {
         userModel.addAttribute("user", new User());
-        userValidationModel.addAttribute("passwordValidation", new UserValidation());
         return "registration";
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
-    public String userRegistrationSubmit(@ModelAttribute User user, @ModelAttribute UserValidation userValidation) {
-        if (userService.isSubmitRequestValid(user, userValidation)) {
-            user.setUserType(UserType.USER);
-            userService.save(user);
-            return "redirect:/";
-        } else {
-            return "registration";
-        }
+    public String userRegistrationSubmit(@ModelAttribute User user) {
+        user.setUserType(UserType.USER);
+        userService.save(user);
+        return "redirect:/";
     }
 
     @Autowired

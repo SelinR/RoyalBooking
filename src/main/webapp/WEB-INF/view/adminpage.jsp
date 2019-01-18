@@ -10,7 +10,7 @@
   </body>
   <br>
   <body>
-    <a href="<c:url value="/view/users"/>" target="_blank">All users</a>
+    <a href="<c:url value="/users"/>" target="_blank">All users</a>
 
   </body>
   <br>
