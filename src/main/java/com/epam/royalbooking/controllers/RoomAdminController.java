@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class RoomController {
+public class RoomAdminController {
     private RoomService roomService;
 
     @RequestMapping(value = "view/rooms", method = RequestMethod.GET)
@@ -19,12 +19,6 @@ public class RoomController {
         model.addAttribute("room", new Room());
         model.addAttribute("rooms", roomService.getAll());
         return "/rooms";
-    }
-
-    @RequestMapping("view/rooms/room/{id}")
-    public String getById(@PathVariable("id") int id, Model model){
-        model.addAttribute("room", roomService.getById(id));
-        return "/room";
     }
 
     @RequestMapping(value = "view/rooms", method = RequestMethod.POST)

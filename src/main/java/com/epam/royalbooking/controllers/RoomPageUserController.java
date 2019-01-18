@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class RoomPageController {
+public class RoomPageUserController {
     RoomService roomService;
 
     @RequestMapping(value = "room")
