@@ -18,7 +18,7 @@ public class UserController {
     public String getAll(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", userService.getAll());
-        return "users/users";
+        return "users/list";
     }
 
     @RequestMapping("user/{id}")
