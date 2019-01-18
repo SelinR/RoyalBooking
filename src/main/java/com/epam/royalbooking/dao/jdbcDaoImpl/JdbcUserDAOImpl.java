@@ -53,6 +53,8 @@ public class JdbcUserDAOImpl implements UserDAO {
     public void save(User user) {
         try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.SAVE.getQuery())) {
             configurePreparedStatement(statement, user);
+            statement.setString(7, user.getPassword());
+            statement.setString(8, user.getUserType().toString());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException("save method failed.");
@@ -63,7 +65,8 @@ public class JdbcUserDAOImpl implements UserDAO {
     public void update(User user) {
         try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.UPDATE.getQuery())) {
             configurePreparedStatement(statement, user);
-            statement.setInt(9, user.getId());
+            statement.setString(7, user.getUserType().toString());
+            statement.setInt(8, user.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException("update method failed");
@@ -106,8 +109,6 @@ public class JdbcUserDAOImpl implements UserDAO {
         statement.setDate(4, Date.valueOf(user.getBirthday()));
         statement.setString(5, user.getPhone());
         statement.setString(6, user.getEmail());
-        statement.setString(7, user.getPassword());
-        statement.setString(8, user.getUserType().toString());
     }
 
     enum QueryType {
@@ -116,7 +117,7 @@ public class JdbcUserDAOImpl implements UserDAO {
         SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, password, user_type) " +
                 "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?), (?))"),
         UPDATE("UPDATE users SET name = (?), surname = (?), country = (?), birthday = (?), phone = (?), email = (?)," +
-                "password = (?), user_type = (?) WHERE id = (?)"),
+                " user_type = (?) WHERE id = (?)"),
         DELETE("DELETE FROM users WHERE id = (?)");
 
         private String query;

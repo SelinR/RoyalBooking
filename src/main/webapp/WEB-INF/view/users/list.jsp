@@ -54,7 +54,6 @@
         <th width="100">Birthday</th>
         <th width="120">Phone</th>
         <th width="140">Email</th>
-        <th width="140">Password</th>
         <th width="60">User Type</th>
         <th width="60">Edit</th>
         <th width="60">Delete</th>
@@ -68,7 +67,6 @@
             <td><c:out value="${user.birthday}"/></td>
             <td><c:out value="${user.phone}"/></td>
             <td><c:out value="${user.email}"/></td>
-            <td><c:out value="${user.password}"/> </td>
             <td><c:out value="${user.userType}"/></td>
             <td><a href="<c:url value='user/${user.id}'/>">Edit</a></td>
             <td><a href="<c:url value='users/delete/${user.id}'/>">Delete</a></td>
