@@ -21,7 +21,7 @@ public class User {
 
     }
 
-    public User(int id, String name, String surname, String country, LocalDate birthday, String phone, String email, UserType userType) {
+    public User(int id, String name, String surname, String country, LocalDate birthday, String phone, String email, String password, UserType userType) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -29,6 +29,7 @@ public class User {
         this.birthday = birthday;
         this.phone = phone;
         this.email = email;
+        this.password = password;
         this.userType = userType;
     }
 
