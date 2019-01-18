@@ -42,7 +42,7 @@
     </style>
 </head>
 <body>
-<a href="<c:url value='../..'/>">Back to previous page</a>
+<a href="<c:url value='..'/>">Back to previous page</a>
 
 <h2> All users </h2>
 <table class="tg">

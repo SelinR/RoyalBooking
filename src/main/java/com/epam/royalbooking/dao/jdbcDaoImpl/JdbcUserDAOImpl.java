@@ -109,7 +109,7 @@ public class JdbcUserDAOImpl implements UserDAO {
         GET_BY_ID("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users WHERE id = (?)"),
         SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, user_type) " +
                 "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?))"),
-        UPDATE("UPDATE users SET name = (?), surname = (?), county = (?), birthday = (?), phone = (?), email = (?), " +
+        UPDATE("UPDATE users SET name = (?), surname = (?), country = (?), birthday = (?), phone = (?), email = (?), " +
                 "user_type = (?) WHERE id = (?)"),
         DELETE("DELETE FROM users WHERE id = (?)");
 

@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-<a href="<c:url value='../..'/>">Back to previous page</a>
+<a href="<c:url value='..'/>">Back to previous page</a>
 <h1> User details </h1>
 <table class="tg">
     <tr>
@@ -79,7 +79,7 @@
     <table>
         <tr>
             <td><form:label path="id">ID</form:label></td>
-            <td><form:input path="id" readonly="true" disabled="true"/></td>
+            <td><form:input path="id" readonly="true"/></td>
         </tr>
         <tr>
             <td><form:label path="name">Name</form:label></td>
