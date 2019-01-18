@@ -263,6 +263,7 @@
                     <th>Area</th>
                     <th>Daily cost</th>
                     <th>Info</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -274,7 +275,14 @@
                         <td><c:out value="${room.bedsAmount}"/></td>
                         <td><c:out value="${room.area}"/></td>
                         <td><c:out value="${room.dailyCost}"/></td>
-                        <td><c:out value="${room.additionalInfo}"/></td>
+                        <td><c:out value="${room.additionalInfo}"/>
+                        </td>
+                        <td>
+                            <form method="GET" action="<c:url value="/room"/>">
+                                <input type="hidden" name="roomId" value="${room.id}">
+                                <button type="submit" value="book">View room</button>
+                            </form>
+                        </td>
                     </tr>
 
                 </c:forEach>
