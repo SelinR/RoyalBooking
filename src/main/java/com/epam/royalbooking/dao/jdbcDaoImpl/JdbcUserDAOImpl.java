@@ -63,6 +63,7 @@ public class JdbcUserDAOImpl implements UserDAO {
     public void update(User user) {
         try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.UPDATE.getQuery())) {
             configurePreparedStatement(statement, user);
+            statement.setInt(9, user.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException("update method failed");
@@ -89,6 +90,7 @@ public class JdbcUserDAOImpl implements UserDAO {
                     resultSet.getDate("birthday").toLocalDate(),
                     resultSet.getString("phone"),
                     resultSet.getString("email"),
+                    resultSet.getString("password"),
                     UserType.valueOf(resultSet.getString("user_type").replaceAll("'", ""))
             );
         } catch (SQLException e) {
@@ -109,11 +111,11 @@ public class JdbcUserDAOImpl implements UserDAO {
     }
 
     enum QueryType {
-        GET_ALL("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users"),
-        GET_BY_ID("SELECT id, name, surname, country, birthday, phone, email, user_type FROM users WHERE id = (?)"),
+        GET_ALL("SELECT id, name, surname, country, birthday, phone, email, password, user_type FROM users"),
+        GET_BY_ID("SELECT id, name, surname, country, birthday, phone, email, password, user_type FROM users WHERE id = (?)"),
         SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, password, user_type) " +
                 "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?), (?))"),
-        UPDATE("UPDATE users SET name = (?), surname = (?), county = (?), birthday = (?), phone = (?), email = (?), " +
+        UPDATE("UPDATE users SET name = (?), surname = (?), country = (?), birthday = (?), phone = (?), email = (?)," +
                 "password = (?), user_type = (?) WHERE id = (?)"),
         DELETE("DELETE FROM users WHERE id = (?)");
 

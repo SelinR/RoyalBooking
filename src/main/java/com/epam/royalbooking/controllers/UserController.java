@@ -14,40 +14,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
     private UserService userService;
 
-    @RequestMapping(value = "view/users", method = RequestMethod.GET)
+    @RequestMapping(value = "users", method = RequestMethod.GET)
     public String getAll(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", userService.getAll());
-        return "/users";
+        return "users/list";
     }
 
-    @RequestMapping("view/users/user/{id}")
+    @RequestMapping("user/{id}")
     public String getById(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", userService.getById(id));
-        return "/user";
+        model.addAttribute("user", userService.getById(id));
+        return "users/one";
     }
 
-    @RequestMapping(value = "view/users", method = RequestMethod.POST)
+    @RequestMapping(value = "users/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
-        if (user.getId() == 0) {
-            userService.save(user);
-        } else {
-            userService.update(user);
-        }
-        return "redirect:/view/users";
+        userService.save(user);
+        return "redirect:/users";
     }
 
-    @RequestMapping(value = "view/users/delete/{id}")
+    @RequestMapping(value = "users/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/view/users";
+        return "redirect:/users";
     }
 
-    @RequestMapping(value = "view/users/edit/{id}")
-    public String update(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getById(id));
-        model.addAttribute("users", userService.getAll());
-        return "/users";
+    @RequestMapping(value = "user/edit", method = RequestMethod.POST)
+    public String update(@ModelAttribute("user") User user) {
+        userService.update(user);
+        return "users/one";
     }
 
     @Autowired
