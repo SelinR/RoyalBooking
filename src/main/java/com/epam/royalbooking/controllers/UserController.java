@@ -24,7 +24,7 @@ public class UserController {
     @RequestMapping("user/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.getById(id));
-        return "users/user";
+        return "users/one";
     }
 
     @RequestMapping(value = "users/add", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class UserController {
     @RequestMapping(value = "user/edit", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "users/user";
+        return "users/one";
     }
 
     @Autowired
