@@ -36,4 +36,16 @@ public class DBConnection {
             throw new RuntimeException("Could not open the DB connection: " + e);
         }
     }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
 }
