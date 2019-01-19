@@ -111,7 +111,8 @@
 
 
 <div align="center">
-    <form method="GET" action="<c:url value="/room/${room.id}"/>">
+    <form method="GET" action="<c:url value="/order_creation"/>">
+        <input type="hidden" name="roomToBookId" value="${room.id}">
         <button type="submit" value="book">Book room</button>
     </form>
 </div>
