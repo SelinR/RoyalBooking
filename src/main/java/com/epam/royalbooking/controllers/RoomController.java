@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class RoomAdminController {
+public class RoomController {
     private RoomService roomService;
 
     @RequestMapping(value = "view/rooms", method = RequestMethod.GET)
@@ -21,7 +21,13 @@ public class RoomAdminController {
         return "/rooms";
     }
 
-    @RequestMapping(value = "view/rooms", method = RequestMethod.POST)
+    @RequestMapping(value = "/room/{roomId}")
+    public String getRoomPage(Model model, @PathVariable("roomId") String roomId) {
+        model.addAttribute("room", roomService.getById(Integer.valueOf(roomId)));
+        return "/room";
+    }
+
+    @RequestMapping(value = "/room/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
         if(room.getId() == 0) {
             roomService.save(room);
