@@ -17,5 +17,9 @@
     </label><br>
     <input type="submit" value="OK" name="Ok">
 </form>
+
+<form action="/logout" method="post">
+    <input type="submit" value="Log Out"/>
+</form>
 </body>
 </html>
