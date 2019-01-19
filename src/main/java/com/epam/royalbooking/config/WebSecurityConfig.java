@@ -2,6 +2,7 @@ package com.epam.royalbooking.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/", "/registration").permitAll()
+
+                //this is the example how to restrict access to pages
+                //.antMatchers(HttpMethod.GET, "/users").hasAuthority("ADMIN")
                 .antMatchers("/users").hasAuthority("ADMIN")
 
                 .anyRequest().authenticated()

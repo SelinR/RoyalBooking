@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class DBConnection {
     private static final String PATH = DBConnection.class.getProtectionDomain().getCodeSource().getLocation().getPath() +
-            "config.properties";
+            "\\config.properties";
     private static String url;
     private static String username;
     private static String password;
