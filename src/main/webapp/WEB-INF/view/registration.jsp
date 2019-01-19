@@ -20,7 +20,7 @@
         </label><br>
         <label>
             Birthday<br>
-            <input type="text" name="birthday" required>
+            <input type="date" name="birthday" required>
         </label><br>
         <label>
             Phone<br>

@@ -29,7 +29,7 @@ CREATE TABLE users
   birthday DATE NOT NULL,
   phone VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
-  password VARCHAR(20) NOT NULL,
+  password VARCHAR NOT NULL,
   user_type VARCHAR NOT NULL,
   CONSTRAINT user_prim PRIMARY KEY(id)
 );

@@ -36,7 +36,7 @@ public class UserRegistrationLoginController {
     public String userRegistrationSubmit(@ModelAttribute User user) {
         user.setUserType(UserType.USER);
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @Autowired
