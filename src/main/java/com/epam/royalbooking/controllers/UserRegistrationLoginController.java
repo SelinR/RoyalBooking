@@ -16,13 +16,17 @@ public class UserRegistrationLoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String userLoginForm(Model model) {
+        System.out.println("kbjhb");
         model.addAttribute("user", new User());
         return "login";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String userLoginSubmit(@ModelAttribute User user) {
-        return null;
+
+        System.out.println("Home page");
+
+        return "home_page";
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.GET)

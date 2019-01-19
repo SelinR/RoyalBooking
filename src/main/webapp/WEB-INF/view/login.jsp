@@ -9,7 +9,7 @@
 <form method="post" action="<c:url value="/login"/>">
     <label>
         Email<br>
-        <input type="email" name="email">
+        <input type="email" name="username">
     </label><br>
     <label>
         Password<br>
