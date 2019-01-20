@@ -68,7 +68,7 @@
 
 
 <div>
-    <h2>Room booking</h2>
+    <h2 align="center">Room booking</h2>
 </div>
 <div>
     <div align="left">
@@ -112,47 +112,11 @@
     <div align="right"> placeholder for image</div>
 </div>
 
+<div align="center">
 <div>
-    <h4>Choose date</h4>
-</div>
-<form method="post" action="<c:url value="/order_confirm"/>">
-<div>
-    <label>
-        Entry Date <br>
-        <input type="date" name="entryDate"
-               value="<c:out value="${requestScope.minDate}"/>"
-               min="<c:out value="${requestScope.minDate}"/>"
-               max="<c:out value="${requestScope.maxDate}"/>">
-    </label><br>
-
-
-    <label>
-        Leave Date <br>
-        <input type="date" name="leaveDate"
-               value="<c:out value="${requestScope.minDate}"/>"
-               min="<c:out value="${requestScope.minDate}"/>"
-               max="<c:out value="${requestScope.maxDate}"/>">
-    </label><br>
+    <h3>Choose dates</h3>
 </div>
 
-<label>
-    User ID<br>
-    <input type="number" name="userID">
-</label><br>
-<label>
-    <div align="center">
-        <input type="hidden" name="totalPrice" value="${roomToBook.dailyCost}">
-        <input type="hidden" name="status" value="${roomToBook.roomType}">
-        <input type="hidden" name="bookedRoomId" value="${roomToBook.id}">
-        <button type="submit" value="book">Create order</button>
-    </div>
-</label>
-
-<%--<p><input type="submit" value="Create"></p>--%>
-
-</form>
-
-<h2>Order Creation</h2><br/>
 <form method="post" action="<c:url value="/order_confirm"/>">
 
     <p>Choose Room Id to book</p>
@@ -178,14 +142,14 @@
     </label><br>
 
     <label>
-        User ID<br>
+        User ID (Temporal decision)<br>
         <input type="number" name="userID">
     </label><br>
 
     <p><input type="submit" value="Create"></p>
 
 </form>
-
+</div>
 </body>
 
 </html>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,7 +39,7 @@ public class OrderController {
         return "/order";
     }
 
-    @RequestMapping(value = "view/orders", method = RequestMethod.POST)
+    @RequestMapping(value = "order_save", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order) {
         if (orderService.isOrderValid(order)){
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
@@ -62,32 +64,22 @@ public class OrderController {
         return "/orders";
     }
 
-/*    @RequestMapping(value = "/order_creation")
+    @RequestMapping(value = "/order_creation")
     public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId){
         model.addAttribute("roomToBook",roomService.getById(roomToBookId));
-        model.addAttribute("minDate", LocalDate.now());
-        model.addAttribute("maxDate", LocalDate.now().plusYears(2));
-        return "/order_creation";
-    }*/
-
-    @RequestMapping(value = "/order_creation")
-    public String getOrderCreationPage(Model model){
-        model.addAttribute("roomToBook",roomService.getById(5));
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("maxDate", LocalDate.now().plusYears(2));
         return "/order_creation";
     }
 
     @RequestMapping(value = "/order_confirm", method = RequestMethod.POST)
-    public String getOrderConfirmPage(@ModelAttribute("order") Order order) {
+    public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order) {
         if (orderService.isOrderValid(order)){
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
-            System.out.println(order);
-            orderService.save(order);
-            return "/order_confirm";
+            return new ModelAndView("/order_confirm", "order", order);
         }
         else {
-            return "/ErrorPage";
+            return new ModelAndView("/ErrorPage");
         }
     }
 
