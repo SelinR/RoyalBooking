@@ -141,11 +141,6 @@
                max="<c:out value="${requestScope.maxDate}"/>">
     </label><br>
 
-    <label>
-        User ID (Temporal decision)<br>
-        <input type="number" name="userID">
-    </label><br>
-
     <p><input type="submit" value="Create"></p>
 
 </form>

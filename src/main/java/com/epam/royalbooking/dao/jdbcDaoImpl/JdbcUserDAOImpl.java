@@ -50,6 +50,24 @@ public class JdbcUserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getByEmail(String email) {
+        User result;
+        try (Connection connection = DBConnection.openConnection();
+             PreparedStatement statement = connection.prepareStatement(QueryType.GET_BY_EMAIL.getQuery())) {
+            statement.setString(1, email);
+            final ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                result = createUser(resultSet);
+            } else {
+                throw new RuntimeException("There is no such user.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("getById method failed.");
+        }
+        return result;
+    }
+
+    @Override
     public void save(User user) {
         try (Connection connection = DBConnection.openConnection();PreparedStatement statement = connection.prepareStatement(QueryType.SAVE.getQuery())) {
             configurePreparedStatement(statement, user);
@@ -114,6 +132,7 @@ public class JdbcUserDAOImpl implements UserDAO {
     enum QueryType {
         GET_ALL("SELECT id, name, surname, country, birthday, phone, email, password, user_type FROM users"),
         GET_BY_ID("SELECT id, name, surname, country, birthday, phone, email, password, user_type FROM users WHERE id = (?)"),
+        GET_BY_EMAIL("SELECT id, name, surname, country, birthday, phone, email, password, user_type FROM users WHERE email = (?)"),
         SAVE("INSERT INTO users (id, name, surname, country, birthday, phone, email, password, user_type) " +
                 "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?), (?))"),
         UPDATE("UPDATE users SET name = (?), surname = (?), country = (?), birthday = (?), phone = (?), email = (?)," +
