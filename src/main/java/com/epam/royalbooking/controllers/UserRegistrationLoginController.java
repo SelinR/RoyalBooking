@@ -61,11 +61,6 @@ public class UserRegistrationLoginController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "logout")
-    public String userLogout() {
-        return "/";
-    }*/
-
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
