@@ -10,6 +10,11 @@
 <body>
 
 <div class="login">
+    <c:if test="${param.error != null}">
+        <p style='color:red'>
+            Wrong password.
+        </p>
+    </c:if>
     <form method="post" action="<c:url value="/login"/>">
         <label>
             Email<br>
