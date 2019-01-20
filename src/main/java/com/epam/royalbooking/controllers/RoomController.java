@@ -21,13 +21,13 @@ public class RoomController {
         return "/rooms";
     }
 
-    @RequestMapping("view/rooms/room/{id}")
-    public String getById(@PathVariable("id") int id, Model model){
-        model.addAttribute("room", roomService.getById(id));
+    @RequestMapping(value = "/room/{roomId}")
+    public String getRoomPage(Model model, @PathVariable("roomId") String roomId) {
+        model.addAttribute("room", roomService.getById(Integer.valueOf(roomId)));
         return "/room";
     }
 
-    @RequestMapping(value = "view/rooms", method = RequestMethod.POST)
+    @RequestMapping(value = "/room/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
         if(room.getId() == 0) {
             roomService.save(room);

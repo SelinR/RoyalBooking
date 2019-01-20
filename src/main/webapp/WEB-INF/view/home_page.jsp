@@ -232,6 +232,7 @@
         я думаю их нужно будет убрать после того как залогигился и отображать уже без них (надо будет обсудить)
         Security update: теперь кнопки показаны только незалогиненным пользователям. --%>
     <sec:authorize access="isAnonymous()">
+        <%--2 buttons--%>
         <div style="display: flex">
             <a href="<c:url value="/registration"/>">
                 <div class="greenButton" align="right">Register</div>
@@ -253,7 +254,7 @@
     </sec:authorize>
 </div>
 
-<%--это поехала наша таблица --%>
+<%--table with rooms --%>
 <div class="row">
     <div id="admin" class="col s12">
         <div class="card material-table">
@@ -275,6 +276,7 @@
                     <th>Area</th>
                     <th>Daily cost</th>
                     <th>Info</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -286,7 +288,13 @@
                         <td><c:out value="${room.bedsAmount}"/></td>
                         <td><c:out value="${room.area}"/></td>
                         <td><c:out value="${room.dailyCost}"/></td>
-                        <td><c:out value="${room.additionalInfo}"/></td>
+                        <td><c:out value="${room.additionalInfo}"/>
+                        </td>
+                        <td>
+                            <form method="GET" action="<c:url value="/room/${room.id}"/>">
+                                <button type="submit" value="book">View room</button>
+                            </form>
+                        </td>
                     </tr>
 
                 </c:forEach>
