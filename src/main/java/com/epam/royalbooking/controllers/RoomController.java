@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RoomController {
     private RoomService roomService;
 
-    @RequestMapping(value = "view/rooms", method = RequestMethod.GET)
+    @RequestMapping(value = "/rooms", method = RequestMethod.GET)
     public String getAll(Model model) {
         model.addAttribute("room", new Room());
         model.addAttribute("rooms", roomService.getAll());
@@ -34,13 +34,13 @@ public class RoomController {
         } else {
             roomService.update(room);
         }
-        return "redirect:/view/rooms";
+        return "redirect:/rooms";
     }
 
-    @RequestMapping(value = "view/rooms/delete/{id}")
+    @RequestMapping(value = "/rooms/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         roomService.delete(id);
-        return "redirect:/view/rooms";
+        return "redirect:/rooms";
     }
 
     @RequestMapping(value = "view/rooms/edit/{id}")

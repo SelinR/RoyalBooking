@@ -25,7 +25,7 @@ public class OrderController {
     private RoomService roomService;
     private UserService userService;
 
-    @RequestMapping(value = "view/orders", method = RequestMethod.GET)
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String getAll(Model model) {
         List<Order> orders = orderService.getAll();
         List<Room> rooms = roomService.getAll();
@@ -36,7 +36,7 @@ public class OrderController {
         return "/orders";
     }
 
-    @RequestMapping(value = "view/orders/order/{id}")
+    @RequestMapping(value = "/order/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("order", orderService.getById(id));
         return "/order";
@@ -55,20 +55,20 @@ public class OrderController {
             User currentUser = userService.getByEmail(email);
             order.setUserID(currentUser.getId());
             orderService.save(order);
-            return "redirect:/view/orders";
+            return "redirect:/orders";
         }
         else {
             return "/ErrorPage";
         }
     }
 
-    @RequestMapping(value = "view/orders/delete/{id}")
+    @RequestMapping(value = "/orders/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         orderService.delete(id);
-        return "redirect:/view/orders";
+        return "redirect:/orders";
     }
 
-    @RequestMapping(value = "view/orders/edit/{id}")
+    @RequestMapping(value = "/orders/edit/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderService.getById(id));
         model.addAttribute("orders", orderService.getAll());
