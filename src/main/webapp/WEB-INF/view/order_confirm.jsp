@@ -4,7 +4,7 @@
 <head>
     <title>OrderConfirmation</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/2_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
 

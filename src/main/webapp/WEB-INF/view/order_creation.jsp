@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Order creation</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/2_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
 
@@ -119,7 +119,6 @@
 
 <form method="post" action="<c:url value="/order_confirm"/>">
 
-    <p>Choose Room Id to book</p>
     <p><label>
         <input type="hidden"  name="bookedRoomID" value="${roomToBook.id}">
         <input type="hidden"  name="totalPrice" value="50">

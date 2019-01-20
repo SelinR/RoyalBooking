@@ -7,8 +7,6 @@ import com.epam.royalbooking.services.OrderService;
 import com.epam.royalbooking.services.RoomService;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,10 +42,18 @@ public class OrderController {
         return "/order";
     }
 
+    /**
+     * Method defines userID from Spring Context using @param principal,
+     * and saves order in DataBase
+     * @param order to save in DataBase
+     * @param principal need to get user email and id
+     */
     @RequestMapping(value = "order_save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("order") Order order) {
+    public String save(@ModelAttribute("order") Order order, Principal principal) {
         if (orderService.isOrderValid(order)){
-            order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
+            String email = (principal.getName());
+            User currentUser = userService.getByEmail(email);
+            order.setUserID(currentUser.getId());
             orderService.save(order);
             return "redirect:/view/orders";
         }
@@ -76,33 +83,21 @@ public class OrderController {
         return "/order_creation";
     }
 
+    /**
+     * Method calculates orders total price, based on dates and daily cost.
+     * Refers to page with  order details and order confirmation.
+     * @param order doesn't save in DataBase on this stage, haven't userID
+     * @return ModelAndView with refer to order_confirm.jsp, and entity Order with calculated total price
+     */
     @RequestMapping(value = "/order_confirm", method = RequestMethod.POST)
     public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order) {
         if (orderService.isOrderValid(order)){
-            /*======================
-            and here we set the user id*/
-            User authenticatedUser = findUser();
-            order.setUserID(authenticatedUser.getId());
-             /*=======================*/
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
             return new ModelAndView("/order_confirm", "order", order);
         }
         else {
             return new ModelAndView("/ErrorPage");
         }
-    }
-
-    private User findUser() {
-        /* Here we get the authenticated user */
-        SecurityContext context = SecurityContextHolder.getContext();
-
-        /* This is the Spring Security object called "User" with authentication details*/
-        org.springframework.security.core.userdetails.User authenticatedUser =
-                (org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal();
-        String email = authenticatedUser.getUsername();
-
-        /* This is our User class */
-        return userService.getByEmail(email);
     }
 
     @Autowired
