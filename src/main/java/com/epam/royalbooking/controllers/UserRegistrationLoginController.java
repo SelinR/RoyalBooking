@@ -21,11 +21,11 @@ public class UserRegistrationLoginController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String userLoginForm(Model model) {
         SecurityContext context = SecurityContextHolder.getContext();
-        if (!(context.getAuthentication().getPrincipal() instanceof String)) {
-            return "redirect:/";
-        } else {
+        if (context.getAuthentication().getPrincipal() instanceof String) {
             model.addAttribute("user", new User());
             return "registrationandlogin/login";
+        } else {
+            return "redirect:/";
         }
     }
 
@@ -37,12 +37,12 @@ public class UserRegistrationLoginController {
     @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String userRegistrationForm(Model userModel, Model passwordValidationModel) {
         SecurityContext context = SecurityContextHolder.getContext();
-        if (!(context.getAuthentication().getPrincipal() instanceof String)) {
-            return "redirect:/";
-        } else {
+        if (context.getAuthentication().getPrincipal() instanceof String) {
             userModel.addAttribute("user", new User());
             passwordValidationModel.addAttribute("passwordValidation", new PasswordValidation());
             return "registrationandlogin/registration";
+        } else {
+            return "redirect:/";
         }
     }
 
