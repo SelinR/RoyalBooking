@@ -11,7 +11,7 @@
 
     <%--это что бы работали шрифты,  и стили для классов в div (нужно указать  местоположение всех css файлов)
         что у них там внутри происходит я пока почти не разбирал--%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/2_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
@@ -234,11 +234,20 @@
     <sec:authorize access="isAnonymous()">
         <div style="display: flex">
             <a href="<c:url value="/registration"/>">
-                <div class="greenButton">Register</div>
+                <div class="greenButton" align="right">Register</div>
             </a>
             <pre>   </pre>
             <a href="<c:url value="/login"/>">
-                <div class="blueButton">Login</div>
+                <div class="blueButton" align="right">Login</div>
+            </a>
+        </div>
+    </sec:authorize>
+
+    <%-- And logout for authenticated users --%>
+    <sec:authorize access="isAuthenticated()">
+        <div style="display: flex">
+            <a href="<c:url value="/logout"/>">
+                <div class="redButton" align="right">Logout</div>
             </a>
         </div>
     </sec:authorize>

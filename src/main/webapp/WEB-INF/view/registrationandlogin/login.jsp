@@ -2,21 +2,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Login page</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login-form.css"/>
 </head>
-<body bgcolor="#fff8dc">
 
-<form method="post" action="<c:url value="/login"/>">
-    <label>
-        Email<br>
-        <input type="email" name="username">
-    </label><br>
-    <label>
-        Password<br>
-        <input type="password" name="password">
-    </label><br>
-    <input type="submit" value="OK" name="Ok">
-    <input type="reset" value="Reset">
-</form>
+<body>
+
+<div class="login">
+    <form method="post" action="<c:url value="/login"/>">
+        <label>
+            Email<br>
+            <input type="email" name="username">
+        </label><br>
+        <label>
+            Password<br>
+            <input type="password" name="password">
+        </label><br>
+        <br>
+        <input type="submit" value="OK" name="Ok">
+        <input type="reset" value="Reset">
+    </form>
+</div>
+
 </body>
 </html>
