@@ -36,7 +36,7 @@ public class OrderController {
         return "/orders";
     }
 
-    @RequestMapping(value = "/orders/order/{id}")
+    @RequestMapping(value = "/order/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("order", orderService.getById(id));
         return "/order";
