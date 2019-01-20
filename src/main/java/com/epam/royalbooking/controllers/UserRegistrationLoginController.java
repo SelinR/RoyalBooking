@@ -5,6 +5,8 @@ import com.epam.royalbooking.entities.User;
 import com.epam.royalbooking.enums.UserType;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +20,13 @@ public class UserRegistrationLoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String userLoginForm(Model model) {
-        model.addAttribute("user", new User());
-        return "registrationandlogin/login";
+        SecurityContext context = SecurityContextHolder.getContext();
+        if (!(context.getAuthentication().getPrincipal() instanceof String)) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("user", new User());
+            return "registrationandlogin/login";
+        }
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -29,9 +36,14 @@ public class UserRegistrationLoginController {
 
     @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String userRegistrationForm(Model userModel, Model passwordValidationModel) {
-        userModel.addAttribute("user", new User());
-        passwordValidationModel.addAttribute("passwordValidation", new PasswordValidation());
-        return "registrationandlogin/registration";
+        SecurityContext context = SecurityContextHolder.getContext();
+        if (!(context.getAuthentication().getPrincipal() instanceof String)) {
+            return "redirect:/";
+        } else {
+            userModel.addAttribute("user", new User());
+            passwordValidationModel.addAttribute("passwordValidation", new PasswordValidation());
+            return "registrationandlogin/registration";
+        }
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
