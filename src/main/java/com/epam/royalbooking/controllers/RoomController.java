@@ -16,9 +16,14 @@ public class RoomController {
 
     @RequestMapping(value = "/rooms", method = RequestMethod.GET)
     public String getAll(Model model) {
-        model.addAttribute("room", new Room());
         model.addAttribute("rooms", roomService.getAll());
         return "/rooms";
+    }
+
+    @RequestMapping(value = "/rooms_admin", method = RequestMethod.GET)
+    public String getListForAdmin(Model model) {
+        model.addAttribute("rooms", roomService.getAll());
+        return "/rooms/rooms_admin";
     }
 
     @RequestMapping(value = "/room/{roomId}")
@@ -27,27 +32,35 @@ public class RoomController {
         return "/room";
     }
 
-    @RequestMapping(value = "/room/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/room_add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
-        if(room.getId() == 0) {
-            roomService.save(room);
-        } else {
-            roomService.update(room);
-        }
-        return "redirect:/rooms";
+        roomService.save(room);
+        /*roomService.update(room);*/
+        return "redirect:/rooms_admin";
     }
+
 
     @RequestMapping(value = "/rooms/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         roomService.delete(id);
-        return "redirect:/rooms";
+        return "redirect:/rooms_admin";
     }
 
-    @RequestMapping(value = "view/rooms/edit/{id}")
-    public String update(@PathVariable("id") int id, Model model) {
+    @RequestMapping(value = "/room_edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("room", roomService.getById(id));
-        model.addAttribute("rooms", roomService.getAll());
-        return "/rooms";
+        return "/rooms/room_edit";
+    }
+
+    @RequestMapping(value = "/room_update", method = RequestMethod.POST)
+    public String update(@ModelAttribute("room") Room room, Model model) {
+        roomService.update(room);
+        return "/rooms/room_edit";
+    }
+
+    @RequestMapping(value = "/room_creation")
+    public String getCreationPage() {
+        return "/rooms/room_creation";
     }
 
     @Autowired
