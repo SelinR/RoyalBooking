@@ -40,6 +40,7 @@ public class OrderController {
     @RequestMapping(value = "view/orders", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order) {
         if (orderService.isOrderValid(order)){
+            order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
             orderService.save(order);
             return "redirect:/view/orders";
         }
@@ -59,6 +60,35 @@ public class OrderController {
         model.addAttribute("order", orderService.getById(id));
         model.addAttribute("orders", orderService.getAll());
         return "/orders";
+    }
+
+/*    @RequestMapping(value = "/order_creation")
+    public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId){
+        model.addAttribute("roomToBook",roomService.getById(roomToBookId));
+        model.addAttribute("minDate", LocalDate.now());
+        model.addAttribute("maxDate", LocalDate.now().plusYears(2));
+        return "/order_creation";
+    }*/
+
+    @RequestMapping(value = "/order_creation")
+    public String getOrderCreationPage(Model model){
+        model.addAttribute("roomToBook",roomService.getById(5));
+        model.addAttribute("minDate", LocalDate.now());
+        model.addAttribute("maxDate", LocalDate.now().plusYears(2));
+        return "/order_creation";
+    }
+
+    @RequestMapping(value = "/order_confirm", method = RequestMethod.POST)
+    public String getOrderConfirmPage(@ModelAttribute("order") Order order) {
+        if (orderService.isOrderValid(order)){
+            order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
+            System.out.println(order);
+            orderService.save(order);
+            return "/order_confirm";
+        }
+        else {
+            return "/ErrorPage";
+        }
     }
 
     @Autowired
