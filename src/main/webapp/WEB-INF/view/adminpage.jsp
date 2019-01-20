@@ -6,7 +6,7 @@
   </head>
 
   <body bgcolor="#fff8dc">
-    <a href="<c:url value="/view/rooms"/>" target="_blank">All rooms</a>
+    <a href="<c:url value="/rooms"/>" target="_blank">All rooms</a>
   </body>
   <br>
   <body>
@@ -15,6 +15,6 @@
   </body>
   <br>
   <body>
-  <a href="<c:url value="/view/orders"/>" target="_blank">All orders</a>
+  <a href="<c:url value="/orders"/>" target="_blank">All orders</a>
   </body>
 </html>
