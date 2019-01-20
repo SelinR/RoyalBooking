@@ -16,10 +16,7 @@
         <input type="password" name="password">
     </label><br>
     <input type="submit" value="OK" name="Ok">
-</form>
-
-<form action="/logout" method="post">
-    <input type="submit" value="Log Out"/>
+    <input type="reset" value="Reset">
 </form>
 </body>
 </html>

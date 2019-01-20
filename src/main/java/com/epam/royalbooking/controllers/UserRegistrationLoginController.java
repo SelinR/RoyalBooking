@@ -17,19 +17,18 @@ public class UserRegistrationLoginController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String userLoginForm(Model model) {
         model.addAttribute("user", new User());
-        return "login";
+        return "registrationandlogin/login";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String userLoginSubmit(@ModelAttribute User user) {
-
         return "home_page";
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.GET)
     public String userRegistrationForm(Model userModel) {
         userModel.addAttribute("user", new User());
-        return "registration";
+        return "registrationandlogin/registration";
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
@@ -37,6 +36,11 @@ public class UserRegistrationLoginController {
         user.setUserType(UserType.USER);
         userService.save(user);
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "logout")
+    public String userLogout() {
+        return "/";
     }
 
     @Autowired

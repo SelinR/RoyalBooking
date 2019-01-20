@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -226,19 +227,21 @@
 </head>
 <body>
 
-<div class="loginContainer" align="left">
-
+<div class="loginContainer">
     <%--это две кнопки зеленая и синяя со ссылками на страницы логина или регистрации
-        я думаю их нужно будет убрать после того как залогигился и отображать уже без них (надо будет обсудить)--%>
-    <div style="display: flex">
-        <a href="<c:url value="/registration"/>">
-            <div class="greenButton">Register</div>
-        </a>
-        <pre>   </pre>
-        <a href="<c:url value="/login"/>">
-            <div class="blueButton">Login</div>
-        </a>
-    </div>
+        я думаю их нужно будет убрать после того как залогигился и отображать уже без них (надо будет обсудить)
+        Security update: теперь кнопки показаны только незалогиненным пользователям. --%>
+    <sec:authorize access="isAnonymous()">
+        <div style="display: flex">
+            <a href="<c:url value="/registration"/>">
+                <div class="greenButton">Register</div>
+            </a>
+            <pre>   </pre>
+            <a href="<c:url value="/login"/>">
+                <div class="blueButton">Login</div>
+            </a>
+        </div>
+    </sec:authorize>
 </div>
 
 <%--это поехала наша таблица --%>
