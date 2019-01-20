@@ -16,6 +16,6 @@
     <li>Phone: <c:out value="${user.phone}"/></li>
     <li>Email: <c:out value="${user.email}"/></li>
 </ul>
-<button onclick="location.href='profile/edit'">Edit</button>
+<button onclick="location.href='profile${user.id}/edit'">Edit</button>
 </body>
 </html>

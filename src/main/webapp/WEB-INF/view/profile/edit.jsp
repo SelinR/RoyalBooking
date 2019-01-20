@@ -37,10 +37,6 @@
             color: #333;
             background-color: #f0f0f0;
         }
-
-        .tg .tg-4eph {
-            background-color: #f9f9f9
-        }
     </style>
 </head>
 <body>
@@ -72,6 +68,9 @@
 <form:form method="POST" action="${editAction}" modelAttribute="user">
     <table>
         <tr>
+            <td><form:hidden path="id"/></td>
+        </tr>
+        <tr>
             <td><form:label path="name">Name</form:label></td>
             <td width="200"><form:input path="name"/></td>
         </tr>
@@ -96,14 +95,16 @@
             <td><form:input path="email"/></td>
         </tr>
         <tr>
-            <td><form:label path="password">Password</form:label></td>
-            <td><form:input path="password" readonly="true"/></td>
+            <td><form:hidden path="password"/></td>
+        </tr>
+        <tr>
+            <td><form:hidden path="userType"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>
-<button onclick="location.href='profile/delete'">Delete</button>
+<button onclick="location.href='delete'">Delete your profile</button>
 </body>
 </html>

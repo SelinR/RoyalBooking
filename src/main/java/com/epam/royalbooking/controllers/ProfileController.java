@@ -20,10 +20,10 @@ public class ProfileController {
         return "profile/details";
     }
 
-    @RequestMapping(value = "profile/delete")
-    public String delete(int id) {
+    @RequestMapping(value = "profile{id}/delete")
+    public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "home_page";
+        return "redirect:/";
     }
 
     @RequestMapping("profile{id}/edit")
@@ -35,7 +35,7 @@ public class ProfileController {
     @RequestMapping(value = "profile/edit/submit", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "users/one";
+        return "profile/details";
     }
 
     @Autowired
