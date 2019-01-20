@@ -56,11 +56,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     public void save(Room room) {
         try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SAVE_ROOM)) {
-            preparedStatement.setString(1, room.getRoomType().toString());
-            preparedStatement.setInt(2, room.getBedsAmount());
-            preparedStatement.setDouble(3, room.getArea());
-            preparedStatement.setDouble(4, room.getDailyCost());
-            preparedStatement.setString(5, room.getAdditionalInfo());
+            configurePreparedStatement(preparedStatement, room);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,6 +69,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
         try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_ROOM)) {
             configurePreparedStatement(preparedStatement, room);
+            preparedStatement.setInt(6, room.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,8 +110,5 @@ public class JdbcRoomDAOImpl implements RoomDAO {
         preparedStatement.setDouble(3, room.getArea());
         preparedStatement.setDouble(4, room.getDailyCost());
         preparedStatement.setString(5, room.getAdditionalInfo());
-
-        preparedStatement.setInt(6, room.getId());
-
     }
 }
