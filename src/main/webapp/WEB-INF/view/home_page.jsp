@@ -8,8 +8,7 @@
     <meta charset="UTF-8">
     <title>Royal Booking</title>
 
-    <%--это что бы работали шрифты,  и стили для классов в div (нужно указать  местоположение всех css файлов)
-        что у них там внутри происходит я пока почти не разбирал--%>
+    <%--это что бы работали шрифты,  и стили для классов в div (нужно указать  местоположение всех css файлов)--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/2_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
@@ -228,8 +227,7 @@
 
 <div class="loginContainer" align="left">
 
-    <%--это две кнопки зеленая и синяя со ссылками на страницы логина или регистрации
-        я думаю их нужно будет убрать после того как залогигился и отображать уже без них (надо будет обсудить)--%>
+    <%--2 buttons--%>
     <div style="display: flex">
         <a href="<c:url value="/registration"/>">
             <div class="greenButton">Register</div>
@@ -241,7 +239,7 @@
     </div>
 </div>
 
-<%--это поехала наша таблица --%>
+<%--table with rooms --%>
 <div class="row">
     <div id="admin" class="col s12">
         <div class="card material-table">
@@ -263,6 +261,7 @@
                     <th>Area</th>
                     <th>Daily cost</th>
                     <th>Info</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -274,7 +273,13 @@
                         <td><c:out value="${room.bedsAmount}"/></td>
                         <td><c:out value="${room.area}"/></td>
                         <td><c:out value="${room.dailyCost}"/></td>
-                        <td><c:out value="${room.additionalInfo}"/></td>
+                        <td><c:out value="${room.additionalInfo}"/>
+                        </td>
+                        <td>
+                            <form method="GET" action="<c:url value="/room/${room.id}"/>">
+                                <button type="submit" value="book">View room</button>
+                            </form>
+                        </td>
                     </tr>
 
                 </c:forEach>
