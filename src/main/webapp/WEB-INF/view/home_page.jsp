@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@
 
     <%--это что бы работали шрифты,  и стили для классов в div (нужно указать  местоположение всех css файлов)
         что у них там внутри происходит я пока почти не разбирал--%>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/2_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
@@ -226,22 +227,34 @@
 </head>
 <body>
 
-<div class="loginContainer" align="left">
-
+<div class="loginContainer">
     <%--это две кнопки зеленая и синяя со ссылками на страницы логина или регистрации
-        я думаю их нужно будет убрать после того как залогигился и отображать уже без них (надо будет обсудить)--%>
-    <div style="display: flex">
-        <a href="<c:url value="/registration"/>">
-            <div class="greenButton">Register</div>
-        </a>
-        <pre>   </pre>
-        <a href="<c:url value="/login"/>">
-            <div class="blueButton">Login</div>
-        </a>
-    </div>
+        я думаю их нужно будет убрать после того как залогигился и отображать уже без них (надо будет обсудить)
+        Security update: теперь кнопки показаны только незалогиненным пользователям. --%>
+    <sec:authorize access="isAnonymous()">
+        <%--2 buttons--%>
+        <div style="display: flex">
+            <a href="<c:url value="/registration"/>">
+                <div class="greenButton" align="right">Register</div>
+            </a>
+            <pre>   </pre>
+            <a href="<c:url value="/login"/>">
+                <div class="blueButton" align="right">Login</div>
+            </a>
+        </div>
+    </sec:authorize>
+
+    <%-- And logout for authenticated users --%>
+    <sec:authorize access="isAuthenticated()">
+        <div style="display: flex">
+            <a href="<c:url value="/logout"/>">
+                <div class="redButton" align="right">Logout</div>
+            </a>
+        </div>
+    </sec:authorize>
 </div>
 
-<%--это поехала наша таблица --%>
+<%--table with rooms --%>
 <div class="row">
     <div id="admin" class="col s12">
         <div class="card material-table">
@@ -263,6 +276,7 @@
                     <th>Area</th>
                     <th>Daily cost</th>
                     <th>Info</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -274,7 +288,13 @@
                         <td><c:out value="${room.bedsAmount}"/></td>
                         <td><c:out value="${room.area}"/></td>
                         <td><c:out value="${room.dailyCost}"/></td>
-                        <td><c:out value="${room.additionalInfo}"/></td>
+                        <td><c:out value="${room.additionalInfo}"/>
+                        </td>
+                        <td>
+                            <form method="GET" action="<c:url value="/room/${room.id}"/>">
+                                <button type="submit" value="book">View room</button>
+                            </form>
+                        </td>
                     </tr>
 
                 </c:forEach>

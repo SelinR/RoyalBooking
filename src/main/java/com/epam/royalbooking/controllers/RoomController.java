@@ -14,33 +14,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RoomController {
     private RoomService roomService;
 
-    @RequestMapping(value = "view/rooms", method = RequestMethod.GET)
+    @RequestMapping(value = "/rooms", method = RequestMethod.GET)
     public String getAll(Model model) {
         model.addAttribute("room", new Room());
         model.addAttribute("rooms", roomService.getAll());
         return "/rooms";
     }
 
-    @RequestMapping("view/rooms/room/{id}")
-    public String getById(@PathVariable("id") int id, Model model){
-        model.addAttribute("room", roomService.getById(id));
+    @RequestMapping(value = "/room/{roomId}")
+    public String getRoomPage(Model model, @PathVariable("roomId") String roomId) {
+        model.addAttribute("room", roomService.getById(Integer.valueOf(roomId)));
         return "/room";
     }
 
-    @RequestMapping(value = "view/rooms", method = RequestMethod.POST)
+    @RequestMapping(value = "/room/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
         if(room.getId() == 0) {
             roomService.save(room);
         } else {
             roomService.update(room);
         }
-        return "redirect:/view/rooms";
+        return "redirect:/rooms";
     }
 
-    @RequestMapping(value = "view/rooms/delete/{id}")
+    @RequestMapping(value = "/rooms/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         roomService.delete(id);
-        return "redirect:/view/rooms";
+        return "redirect:/rooms";
     }
 
     @RequestMapping(value = "view/rooms/edit/{id}")

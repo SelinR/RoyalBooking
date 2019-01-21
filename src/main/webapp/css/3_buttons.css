@@ -125,9 +125,26 @@ textarea {
   border: 1px solid rgb(4, 212, 254);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-.loginContainer{
 
+.redButton{
+  color: #fff;
+  background-color: rgb(191, 51, 4);
+  border: 1px solid rgb(191, 51, 4);
+  border-radius: 5px;
+  padding: 20px;
+  width: fit-content;
+  font-size: 20px;
+}
+
+.redButton:hover {
+  background-color: rgb(211, 71, 8);
+  border: 1px solid rgb(211, 71, 8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.loginContainer{
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  float: right;
 }
 
 
