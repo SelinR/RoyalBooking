@@ -22,6 +22,8 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     private static final String SQL_UPDATE_ORDER = "UPDATE orders SET status = ?, " +
             "booked_room_id = ?, entry_date = ?, leave_date = ?, total_price = ?, user_id = ? WHERE id = ?;";
     private static final String SQL_DELETE_ORDER = "DELETE FROM orders WHERE id = ?;";
+    private static final String SQL_GET_BY_USER_ID = "SELECT id, status, booked_room_id, " +
+            "entry_date, leave_date, total_price, user_id FROM orders WHERE user_id = (?)";
 
     @Override
     public List<Order> getAll() {
@@ -55,6 +57,24 @@ public class JdbcOrderDAOImpl implements OrderDAO {
     }
 
     @Override
+    public List<Order> getByUserId(int userId) {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = DBConnection.openConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_BY_USER_ID)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Order order = createOrder(resultSet);
+                orders.add(order);
+            }
+            return orders;
+        } catch (SQLException e) {
+            throw new RuntimeException("Sorry, could not get list of orders" + e);
+        }
+    }
+
+    @Override
     public void save(Order order) {
         try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_SAVE_ORDER)) {
@@ -83,6 +103,7 @@ public class JdbcOrderDAOImpl implements OrderDAO {
         try(Connection connection = DBConnection.openConnection();
           PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_ORDER)) {
             preparedStatement.setInt(1, id);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Could not delete order");

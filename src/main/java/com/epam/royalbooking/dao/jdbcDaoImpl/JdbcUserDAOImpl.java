@@ -62,7 +62,7 @@ public class JdbcUserDAOImpl implements UserDAO {
                 throw new RuntimeException("There is no such user.");
             }
         } catch (SQLException e) {
-            throw new RuntimeException("getById method failed.");
+            throw new RuntimeException("getByEmail method failed.");
         }
         return result;
     }

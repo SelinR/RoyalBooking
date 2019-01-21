@@ -2,6 +2,7 @@ package com.epam.royalbooking.services;
 
 import com.epam.royalbooking.dao.OrderDAO;
 import com.epam.royalbooking.dao.RoomDAO;
+import com.epam.royalbooking.dao.jdbcDaoImpl.JdbcOrderDAOImpl;
 import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.enums.OrderStatus;
 import org.apache.tomcat.jni.Local;
@@ -37,30 +38,9 @@ public class OrderService {
         orderDAO.delete(id);
     }
 
-/*    public Order create(HttpServletRequest request) {
-        int bookedRoomId = -1;
-        LocalDate entryDate = null;
-        LocalDate leaveDate = null;
-        int userID = -1;
-
-        Enumeration<String> parametersNames = request.getParameterNames();
-        while (parametersNames.hasMoreElements()) {
-            String key = parametersNames.nextElement();
-            String value = request.getParameter(key);
-            if (key.equalsIgnoreCase("roomId")) {
-                bookedRoomId = Integer.valueOf(value);
-            } else if (key.equalsIgnoreCase("entryDate")) {
-                entryDate = LocalDate.parse(value);
-            } else if (key.equalsIgnoreCase("leaveDate")) {
-                leaveDate = LocalDate.parse(value);
-            } else if (key.equalsIgnoreCase("userID")){
-                userID = Integer.valueOf(value);
-            }
-        }
-        Double totalPrice = calculateTotalPrice();
-        return new Order(bookedRoomId, entryDate, leaveDate, totalPrice,userID, OrderStatus.ACCEPTED );
-    }*/
-
+    public List<Order> getOrdersByUserId(int userId) {
+        return orderDAO.getByUserId(userId);
+    }
     /**
      * I will code this method a little bit later
      *
