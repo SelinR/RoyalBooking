@@ -14,40 +14,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RoomController {
     private RoomService roomService;
 
-    @RequestMapping(value = "/rooms", method = RequestMethod.GET)
-    public String getAll(Model model) {
-        model.addAttribute("room", new Room());
+    @RequestMapping(value = "/admin/rooms_list", method = RequestMethod.GET)
+    public String getListForAdmin(Model model) {
         model.addAttribute("rooms", roomService.getAll());
-        return "/rooms";
+        return "/rooms/rooms_list";
     }
 
-    @RequestMapping(value = "/room/{roomId}")
-    public String getRoomPage(Model model, @PathVariable("roomId") String roomId) {
-        model.addAttribute("room", roomService.getById(Integer.valueOf(roomId)));
-        return "/room";
-    }
-
-    @RequestMapping(value = "/room/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/room_add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
-        if(room.getId() == 0) {
-            roomService.save(room);
-        } else {
-            roomService.update(room);
-        }
-        return "redirect:/rooms";
+        roomService.save(room);
+        return "redirect:/admin/rooms_list";
     }
 
-    @RequestMapping(value = "/rooms/delete/{id}")
+    @RequestMapping(value = "/admin/rooms/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         roomService.delete(id);
-        return "redirect:/rooms";
+        return "redirect:/admin/rooms_list";
     }
 
-    @RequestMapping(value = "view/rooms/edit/{id}")
-    public String update(@PathVariable("id") int id, Model model) {
+    @RequestMapping(value = "/admin/room_edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("room", roomService.getById(id));
-        model.addAttribute("rooms", roomService.getAll());
-        return "/rooms";
+        return "/rooms/room_edit";
+    }
+
+    @RequestMapping(value = "/admin/room_update", method = RequestMethod.POST)
+    public String update(@ModelAttribute("room") Room room) {
+        roomService.update(room);
+        return "/rooms/room_edit";
+    }
+
+    @RequestMapping(value = "/admin/room_creation")
+    public String getCreationPage() {
+        return "/rooms/room_creation";
+    }
+
+    /**
+     * Mapping for user room's single page
+     */
+    @RequestMapping(value = "/room/{roomId}")
+    public String getRoomPage(Model model, @PathVariable("roomId") int roomId) {
+        model.addAttribute("room", roomService.getById(roomId));
+        return "/room";
     }
 
     @Autowired

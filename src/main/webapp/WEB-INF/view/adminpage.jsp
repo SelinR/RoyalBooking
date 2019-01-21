@@ -6,7 +6,7 @@
   </head>
 
   <body bgcolor="#fff8dc">
-    <a href="<c:url value="/rooms"/>" target="_blank">All rooms</a>
+    <a href="<c:url value="/admin/rooms_list"/>" target="_blank">All rooms</a>
   </body>
   <br>
   <body>
