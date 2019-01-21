@@ -117,7 +117,7 @@
                         <td><c:out value="${order.entryDate}"/></td>
                         <td><c:out value="${order.leaveDate}"/></td>
                         <td><c:out value="${order.totalPrice}"/></td>
-                        <td><c:out value="${order.bookedRoomID}"/></td>
+                        <td><a href="/room/${order.bookedRoomID}"><c:out value="${order.bookedRoomID}"/></a></td>
                         <td><button onclick="location.href='profile/cancel/${order.id}'">Cancel</button></td>
                     </tr>
                 </c:forEach>
