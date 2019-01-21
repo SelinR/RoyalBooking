@@ -101,6 +101,18 @@ public class JdbcUserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public boolean isEmailFree(String email) {
+        try (Connection connection = DBConnection.openConnection();
+             PreparedStatement statement = connection.prepareStatement(QueryType.IS_EMAIL_FREE.getQuery())) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return !resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException("check for email occupation method failed");
+        }
+    }
+
     private User createUser(ResultSet resultSet) {
         try {
             return new User(
@@ -137,7 +149,8 @@ public class JdbcUserDAOImpl implements UserDAO {
                 "VALUES (DEFAULT, (?), (?), (?), (?), (?), (?), (?), (?))"),
         UPDATE("UPDATE users SET name = (?), surname = (?), country = (?), birthday = (?), phone = (?), email = (?)," +
                 " user_type = (?) WHERE id = (?)"),
-        DELETE("DELETE FROM users WHERE id = (?)");
+        DELETE("DELETE FROM users WHERE id = (?)"),
+        IS_EMAIL_FREE("SELECT name FROM users WHERE email = (?)");
 
         private String query;
 
