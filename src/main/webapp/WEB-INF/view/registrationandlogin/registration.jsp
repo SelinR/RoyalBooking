@@ -11,7 +11,7 @@
     <div class="login">
         <c:if test="${param.error != null}">
             <p style='color:red'>
-                Bad password verification or such email is exists.
+                Bad password verification or such email exists.
             </p>
         </c:if>
         <form method="post" action="<c:url value="/registration"/>">
