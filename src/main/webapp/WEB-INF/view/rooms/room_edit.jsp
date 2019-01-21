@@ -88,30 +88,15 @@
 
     <label>
         Room type<br>
-        <c:if test="${room.roomType.toString() == 'BASIC'}">
-        <input type="radio" name="roomType" value="BASIC" checked> Basic
-        <input type="radio" name="roomType" value="FAMILY"> Family
-        <input type="radio" name="roomType" value="LUXURY"> Luxury
-        <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
-        </c:if>
-        <c:if test="${room.roomType.toString() == 'FAMILY'}">
-            <input type="radio" name="roomType" value="BASIC"> Basic
-            <input type="radio" name="roomType" value="FAMILY" checked> Family
-            <input type="radio" name="roomType" value="LUXURY"> Luxury
-            <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
-        </c:if>
-        <c:if test="${room.roomType.toString() == 'LUXURY'}">
-            <input type="radio" name="roomType" value="BASIC"> Basic
-            <input type="radio" name="roomType" value="FAMILY"> Family
-            <input type="radio" name="roomType" value="LUXURY" checked> Luxury
-            <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
-        </c:if>
-        <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">
-            <input type="radio" name="roomType" value="BASIC"> Basic
-            <input type="radio" name="roomType" value="FAMILY"> Family
-            <input type="radio" name="roomType" value="LUXURY"> Luxury
-            <input type="radio" name="roomType" value="PENTHOUSE" checked> Penthouse
-        </c:if>
+        <input type="radio" name="roomType" value="BASIC"
+               <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> > Basic
+        <input type="radio" name="roomType" value="FAMILY"
+               <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> > Family
+        <input type="radio" name="roomType" value="LUXURY"
+               <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> > Luxury
+        <input type="radio" name="roomType" value="PENTHOUSE"
+               <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> > Penthouse
+
     </label><br>
     <label>
         Beds <br>
