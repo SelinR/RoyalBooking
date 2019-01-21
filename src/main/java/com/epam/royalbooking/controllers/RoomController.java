@@ -39,7 +39,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/admin/room_update", method = RequestMethod.POST)
-    public String update(@ModelAttribute("room") Room room, Model model) {
+    public String update(@ModelAttribute("room") Room room) {
         roomService.update(room);
         return "/rooms/room_edit";
     }
