@@ -1,40 +1,39 @@
 package com.epam.royalbooking.services;
 
-import com.epam.royalbooking.dao.OrderDAO;
-import com.epam.royalbooking.dao.RoomDAO;
+import com.epam.royalbooking.dao.springData.OrderDaoData;
+import com.epam.royalbooking.dao.springData.RoomDaoData;
 import com.epam.royalbooking.entities.Order;
-import com.epam.royalbooking.enums.OrderStatus;
-import org.apache.tomcat.jni.Local;
+import com.epam.royalbooking.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
-    private OrderDAO orderDAO;
-    private RoomDAO roomDAO;
+    private OrderDaoData orderDao;
+    private RoomDaoData roomDao;
 
-    public List<Order> getAll() {
-        return orderDAO.getAll();
+    public Iterable<Order> getAll() {
+        return orderDao.findAll();
     }
 
     public void save(Order order) {
-        orderDAO.save(order);
+        orderDao.save(order);
     }
 
-    public Order getById(int id) {
-        return orderDAO.getById(id);
+    public Optional<Order> getById(long id) {
+        return orderDao.findById(id);
     }
 
-    public void delete(int id) {
-        orderDAO.delete(id);
+    public void delete(Order order) {
+        orderDao.delete(order);
+    }
+
+    public void delete(long id) {
+        orderDao.deleteById(id);
     }
 
     /**
@@ -49,19 +48,24 @@ public class OrderService {
     /**
      * @return Double - total price of order
      */
-    public double calculateTotalPrice(int bookedRoomId, LocalDate entryDate, LocalDate leaveDate) {
-        double dailyCost = roomDAO.getById(bookedRoomId).getDailyCost();
-        long days = ChronoUnit.DAYS.between(entryDate, leaveDate);
-        return dailyCost * days;
+    public double calculateTotalPrice(long bookedRoomId, LocalDate entryDate, LocalDate leaveDate) {
+        Optional<Room> room = roomDao.findById(bookedRoomId);
+        if (room.isPresent()) {
+            double dailyCost = room.get().getDailyCost();
+            long days = ChronoUnit.DAYS.between(entryDate, leaveDate);
+            return dailyCost * days;
+        } else {
+            throw new RuntimeException("No room with such ID found: " + bookedRoomId);
+        }
     }
 
     @Autowired
-    public void setOrderDAO(OrderDAO orderDAO) {
-        this.orderDAO = orderDAO;
+    public void setOrderDao(OrderDaoData orderDao) {
+        this.orderDao = orderDao;
     }
 
     @Autowired
-    public void setRoomDAO(RoomDAO roomDAO) {
-        this.roomDAO = roomDAO;
+    public void setRoomDao(RoomDaoData roomDao) {
+        this.roomDao = roomDao;
     }
 }

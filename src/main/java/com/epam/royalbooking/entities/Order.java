@@ -3,17 +3,28 @@ package com.epam.royalbooking.entities;
 import com.epam.royalbooking.enums.OrderStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name = "entry_date")
     private LocalDate entryDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name = "leave_date")
     private LocalDate leaveDate;
+    @Column(name = "total_price")
     private double totalPrice;
+    @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
+    @Column(name = "user_id")
     private int userID;
+    @Column(name = "booked_room_id")
     private int bookedRoomID;
 
     public Order() {
