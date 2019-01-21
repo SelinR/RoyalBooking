@@ -35,4 +35,8 @@ public class UserService {
     public void setDao(UserDAO dao) {
         this.dao = dao;
     }
+
+    public boolean isEmailFree(String email) {
+        return dao.isEmailFree(email);
+    }
 }

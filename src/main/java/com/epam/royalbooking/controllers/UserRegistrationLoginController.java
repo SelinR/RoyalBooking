@@ -5,12 +5,15 @@ import com.epam.royalbooking.entities.User;
 import com.epam.royalbooking.enums.UserType;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserRegistrationLoginController {
@@ -28,31 +31,33 @@ public class UserRegistrationLoginController {
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.GET)
-    public String userRegistrationForm(Model userModel, Model passwordValidationModel) {
-        userModel.addAttribute("user", new User());
-        passwordValidationModel.addAttribute("passwordValidation", new PasswordValidation());
-        return "registrationandlogin/registration";
+    public ModelAndView userRegistrationForm(ModelAndView modelAndView) {
+        modelAndView.addObject("user", new User());
+        modelAndView.addObject("passwordValidation", new PasswordValidation());
+        modelAndView.setViewName("registrationandlogin/registration");
+        return modelAndView;
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.POST)
     public ModelAndView userRegistrationSubmit(@ModelAttribute User user,
                                                @ModelAttribute PasswordValidation passwordValidation) {
         ModelAndView modelAndView = new ModelAndView();
-        if (user.getPassword().equals(passwordValidation.getPasswordValidation())) {
+        if (user.getPassword().equals(passwordValidation.getPasswordValidation())
+                && userService.isEmailFree(user.getEmail())) {
             user.setUserType(UserType.USER);
             userService.save(user);
-            modelAndView.addObject("user");
             modelAndView.setViewName("redirect:/login");
         } else {
+            modelAndView.addObject("name", user.getName());
+            modelAndView.addObject("surname", user.getSurname());
+            modelAndView.addObject("country", user.getCountry());
+            modelAndView.addObject("birthday", user.getBirthday().toString());
+            modelAndView.addObject("phone", user.getPhone());
+            modelAndView.addObject("email", user.getEmail());
             modelAndView.setViewName("redirect:/registration?error");
         }
         return modelAndView;
     }
-
-    /*@RequestMapping(value = "logout")
-    public String userLogout() {
-        return "/";
-    }*/
 
     @Autowired
     public void setUserService(UserService userService) {
