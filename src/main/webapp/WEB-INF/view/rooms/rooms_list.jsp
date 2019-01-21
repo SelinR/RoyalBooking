@@ -286,12 +286,12 @@
                         <td><c:out value="${room.additionalInfo}"/>
                         </td>
                         <td>
-                            <form method="GET" action="<c:url value="/room_edit/${room.id}"/>">
+                            <form method="GET" action="<c:url value="/admin/room_edit/${room.id}"/>">
                                 <button type="submit" value="book">Edit</button>
                             </form>
                         </td>
                         <td>
-                            <form method="GET" action="<c:url value="/rooms/delete/${room.id}"/>">
+                            <form method="GET" action="<c:url value="/admin/rooms/delete/${room.id}"/>">
                                 <button type="submit" value="book">Delete</button>
                             </form>
                         </td>
@@ -306,7 +306,7 @@
 </div>
 
 <div align="center">
-    <form method="get" action="<c:url value="/room_creation"/>">
+    <form method="get" action="<c:url value="/admin/room_creation"/>">
         <button><h4>Create room</h4></button>
     </form>
 </div>

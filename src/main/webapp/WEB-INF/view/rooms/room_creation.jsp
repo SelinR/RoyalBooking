@@ -38,7 +38,7 @@
 </div>
 
 <h2>Room creation</h2><br/>
-<form method="post" action="<c:url value="/room_add"/>">
+<form method="post" action="<c:url value="/admin/room_add"/>">
     <label>
         Room type<br>
         <input type="radio" name="roomType" value="BASIC" checked> Basic
@@ -68,7 +68,7 @@
 <pre>
 
 </pre>
-<form method="get" action="<c:url value="/rooms_admin"/>">
+<form method="get" action="<c:url value="/admin/rooms_list"/>">
     <button>Back to Room list</button>
 </form>
 </body>

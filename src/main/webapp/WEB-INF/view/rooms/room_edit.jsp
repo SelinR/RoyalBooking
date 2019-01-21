@@ -83,14 +83,35 @@
     <div align="right"> placeholder for image</div>
 </div>
 
-<form method="post" action="<c:url value="/room_update"/>">
+<form method="post" action="<c:url value="/admin/room_update"/>">
+
 
     <label>
         Room type<br>
+        <c:if test="${room.roomType.toString() == 'BASIC'}">
         <input type="radio" name="roomType" value="BASIC" checked> Basic
         <input type="radio" name="roomType" value="FAMILY"> Family
         <input type="radio" name="roomType" value="LUXURY"> Luxury
         <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
+        </c:if>
+        <c:if test="${room.roomType.toString() == 'FAMILY'}">
+            <input type="radio" name="roomType" value="BASIC"> Basic
+            <input type="radio" name="roomType" value="FAMILY" checked> Family
+            <input type="radio" name="roomType" value="LUXURY"> Luxury
+            <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
+        </c:if>
+        <c:if test="${room.roomType.toString() == 'LUXURY'}">
+            <input type="radio" name="roomType" value="BASIC"> Basic
+            <input type="radio" name="roomType" value="FAMILY"> Family
+            <input type="radio" name="roomType" value="LUXURY" checked> Luxury
+            <input type="radio" name="roomType" value="PENTHOUSE"> Penthouse
+        </c:if>
+        <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">
+            <input type="radio" name="roomType" value="BASIC"> Basic
+            <input type="radio" name="roomType" value="FAMILY"> Family
+            <input type="radio" name="roomType" value="LUXURY"> Luxury
+            <input type="radio" name="roomType" value="PENTHOUSE" checked> Penthouse
+        </c:if>
     </label><br>
     <label>
         Beds <br>
@@ -114,7 +135,7 @@
 <pre>
 
 </pre>
-<form method="get" action="<c:url value="/rooms_admin"/>">
+<form method="get" action="<c:url value="/admin/rooms_list"/>">
     <button>Back to Room list</button>
 </form>
 </body>

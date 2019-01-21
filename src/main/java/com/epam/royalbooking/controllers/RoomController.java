@@ -14,53 +14,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RoomController {
     private RoomService roomService;
 
-    @RequestMapping(value = "/rooms", method = RequestMethod.GET)
-    public String getAll(Model model) {
-        model.addAttribute("rooms", roomService.getAll());
-        return "/rooms";
-    }
-
-    @RequestMapping(value = "/rooms_admin", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/rooms_list", method = RequestMethod.GET)
     public String getListForAdmin(Model model) {
         model.addAttribute("rooms", roomService.getAll());
-        return "/rooms/rooms_admin";
+        return "/rooms/rooms_list";
     }
 
-    @RequestMapping(value = "/room/{roomId}")
-    public String getRoomPage(Model model, @PathVariable("roomId") String roomId) {
-        model.addAttribute("room", roomService.getById(Integer.valueOf(roomId)));
-        return "/room";
-    }
-
-    @RequestMapping(value = "/room_add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/room_add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
         roomService.save(room);
-        /*roomService.update(room);*/
-        return "redirect:/rooms_admin";
+        return "redirect:/admin/rooms_list";
     }
 
-
-    @RequestMapping(value = "/rooms/delete/{id}")
+    @RequestMapping(value = "/admin/rooms/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         roomService.delete(id);
-        return "redirect:/rooms_admin";
+        return "redirect:/admin/rooms_list";
     }
 
-    @RequestMapping(value = "/room_edit/{id}")
+    @RequestMapping(value = "/admin/room_edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("room", roomService.getById(id));
         return "/rooms/room_edit";
     }
 
-    @RequestMapping(value = "/room_update", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/room_update", method = RequestMethod.POST)
     public String update(@ModelAttribute("room") Room room, Model model) {
         roomService.update(room);
         return "/rooms/room_edit";
     }
 
-    @RequestMapping(value = "/room_creation")
+    @RequestMapping(value = "/admin/room_creation")
     public String getCreationPage() {
         return "/rooms/room_creation";
+    }
+
+    /**
+     * Mapping for user room's single page
+     */
+    @RequestMapping(value = "/room/{roomId}")
+    public String getRoomPage(Model model, @PathVariable("roomId") int roomId) {
+        model.addAttribute("room", roomService.getById(roomId));
+        return "/room";
     }
 
     @Autowired
