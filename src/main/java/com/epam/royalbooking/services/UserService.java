@@ -19,6 +19,10 @@ public class UserService {
         return dao.getById(id);
     }
 
+    public User getByEmail(String email) {
+        return dao.getByEmail(email);
+    }
+
     public void save(User user) {
         dao.save(user);
     }
@@ -34,5 +38,9 @@ public class UserService {
     @Autowired
     public void setDao(UserDAO dao) {
         this.dao = dao;
+    }
+
+    public boolean isEmailFree(String email) {
+        return dao.isEmailFree(email);
     }
 }

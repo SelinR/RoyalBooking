@@ -35,14 +35,16 @@ public class UserRegistrationLoginController {
     }
 
     @RequestMapping(value = "registration", method = RequestMethod.GET)
-    public String userRegistrationForm(Model userModel, Model passwordValidationModel) {
+    public ModelAndView userRegistrationForm(ModelAndView modelAndView) {
         SecurityContext context = SecurityContextHolder.getContext();
         if (context.getAuthentication().getPrincipal() instanceof String) {
-            userModel.addAttribute("user", new User());
-            passwordValidationModel.addAttribute("passwordValidation", new PasswordValidation());
-            return "registrationandlogin/registration";
+            modelAndView.addObject("user", new User());
+            modelAndView.addObject("passwordValidation", new PasswordValidation());
+            modelAndView.setViewName("registrationandlogin/registration");
+            return modelAndView;
         } else {
-            return "redirect:/";
+            modelAndView.setViewName("redirect:/");
+            return modelAndView;
         }
     }
 
@@ -50,12 +52,18 @@ public class UserRegistrationLoginController {
     public ModelAndView userRegistrationSubmit(@ModelAttribute User user,
                                                @ModelAttribute PasswordValidation passwordValidation) {
         ModelAndView modelAndView = new ModelAndView();
-        if (user.getPassword().equals(passwordValidation.getPasswordValidation())) {
+        if (user.getPassword().equals(passwordValidation.getPasswordValidation())
+                && userService.isEmailFree(user.getEmail())) {
             user.setUserType(UserType.USER);
             userService.save(user);
-            modelAndView.addObject("user");
             modelAndView.setViewName("redirect:/login");
         } else {
+            modelAndView.addObject("name", user.getName());
+            modelAndView.addObject("surname", user.getSurname());
+            modelAndView.addObject("country", user.getCountry());
+            modelAndView.addObject("birthday", user.getBirthday().toString());
+            modelAndView.addObject("phone", user.getPhone());
+            modelAndView.addObject("email", user.getEmail());
             modelAndView.setViewName("redirect:/registration?error");
         }
         return modelAndView;

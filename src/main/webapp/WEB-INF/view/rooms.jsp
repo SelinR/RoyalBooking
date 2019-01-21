@@ -22,7 +22,7 @@
 </c:forEach>
 
 <h2>Создание новой комнаты</h2><br />
-<form method="post" action="<c:url value="/view/rooms"/>">
+<form method="post" action="<c:url value="/rooms"/>">
     <label>
         Room type<br>
         <input type="radio" name="roomType" value="BASIC" checked> Basic

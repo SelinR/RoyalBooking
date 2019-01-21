@@ -2,8 +2,10 @@ package com.epam.royalbooking.controllers;
 
 import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.entities.Room;
+import com.epam.royalbooking.entities.User;
 import com.epam.royalbooking.services.OrderService;
 import com.epam.royalbooking.services.RoomService;
+import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,8 +23,9 @@ import java.util.List;
 public class OrderController {
     private OrderService orderService;
     private RoomService roomService;
+    private UserService userService;
 
-    @RequestMapping(value = "view/orders", method = RequestMethod.GET)
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String getAll(Model model) {
         List<Order> orders = orderService.getAll();
         List<Room> rooms = roomService.getAll();
@@ -31,34 +36,68 @@ public class OrderController {
         return "/orders";
     }
 
-    @RequestMapping(value = "view/orders/order/{id}")
+    @RequestMapping(value = "/order/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("order", orderService.getById(id));
         return "/order";
     }
 
-    @RequestMapping(value = "view/orders", method = RequestMethod.POST)
-    public String save(@ModelAttribute("order") Order order) {
+    /**
+     * Method defines userID from Spring Context using @param principal,
+     * and saves order in DataBase
+     * @param order to save in DataBase
+     * @param principal need to get user email and id
+     */
+    @RequestMapping(value = "order_save", method = RequestMethod.POST)
+    public String save(@ModelAttribute("order") Order order, Principal principal) {
         if (orderService.isOrderValid(order)){
+            String email = (principal.getName());
+            User currentUser = userService.getByEmail(email);
+            order.setUserID(currentUser.getId());
             orderService.save(order);
-            return "redirect:/view/orders";
+            return "redirect:/orders";
         }
         else {
             return "/ErrorPage";
         }
     }
 
-    @RequestMapping(value = "view/orders/delete/{id}")
+    @RequestMapping(value = "/orders/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         orderService.delete(id);
-        return "redirect:/view/orders";
+        return "redirect:/orders";
     }
 
-    @RequestMapping(value = "view/orders/edit/{id}")
+    @RequestMapping(value = "/orders/edit/{id}")
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderService.getById(id));
         model.addAttribute("orders", orderService.getAll());
         return "/orders";
+    }
+
+    @RequestMapping(value = "/order_creation")
+    public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId){
+        model.addAttribute("roomToBook",roomService.getById(roomToBookId));
+        model.addAttribute("minDate", LocalDate.now());
+        model.addAttribute("maxDate", LocalDate.now().plusYears(2));
+        return "/order_creation";
+    }
+
+    /**
+     * Method calculates orders total price, based on dates and daily cost.
+     * Refers to page with  order details and order confirmation.
+     * @param order doesn't save in DataBase on this stage, haven't userID
+     * @return ModelAndView with refer to order_confirm.jsp, and entity Order with calculated total price
+     */
+    @RequestMapping(value = "/order_confirm", method = RequestMethod.POST)
+    public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order) {
+        if (orderService.isOrderValid(order)){
+            order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
+            return new ModelAndView("/order_confirm", "order", order);
+        }
+        else {
+            return new ModelAndView("/ErrorPage");
+        }
     }
 
     @Autowired
@@ -69,5 +108,10 @@ public class OrderController {
     @Autowired
     public void setRoomService(RoomService roomService) {
         this.roomService = roomService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }
