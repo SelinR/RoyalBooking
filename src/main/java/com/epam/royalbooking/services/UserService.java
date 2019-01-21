@@ -19,6 +19,10 @@ public class UserService {
         return dao.getById(id);
     }
 
+    public User getByEmail(String email) {
+        return dao.getByEmail(email);
+    }
+
     public void save(User user) {
         dao.save(user);
     }

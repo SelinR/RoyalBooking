@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Room page</title>
+    <title>Order creation</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
@@ -66,6 +66,10 @@
     </div>
 </div>
 
+
+<div>
+    <h2 align="center">Room booking</h2>
+</div>
 <div>
     <div align="left">
         <table id="datatable" class="tg">
@@ -78,30 +82,29 @@
             <tbody>
             <tr>
                 <td>Room id</td>
-                <td><c:out value="${room.id}"/></td>
+                <td><c:out value="${roomToBook.id}"/></td>
             </tr>
             <tr>
                 <td>Room type</td>
-                <td><c:out value="${room.roomType}"/></td>
+                <td><c:out value="${roomToBook.roomType}"/></td>
 
             </tr>
             <tr>
                 <td>Beds amount</td>
-                <td><c:out value="${room.bedsAmount}"/></td>
+                <td><c:out value="${roomToBook.bedsAmount}"/></td>
             </tr>
             <tr>
                 <td>Area</td>
-                <td><c:out value="${room.area}"/></td>
+                <td><c:out value="${roomToBook.area}"/></td>
             </tr>
             <tr>
                 <td>Daily Cost</td>
-                <td><c:out value="${room.dailyCost}"/></td>
+                <td><c:out value="${roomToBook.dailyCost}"/></td>
             </tr>
             <tr>
                 <td>Additional info</td>
-                <td><c:out value="${room.additionalInfo}"/></td>
+                <td><c:out value="${roomToBook.additionalInfo}"/></td>
             </tr>
-
 
             </tbody>
         </table>
@@ -109,14 +112,38 @@
     <div align="right"> placeholder for image</div>
 </div>
 
-
 <div align="center">
-    <form method="GET" action="<c:url value="/order_creation"/>">
-        <input type="hidden" name="roomToBookId" value="${room.id}">
-        <button type="submit" value="book">Book room</button>
-    </form>
+<div>
+    <h3>Choose dates</h3>
 </div>
 
+<form method="post" action="<c:url value="/order_confirm"/>">
+
+    <p><label>
+        <input type="hidden"  name="bookedRoomID" value="${roomToBook.id}">
+        <input type="hidden"  name="totalPrice" value="50">
+    </label></p>
+
+    <label>
+        Entry Date <br>
+        <input type="date" id="entryDate" name="entryDate"
+               value="<c:out value="${requestScope.minDate}"/>"
+               min="<c:out value="${requestScope.minDate}"/>"
+               max="<c:out value="${requestScope.maxDate}"/>">
+    </label><br>
+
+    <label>
+        Leave Date <br>
+        <input type="date" name="leaveDate"
+               value="<c:out value="${requestScope.minDate}"/>"
+               min="<c:out value="${requestScope.minDate}"/>"
+               max="<c:out value="${requestScope.maxDate}"/>">
+    </label><br>
+
+    <p><input type="submit" value="Create"></p>
+
+</form>
+</div>
 </body>
 
 </html>
