@@ -2,20 +2,22 @@ package com.epam.royalbooking.services;
 
 import com.epam.royalbooking.dao.UserDao;
 import com.epam.royalbooking.entities.User;
+import com.epam.royalbooking.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private UserDao dao;
+    private BCryptPasswordEncoder encoder;
 
     public List<User> getAll() {
-        return createUsersList();
+        return dao.findAll();
     }
 
     public User getById(int id) {
@@ -28,6 +30,9 @@ public class UserService {
 
     @Transactional
     public void save(User user) {
+        user.setUserType(UserType.USER);
+        String encryptedUserPassword = encoder.encode(user.getPassword());
+        user.setPassword(encryptedUserPassword);
         dao.save(user);
     }
 
@@ -45,13 +50,6 @@ public class UserService {
         return dao.existsUserByEmail(email);
     }
 
-    private List<User> createUsersList() {
-        Iterable<User> userIterable = dao.findAll();
-        List<User> userList = new ArrayList<>();
-        userIterable.forEach(userList::add);
-        return userList;
-    }
-
     private User createUser(int id) {
         Optional<User> optionalUser = dao.findById(id);
         if (optionalUser.isPresent()) {
@@ -62,7 +60,12 @@ public class UserService {
     }
 
     @Autowired
-    public void setDaoData(UserDao dao) {
+    public void setDao(UserDao dao) {
         this.dao = dao;
+    }
+
+    @Autowired
+    public void setEncoder(BCryptPasswordEncoder encoder) {
+        this.encoder = encoder;
     }
 }

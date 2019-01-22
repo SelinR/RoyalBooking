@@ -21,7 +21,7 @@ public class OrderService {
     private RoomDao roomDao;
 
     public List<Order> getAll() {
-        return createOrdersList();
+        return orderDao.findAll();
     }
 
     @Transactional
@@ -69,13 +69,6 @@ public class OrderService {
         } else {
             throw new RuntimeException("Could not create order with id: " + id);
         }
-    }
-
-    private List<Order> createOrdersList() {
-        Iterable<Order> orders = orderDao.findAll();
-        List<Order> ordersList = new ArrayList<>();
-        orders.forEach(ordersList::add);
-        return ordersList;
     }
 
     @Autowired

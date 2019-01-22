@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,7 @@ public class RoomService {
     private RoomDao dao;
 
     public List<Room> getAll() {
-        return createRoomsList();
+        return dao.findAll();
     }
 
     @Transactional
@@ -44,13 +43,6 @@ public class RoomService {
         } else {
             throw new RuntimeException("No room found.");
         }
-    }
-
-    private List<Room> createRoomsList() {
-        Iterable<Room> roomIterable = dao.findAll();
-        List<Room> rooms = new ArrayList<>();
-        roomIterable.forEach(rooms::add);
-        return rooms;
     }
 
     @Autowired
