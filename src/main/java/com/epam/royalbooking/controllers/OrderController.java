@@ -77,7 +77,7 @@ public class OrderController {
 
     @RequestMapping(value = "/order_creation")
     public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId) {
-        model.addAttribute("list", orderService.getAllBookedDatesByRoomId(roomToBookId));
+        model.addAttribute("list", orderService.getAllBookedDatesByBookedRoomId(roomToBookId));
         model.addAttribute("roomToBook", roomService.getById(roomToBookId));
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("maxDate", LocalDate.now().plusYears(2));
@@ -97,7 +97,6 @@ public class OrderController {
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
             return new ModelAndView("/order_confirm", "order", order);
         } else if (!orderService.isOrderValid(order, order.getBookedRoomID())) {
-            System.out.println("valid error");
             return new ModelAndView("/wrong_dates_input", "order", order);
         } else {
             return new ModelAndView("/ErrorPage");
