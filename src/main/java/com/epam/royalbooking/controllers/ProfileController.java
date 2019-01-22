@@ -1,5 +1,6 @@
 package com.epam.royalbooking.controllers;
 
+import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.entities.User;
 import com.epam.royalbooking.services.OrderService;
 import com.epam.royalbooking.services.RoomService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -46,9 +48,19 @@ public class ProfileController {
     }
 
     @RequestMapping("profile/cancel/{id}")
-    public String cancelOrder(@PathVariable("id") int id) {
-        orderService.delete(id);
-        return "redirect:/profile";
+    public String cancelOrder(@PathVariable("id") int id, Principal principal) {
+        User user = getCurrentUser(principal);
+        Order order = orderService.getById(id);
+        if (order == null) {
+            return "redicrect:/profile";
+        } else {
+            if (order.getUserID() == user.getId()) {
+                orderService.delete(id);
+                return "redirect:/profile";
+            } else {
+                return "redirect:/profile";
+            }
+        }
     }
 
     private User getCurrentUser(Principal principal) {
