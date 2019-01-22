@@ -34,10 +34,10 @@ CREATE TABLE users
   CONSTRAINT user_prim PRIMARY KEY(id)
 );
 INSERT INTO users (name, surname, country, birthday, phone, email, password, user_type) VALUES
-('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', '$2y$04$bOs397xqTumTwDA/CKma1OC4Gyci40E0JGTcv3kEN4czR4/JfabJG', 'USER'),
-('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', '$2y$12$/t9d7odz.c43z.WO9GQRfOeYygIDkW0N8ursVUYWmGV4Zof80sox2', 'ADMIN'),
-('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', '$2y$12$deyW4/cV3Li.CowTREFdu.VcYnSFi/sBCegwCb1rjSTPxYpEu/IHy', 'USER'),
-('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', '$2y$12$IjeRkb8EXsnnehowJHvv3.Rp1HKxOH9X/4IhD7xQQJR.tA1EvjmV2', 'USER');
+('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', '$2a$04$rih1/TCL5sJhFqc.YzY19u9ruelHQTAL7oCDougNaJqTUZs/oIVrO', 'USER'),
+('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', '$2a$04$x3rEDU510CvdKY6qmX324u9M0ff4RJaMWinhH964Jo4yIKMBG9hrC', 'ADMIN'),
+('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', '$2a$04$c9SdlQ0asYZEyU4gyt.7leqlOJRX7izg2z/Grw226TCAlnb3cvvzu', 'USER'),
+('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', '$2a$04$9zxdZ4RkakshXHgZEJzbve5GrkLJZtsB9NGRDvv8Lw.78IHFqaM82', 'USER');
 
 /* users end */
 /*orders*/

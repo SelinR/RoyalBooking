@@ -4,7 +4,7 @@ import com.epam.royalbooking.dao.UserDao;
 import com.epam.royalbooking.entities.User;
 import com.epam.royalbooking.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class UserService {
     private UserDao dao;
-    private BCryptPasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     public List<User> getAll() {
         return dao.findAll();
@@ -65,7 +65,7 @@ public class UserService {
     }
 
     @Autowired
-    public void setEncoder(BCryptPasswordEncoder encoder) {
+    public void setEncoder(PasswordEncoder encoder) {
         this.encoder = encoder;
     }
 }
