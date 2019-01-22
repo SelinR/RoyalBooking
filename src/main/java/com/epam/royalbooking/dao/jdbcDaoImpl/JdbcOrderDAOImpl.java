@@ -17,6 +17,8 @@ public class JdbcOrderDAOImpl implements OrderDAO {
             "entry_date, leave_date, total_price, user_id FROM orders;";
     private static final String SQL_GET_ORDER_BY_ID = "SELECT id,status, booked_room_id, " +
             "entry_date, leave_date, total_price, user_id FROM orders WHERE ID = ?;";
+    private static final String SQL_GET_ORDER_BY_BOOKED_ROOM_ID = "SELECT id,status, booked_room_id, " +
+            "entry_date, leave_date, total_price, user_id FROM orders WHERE booked_room_id = ?;";
     private static final String SQL_SAVE_ORDER = "INSERT INTO orders(status, booked_room_id," +
             " entry_date, leave_date, total_price, user_id) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String SQL_UPDATE_ORDER = "UPDATE orders SET status = ?, " +
@@ -37,6 +39,25 @@ public class JdbcOrderDAOImpl implements OrderDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Sorry, could not get list of orders: " + e);
+        }
+    }
+
+    @Override
+    public List<Order> getAllOrdersByBookedRoomId(int id) {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = DBConnection.openConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_ORDER_BY_BOOKED_ROOM_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Order order = createOrder(resultSet);
+                orders.add(order);
+            }
+            return orders;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Sorry, could not get order by booked room id: " + e);
         }
     }
 

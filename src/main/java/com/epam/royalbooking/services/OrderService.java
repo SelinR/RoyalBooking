@@ -3,17 +3,12 @@ package com.epam.royalbooking.services;
 import com.epam.royalbooking.dao.OrderDAO;
 import com.epam.royalbooking.dao.RoomDAO;
 import com.epam.royalbooking.entities.Order;
-import com.epam.royalbooking.enums.OrderStatus;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +28,19 @@ public class OrderService {
         return orderDAO.getById(id);
     }
 
+    public List<LocalDate> getAllBookedDatesByRoomId(int id) {
+        List<LocalDate> bookedDates = new ArrayList<>();
+        for (Order order : orderDAO.getAllOrdersByBookedRoomId(id)) {
+            LocalDate entryDate = order.getEntryDate();
+            LocalDate leaveDate = order.getLeaveDate();
+            while (!entryDate.equals(leaveDate)) {
+                bookedDates.add(entryDate);
+                entryDate = entryDate.plusDays(1);
+            }
+        }
+        return bookedDates;
+    }
+
     public void delete(int id) {
         orderDAO.delete(id);
     }
@@ -40,10 +48,29 @@ public class OrderService {
     /**
      * @return true if @param order is valid
      */
-    public boolean isOrderValid(Order order) {
+    public boolean isOrderValid(Order order, int bookingRoomId) {
         LocalDate entryDate = order.getEntryDate();
         LocalDate leaveDate = order.getLeaveDate();
-        return leaveDate.isAfter(entryDate);
+        boolean simpleValid = leaveDate.isAfter(entryDate);
+        return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
+    }
+
+    public boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {
+        List<Order> ordersList = orderDAO.getAllOrdersByBookedRoomId(bookingRoomId);
+        LocalDate entryDateToCheck = orderToCheck.getEntryDate();
+        LocalDate leaveDateToCheck = orderToCheck.getLeaveDate();
+        for (Order order : ordersList) {
+            LocalDate existingEntryDate = order.getEntryDate();
+            LocalDate existingLeaveDate = order.getLeaveDate();
+            if (existingEntryDate.isAfter(entryDateToCheck) & existingEntryDate.isBefore(leaveDateToCheck)) {
+                return false;
+            } else if (existingLeaveDate.isAfter(entryDateToCheck) & existingLeaveDate.isBefore(leaveDateToCheck)) {
+                return false;
+            } else if (existingEntryDate.isEqual(entryDateToCheck) || existingLeaveDate.isEqual(leaveDateToCheck)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
