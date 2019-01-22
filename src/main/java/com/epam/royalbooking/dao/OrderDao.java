@@ -9,4 +9,5 @@ public interface OrderDao extends CrudRepository<Order, Integer> {
     @Override
     List<Order> findAll();
     List<Order> findByUserID(int id);
+    List<Order> findAllByBookedRoomID(int id);
 }

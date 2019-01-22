@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,19 @@ public class OrderService {
     }
 
     @Transactional
+    public List<LocalDate> getAllBookedDatesByBookedRoomId(int id) {
+        List<LocalDate> bookedDates = new ArrayList<>();
+        for (Order order : orderDao.findAllByBookedRoomID(id)) {
+            LocalDate entryDate = order.getEntryDate();
+            LocalDate leaveDate = order.getLeaveDate();
+            while (!entryDate.equals(leaveDate)) {
+                bookedDates.add(entryDate);
+                entryDate = entryDate.plusDays(1);
+            }
+        }
+        return bookedDates;
+    }
+
     public void delete(int id) {
         orderDao.deleteById(id);
     }
@@ -44,10 +58,29 @@ public class OrderService {
     /**
      * @return true if @param order is valid
      */
-    public boolean isOrderValid(Order order) {
+    public boolean isOrderValid(Order order, int bookingRoomId) {
         LocalDate entryDate = order.getEntryDate();
         LocalDate leaveDate = order.getLeaveDate();
-        return leaveDate.isAfter(entryDate);
+        boolean simpleValid = leaveDate.isAfter(entryDate);
+        return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
+    }
+
+    public boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {
+        List<Order> ordersList = orderDao.findAllByBookedRoomID(bookingRoomId);
+        LocalDate entryDateToCheck = orderToCheck.getEntryDate();
+        LocalDate leaveDateToCheck = orderToCheck.getLeaveDate();
+        for (Order order : ordersList) {
+            LocalDate existingEntryDate = order.getEntryDate();
+            LocalDate existingLeaveDate = order.getLeaveDate();
+            if (existingEntryDate.isAfter(entryDateToCheck) & existingEntryDate.isBefore(leaveDateToCheck)) {
+                return false;
+            } else if (existingLeaveDate.isAfter(entryDateToCheck) & existingLeaveDate.isBefore(leaveDateToCheck)) {
+                return false;
+            } else if (existingEntryDate.isEqual(entryDateToCheck) || existingLeaveDate.isEqual(leaveDateToCheck)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
