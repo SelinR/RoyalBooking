@@ -33,6 +33,10 @@ public class OrderService {
         return orderDAO.getById(id);
     }
 
+    public void update(Order order) {
+        orderDAO.update(order);
+    }
+
     public void delete(int id) {
         orderDAO.delete(id);
     }

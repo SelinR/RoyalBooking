@@ -71,6 +71,7 @@ public class JdbcOrderDAOImpl implements OrderDAO {
         try (Connection connection = DBConnection.openConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_ORDER)){
             configurePreparedStatement(preparedStatement, order);
+            preparedStatement.setInt(7, order.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

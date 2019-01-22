@@ -57,13 +57,6 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-    @RequestMapping(value = "/orders/edit/{id}")
-    public String update(@PathVariable("id") int id, Model model) {
-        model.addAttribute("order", orderService.getById(id));
-        model.addAttribute("orders", orderService.getAll());
-        return "admin/orders/list";
-    }
-
     @RequestMapping(value = "/order_creation")
     public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId){
         model.addAttribute("roomToBook",roomService.getById(roomToBookId));

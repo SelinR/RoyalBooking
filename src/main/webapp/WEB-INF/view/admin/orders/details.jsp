@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta content="text/html" charset="UTF-8"/>
-    <title>Orders</title>
+    <title>Title</title>
     <style type="text/css">
         .tg {
             border-collapse: collapse;
@@ -39,11 +37,14 @@
             color: #333;
             background-color: #f0f0f0;
         }
+
+        .tg .tg-4eph {
+            background-color: #f9f9f9
+        }
     </style>
 </head>
-
 <body>
-<h1>All orders</h1>
+<h1> Order Details </h1>
 <table class="tg">
     <tr>
         <th width="60">Order ID</th>
@@ -53,26 +54,23 @@
         <th width="60">Total price</th>
         <th width="60">User ID</th>
         <th width="60">Booked room ID</th>
-        <th width="60">Edit</th>
         <th width="60">Delete</th>
     </tr>
-    <c:forEach var="order" items="${requestScope.orders}">
-        <tr align="center">
-            <td><c:out value="${order.id}"/></td>
-            <td><c:out value="${order.status}"/></td>
-            <td><c:out value="${order.entryDate}"/></td>
-            <td><c:out value="${order.leaveDate}"/></td>
-            <td><c:out value="${order.totalPrice}"/></td>
-            <td><c:out value="${order.userID}"/></td>
-            <td><c:out value="${order.bookedRoomID}"/></td>
-            <td><a href="<c:url value='/admin/order/${order.id}'/>">Edit</a></td>
-            <td><a href="<c:url value='/admin/orders/delete/${order.id}'/>">Delete</a></td>
-        </tr>
-    </c:forEach>
+    <tr align="center">
+        <td><c:out value="${order.id}"/></td>
+        <td><c:out value="${order.status}"/></td>
+        <td><c:out value="${order.entryDate}"/></td>
+        <td><c:out value="${order.leaveDate}"/></td>
+        <td><c:out value="${order.totalPrice}"/></td>
+        <td><c:out value="${order.userID}"/></td>
+        <td><c:out value="${order.bookedRoomID}"/></td>
+        <td><a href="<c:url value='/admin/orders/delete/${order.id}'/>">Delete</a></td>
+    </tr>
 </table>
-<h2>Create Order</h2>
+<h2> Edit user </h2>
 
-<c:url var="addAction" value="/admin/orders/add"/>
+<c:url var="editAction" value="/admin/orders/edit"/>
+
 
 <form:form method="post" action="${addAction}" modelAttribute="order">
     <table class="tg">
@@ -118,17 +116,6 @@
                         <c:forEach var="user" items="${requestScope.users}">
                             <option><c:out value="${user.id}"/></option>
                         </c:forEach>
-                    </select>
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>Order Status</td>
-            <td>
-                <label>
-                    <%--For now isn't working--%>
-                    <select size=1 name="OrderStatus">
-                            <option><c:out value="${order.status}"/></option>
                     </select>
                 </label>
             </td>
