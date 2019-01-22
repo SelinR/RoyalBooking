@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,10 +27,8 @@ public class OrderController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String getAll(Model model) {
-        List<Order> orders = new ArrayList<>();
-        orderService.getAll().forEach(orders::add);
-        List<Room> rooms = new ArrayList<>();
-        roomService.getAll().forEach(rooms::add);
+        List<Order> orders = orderService.getAll();
+        List<Room> rooms = roomService.getAll();
         model.addAttribute("rooms", rooms);
         model.addAttribute("orders", orders);
         model.addAttribute("minDate", LocalDate.now());

@@ -1,10 +1,13 @@
-package com.epam.royalbooking.dao.springData;
+package com.epam.royalbooking.dao;
 
 import com.epam.royalbooking.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserDaoData extends CrudRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserDao extends CrudRepository<User, Long> {
     User findUserByEmail(String email);
     boolean existsUserByEmail(String email);
-    void deleteById(long id);
+    Optional<User> findById(int id);
+    void deleteById(int id);
 }

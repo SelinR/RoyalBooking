@@ -55,6 +55,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
                 .usersByUsernameQuery("SELECT email, password, true FROM users WHERE email = ?;")
                 .authoritiesByUsernameQuery("SELECT email, user_type FROM users WHERE email = ?;");
-
     }
 }

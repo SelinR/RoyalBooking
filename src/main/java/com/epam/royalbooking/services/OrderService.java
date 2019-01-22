@@ -1,38 +1,41 @@
 package com.epam.royalbooking.services;
 
-import com.epam.royalbooking.dao.springData.OrderDaoData;
-import com.epam.royalbooking.dao.springData.RoomDaoData;
+import com.epam.royalbooking.dao.OrderDao;
+import com.epam.royalbooking.dao.RoomDao;
 import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.entities.Room;
+import com.epam.royalbooking.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class OrderService {
-    private OrderDaoData orderDao;
-    private RoomDaoData roomDao;
+    private OrderDao orderDao;
+    private RoomDao roomDao;
 
-    public Iterable<Order> getAll() {
-        return orderDao.findAll();
+    public List<Order> getAll() {
+        return createOrdersList();
     }
 
+    @Transactional
     public void save(Order order) {
+        order.setStatus(OrderStatus.ACCEPTED);
         orderDao.save(order);
     }
 
-    public Optional<Order> getById(long id) {
-        return orderDao.findById(id);
+    public Order getById(int id) {
+        return createOrder(id);
     }
 
-    public void delete(Order order) {
-        orderDao.delete(order);
-    }
-
-    public void delete(long id) {
+    @Transactional
+    public void delete(int id) {
         orderDao.deleteById(id);
     }
 
@@ -48,7 +51,7 @@ public class OrderService {
     /**
      * @return Double - total price of order
      */
-    public double calculateTotalPrice(long bookedRoomId, LocalDate entryDate, LocalDate leaveDate) {
+    public double calculateTotalPrice(int bookedRoomId, LocalDate entryDate, LocalDate leaveDate) {
         Optional<Room> room = roomDao.findById(bookedRoomId);
         if (room.isPresent()) {
             double dailyCost = room.get().getDailyCost();
@@ -59,13 +62,29 @@ public class OrderService {
         }
     }
 
+    private Order createOrder(int id) {
+        Optional<Order> optionalOrder = orderDao.findById(id);
+        if (optionalOrder.isPresent()) {
+            return optionalOrder.get();
+        } else {
+            throw new RuntimeException("Could not create order with id: " + id);
+        }
+    }
+
+    private List<Order> createOrdersList() {
+        Iterable<Order> orders = orderDao.findAll();
+        List<Order> ordersList = new ArrayList<>();
+        orders.forEach(ordersList::add);
+        return ordersList;
+    }
+
     @Autowired
-    public void setOrderDao(OrderDaoData orderDao) {
+    public void setOrderDao(OrderDao orderDao) {
         this.orderDao = orderDao;
     }
 
     @Autowired
-    public void setRoomDao(RoomDaoData roomDao) {
+    public void setRoomDao(RoomDao roomDao) {
         this.roomDao = roomDao;
     }
 }

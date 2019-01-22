@@ -53,7 +53,7 @@ public class UserRegistrationLoginController {
                                                @ModelAttribute PasswordValidation passwordValidation) {
         ModelAndView modelAndView = new ModelAndView();
         if (user.getPassword().equals(passwordValidation.getPasswordValidation())
-                && userService.isEmailFree(user.getEmail())) {
+                && !userService.isEmailExists(user.getEmail())) {
             user.setUserType(UserType.USER);
             userService.save(user);
             modelAndView.setViewName("redirect:/login");

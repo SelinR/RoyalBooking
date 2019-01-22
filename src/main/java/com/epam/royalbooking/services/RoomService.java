@@ -1,19 +1,21 @@
 package com.epam.royalbooking.services;
 
-import com.epam.royalbooking.dao.springData.RoomDaoData;
+import com.epam.royalbooking.dao.RoomDao;
 import com.epam.royalbooking.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RoomService {
-    private RoomDaoData dao;
+    private RoomDao dao;
 
-    public Iterable<Room> getAll() {
-        return dao.findAll();
+    public List<Room> getAll() {
+        return createRoomsList();
     }
 
     @Transactional
@@ -27,20 +29,16 @@ public class RoomService {
     }
 
     @Transactional
-    public void delete(Room room) {
-        dao.delete(room);
-    }
-
-    @Transactional
     public void delete(int id) {
         dao.deleteById(id);
     }
 
     public Room getById(int id) {
-        return getRoom(dao.findById(id));
+        return createRoom(id);
     }
 
-    private Room getRoom(Optional<Room> room) {
+    private Room createRoom(int id) {
+        Optional<Room> room = dao.findById(id);
         if (room.isPresent()) {
             return room.get();
         } else {
@@ -48,8 +46,15 @@ public class RoomService {
         }
     }
 
+    private List<Room> createRoomsList() {
+        Iterable<Room> roomIterable = dao.findAll();
+        List<Room> rooms = new ArrayList<>();
+        roomIterable.forEach(rooms::add);
+        return rooms;
+    }
+
     @Autowired
-    public void setDaoData(RoomDaoData dao) {
+    public void setDaoData(RoomDao dao) {
         this.dao = dao;
     }
 }
