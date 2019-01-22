@@ -25,17 +25,6 @@ public class OrderController {
     private RoomService roomService;
     private UserService userService;
 
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public String getAll(Model model) {
-        List<Order> orders = orderService.getAll();
-        List<Room> rooms = roomService.getAll();
-        model.addAttribute("rooms", rooms);
-        model.addAttribute("orders", orders);
-        model.addAttribute("minDate", LocalDate.now());
-        model.addAttribute("maxDate", LocalDate.now().plusYears(2));
-        return "/orders";
-    }
-
     @RequestMapping(value = "/order/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("order", orderService.getById(id));
@@ -72,7 +61,7 @@ public class OrderController {
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderService.getById(id));
         model.addAttribute("orders", orderService.getAll());
-        return "/orders";
+        return "admin/orders/list";
     }
 
     @RequestMapping(value = "/order_creation")
