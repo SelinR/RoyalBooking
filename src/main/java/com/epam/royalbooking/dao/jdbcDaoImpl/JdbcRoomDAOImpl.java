@@ -19,7 +19,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
     private static final String SQL_GET_ALL_ROOMS = "SELECT id, room_type, beds_amount, area, daily_cost, additional_info FROM rooms;";
     private static final String SQL_GET_ROOM_BY_ID = "SELECT id, room_type, beds_amount, area, daily_cost, additional_info FROM rooms WHERE ID = ?;";
     private static final String SQL_SAVE_ROOM = "INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES (?, ?, ?, ?, ?);";
-    private static final String SQL_UPDATE_ROOM = "UPDATE rooms SET roomtype = ?, bedsamount = ?, area = ?, dailycost = ? WHERE id = ?;";
+    private static final String SQL_UPDATE_ROOM = "UPDATE rooms SET room_type = ?, beds_amount = ?, area = ?, daily_cost = ?, additional_info = ? WHERE id = ?;";
     private static final String SQL_DELETE_ROOM = "DELETE FROM rooms WHERE id = ?;";
 
     @Override
@@ -69,6 +69,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
         try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_ROOM)) {
             configurePreparedStatement(preparedStatement, room);
+            preparedStatement.setInt(6, room.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,6 +82,7 @@ public class JdbcRoomDAOImpl implements RoomDAO {
         try (Connection connection = DBConnection.openConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_ROOM)) {
             preparedStatement.setInt(1, id);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Sorry, could not delete room: " + e);

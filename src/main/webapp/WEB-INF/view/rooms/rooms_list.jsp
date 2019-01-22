@@ -8,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Royal Booking</title>
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
@@ -225,8 +224,9 @@
 <body>
 
 <div class="loginContainer">
-    <%--buttons--%>
+
     <sec:authorize access="isAnonymous()">
+        <%--2 buttons--%>
         <div style="display: flex">
             <a href="<c:url value="/registration"/>">
                 <div class="greenButton" align="right">Register</div>
@@ -253,7 +253,7 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Rooms list</span>
+                <span class="table-title">Rooms list </span>
                 <div class="actions">
                     <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i
                             class="material-icons">person_add</i></a>
@@ -271,6 +271,7 @@
                     <th>Daily cost</th>
                     <th>Info</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -285,8 +286,13 @@
                         <td><c:out value="${room.additionalInfo}"/>
                         </td>
                         <td>
-                            <form method="GET" action="<c:url value="/room/${room.id}"/>">
-                                <button type="submit" value="book">View room</button>
+                            <form method="GET" action="<c:url value="/admin/room_edit/${room.id}"/>">
+                                <button type="submit" value="book">Edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="GET" action="<c:url value="/admin/rooms/delete/${room.id}"/>">
+                                <button type="submit" value="book">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -297,6 +303,12 @@
             </table>
         </div>
     </div>
+</div>
+
+<div align="center">
+    <form method="get" action="<c:url value="/admin/room_creation"/>">
+        <button><h4>Create room</h4></button>
+    </form>
 </div>
 
 </body>
