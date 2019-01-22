@@ -2,16 +2,23 @@ package com.epam.royalbooking.entities;
 
 import com.epam.royalbooking.enums.RoomType;
 
-/**
- * Room class.
- * {@code area} - room area in square meters.
- */
+import javax.persistence.*;
+
+@Entity
+@Table(name = "rooms")
 public class Room {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "room_type")
+    @Enumerated(value = EnumType.STRING)
     private RoomType roomType;
+    @Column(name = "beds_amount")
     private int bedsAmount;
     private double area;
+    @Column(name = "daily_cost")
     private double dailyCost;
+    @Column(name = "additional_info")
     private String additionalInfo;
 
     public Room() {
