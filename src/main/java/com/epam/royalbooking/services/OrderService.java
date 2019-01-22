@@ -38,6 +38,9 @@ public class OrderService {
         orderDao.deleteById(id);
     }
 
+    public List<Order> getOrdersByUserId(int userId) {
+        return orderDao.findOrdersByUserID();
+    }
     /**
      * @return true if @param order is valid
      */

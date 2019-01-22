@@ -8,4 +8,6 @@ import java.util.List;
 public interface OrderDao extends CrudRepository<Order, Integer> {
     @Override
     List<Order> findAll();
+
+    List<Order> findOrdersByUserID();
 }
