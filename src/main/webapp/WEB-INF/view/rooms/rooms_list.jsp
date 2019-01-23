@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -225,15 +226,17 @@
 
 <div class="loginContainer">
 
+    <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
+
     <sec:authorize access="isAnonymous()">
         <%--2 buttons--%>
         <div style="display: flex">
             <a href="<c:url value="/registration"/>">
-                <div class="greenButton" align="right">Register</div>
+                <div class="greenButton" align="right"><spring:message code="label.registration"/></div>
             </a>
             <pre>   </pre>
             <a href="<c:url value="/login"/>">
-                <div class="blueButton" align="right">Login</div>
+                <div class="blueButton" align="right"><spring:message code="label.login"/></div>
             </a>
         </div>
     </sec:authorize>
@@ -242,7 +245,7 @@
     <sec:authorize access="isAuthenticated()">
         <div style="display: flex">
             <a href="<c:url value="/logout"/>">
-                <div class="redButton" align="right">Logout</div>
+                <div class="redButton" align="right"><spring:message code="label.logout"/></div>
             </a>
         </div>
     </sec:authorize>
@@ -253,7 +256,7 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Rooms list </span>
+                <span class="table-title"><spring:message code="label.room_list"/> </span>
                 <div class="actions">
                     <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i
                             class="material-icons">person_add</i></a>
@@ -264,12 +267,12 @@
             <table id="datatable">
                 <thead>
                 <tr>
-                    <th width="50">id</th>
-                    <th>Room type</th>
-                    <th>Beds</th>
-                    <th>Area</th>
-                    <th>Daily cost</th>
-                    <th>Info</th>
+                    <th width="50"><spring:message code="label.id"/></th>
+                    <th><spring:message code="label.room_type"/></th>
+                    <th><spring:message code="label.room_beds_amount"/></th>
+                    <th><spring:message code="label.room_area"/></th>
+                    <th><spring:message code="label.room_daily_cost"/></th>
+                    <th><spring:message code="label.room_info"/></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -287,12 +290,12 @@
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/admin/room_edit/${room.id}"/>">
-                                <button type="submit" value="book">Edit</button>
+                                <button type="submit" value="book"><spring:message code="label.edit"/></button>
                             </form>
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/admin/rooms/delete/${room.id}"/>">
-                                <button type="submit" value="book">Delete</button>
+                                <button type="submit" value="book"><spring:message code="label.delete"/></button>
                             </form>
                         </td>
                     </tr>
@@ -307,7 +310,7 @@
 
 <div align="center">
     <form method="get" action="<c:url value="/admin/room_creation"/>">
-        <button><h4>Create room</h4></button>
+        <button><spring:message code="label.room_create"/></button>
     </form>
 </div>
 

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -6,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" content="text/html">
     <title>Royal Booking</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
@@ -24,7 +25,7 @@
                 "use strict";
 
                 $('.search-toggle').click(function () {
-                    if ($('.hiddensearch').css('display') == 'none')
+                    if ($('.hiddensearch').css('display') === 'none')
                         $('.hiddensearch').slideDown();
                     else
                         $('.hiddensearch').slideUp();
@@ -225,15 +226,23 @@
 <body>
 
 <div class="loginContainer">
+    <span style="float: right">
+        <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
+    </span>
+
     <%--buttons--%>
     <sec:authorize access="isAnonymous()">
         <div style="display: flex">
             <a href="<c:url value="/registration"/>">
-                <div class="greenButton" align="right">Register</div>
+                <div class="greenButton" align="right">
+                    <p><spring:message code="label.registration"/></p>
+                </div>
             </a>
             <pre>   </pre>
             <a href="<c:url value="/login"/>">
-                <div class="blueButton" align="right">Login</div>
+                <div class="blueButton" align="right">
+                    <p><spring:message code="label.login"/></p>
+                </div>
             </a>
         </div>
     </sec:authorize>
@@ -242,14 +251,18 @@
     <sec:authorize access="isAuthenticated()">
         <div style="display: flex">
             <a href="<c:url value="/logout"/>">
-                <div class="redButton" align="right">Logout</div>
+                <div class="redButton" align="right">
+                    <p><spring:message code="label.logout"/></p>
+                </div>
             </a>
         </div>
 
         <sec:authorize access="hasAuthority('ADMIN')" >
             <div style="display: flex">
                 <a href="<c:url value="/adminpage"/>">
-                    <div class="purpleButton" align="left">Admin</div>
+                    <div class="purpleButton" align="left">
+                        <p><spring:message code="label.admin"/></p>
+                    </div>
                 </a>
             </div>
         </sec:authorize>
@@ -257,7 +270,9 @@
         <sec:authorize access="hasAuthority('USER')">
             <div style="display: flex">
                 <a href="<c:url value="/profile"/>">
-                    <div class="purpleButton" align="left">Profile</div>
+                    <div class="purpleButton" align="left">
+                        <p><spring:message code="label.profile"/></p>
+                    </div>
                 </a>
             </div>
         </sec:authorize>
@@ -269,7 +284,9 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Rooms list</span>
+                <span class="table-title">
+                    <spring:message code="label.room_list"/>
+                </span>
                 <div class="actions">
                     <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i
                             class="material-icons">person_add</i></a>
@@ -280,12 +297,12 @@
             <table id="datatable">
                 <thead>
                 <tr>
-                    <th width="50">id</th>
-                    <th>Room type</th>
-                    <th>Beds</th>
-                    <th>Area</th>
-                    <th>Daily cost</th>
-                    <th>Info</th>
+                    <th width="50"><spring:message code="label.id"/></th>
+                    <th><spring:message code="label.room_type"/></th>
+                    <th><spring:message code="label.room_beds_amount"/></th>
+                    <th><spring:message code="label.room_area"/></th>
+                    <th><spring:message code="label.room_daily_cost"/></th>
+                    <th><spring:message code="label.room_info"/></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -302,7 +319,7 @@
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/room/${room.id}"/>">
-                                <button type="submit" value="book">View room</button>
+                                <button type="submit" value="book"><spring:message code="label.room_details"/></button>
                             </form>
                         </td>
                     </tr>
