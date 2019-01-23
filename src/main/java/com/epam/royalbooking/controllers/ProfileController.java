@@ -52,7 +52,7 @@ public class ProfileController {
         User user = getCurrentUser(principal);
         Order order = orderService.getById(id);
         if (order == null) {
-            return "redicrect:/profile";
+            return "redirect:/profile";
         } else {
             if (order.getUserID() == user.getId()) {
                 orderService.delete(id);
