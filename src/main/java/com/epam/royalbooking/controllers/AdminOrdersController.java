@@ -55,7 +55,7 @@ public class AdminOrdersController {
         if (orderService.isOrderValid(order, order.getBookedRoomID())) {
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),
                     order.getEntryDate(), order.getLeaveDate()));
-            orderService.save(order);
+            orderService.save(order, true);
             return "redirect:/admin/orders";
         } else {
             return "ErrorPage";

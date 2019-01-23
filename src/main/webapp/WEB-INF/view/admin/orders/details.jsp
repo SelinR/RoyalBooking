@@ -73,7 +73,7 @@
 <c:url var="editAction" value="/admin/orders/edit"/>
 
 
-<form:form method="post" action="${addAction}" modelAttribute="order">
+<form:form method="post" action="${editAction}" modelAttribute="order">
     <table class="tg">
         <tr>
             <td>Room ID</td>
@@ -92,7 +92,7 @@
             <td>
                 <label>
                     <input type="date" id="entryDate" name="entryDate"
-                           value="<c:out value="${requestScope.minDate}"/>"
+                           value="<c:out value="${order.entryDate}"/>"
                            min="<c:out value="${requestScope.minDate}"/>"
                            max="<c:out value="${requestScope.maxDate}"/>">
                 </label>
@@ -103,7 +103,7 @@
             <td>
                 <label>
                     <input type="date" name="leaveDate"
-                           value="<c:out value="${requestScope.minDate}"/>"
+                           value="<c:out value="${order.leaveDate}"/>"
                            min="<c:out value="${requestScope.minDate}"/>"
                            max="<c:out value="${requestScope.maxDate}"/>">
                 </label>
@@ -113,11 +113,11 @@
             <td>User ID</td>
             <td>
                 <label>
-                    <select size=1 name="UserID">
+                    <form:select path="userID">
                         <c:forEach var="user" items="${requestScope.users}">
                             <option><c:out value="${user.id}"/></option>
                         </c:forEach>
-                    </select>
+                    </form:select>
                 </label>
             </td>
         </tr>
