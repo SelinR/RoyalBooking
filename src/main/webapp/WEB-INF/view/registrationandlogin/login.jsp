@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <div class="login">
     <c:if test="${param.error != null}">

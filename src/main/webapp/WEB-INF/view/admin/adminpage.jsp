@@ -3,10 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Title page</title>
+    <title><spring:message code="label.admin"/></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
   </head>
 
   <body bgcolor="#fff8dc">
+  <c:import url="/WEB-INF/view/header/header.jsp"/>
+
     <a href="<c:url value="/admin/rooms_list"/>" target="_blank">
       <p><spring:message code="label.all_rooms"/></p>
     </a>

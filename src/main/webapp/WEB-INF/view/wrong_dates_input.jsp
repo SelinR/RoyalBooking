@@ -7,11 +7,7 @@
     <title><spring:message code="label.wrong_dates_input"/></title>
 </head>
 <body>
-<div class="loginContainer">
-    <span style="float: right">
-        <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
-    </span>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 <h3><spring:message code="label.wrong_dates_input"/></h3>
 <form method="get" action="<c:url value="/order_creation"/>">
     <input type="hidden" name="roomToBookId" value="${order.bookedRoomID}">

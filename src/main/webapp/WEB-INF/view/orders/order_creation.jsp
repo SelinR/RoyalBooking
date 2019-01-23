@@ -20,18 +20,7 @@
 
 </head>
 <body>
-<div class="loginContainer" align="left">
-
-    <div style="display: flex">
-        <a href="<c:url value="/registration"/>">
-            <div class="greenButton"><spring:message code="label.registration"/></div>
-        </a>
-        <pre>   </pre>
-        <a href="<c:url value="/login"/>">
-            <div class="blueButton"><spring:message code="label.login"/></div>
-        </a>
-    </div>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 
 <div>

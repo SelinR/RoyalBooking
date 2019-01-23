@@ -11,18 +11,7 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'/>
 </head>
 <body>
-<div class="loginContainer" align="left">
-
-    <div style="display: flex">
-        <a href="<c:url value="/registration"/>">
-            <div class="greenButton"><spring:message code="label.registration"/></div>
-        </a>
-        <pre>   </pre>
-        <a href="<c:url value="/login"/>">
-            <div class="blueButton"><spring:message code="label.login"/></div>
-        </a>
-    </div>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <table>
     <tr>
@@ -114,7 +103,7 @@
                         <td><form:hidden path="userType"/></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Submit"/></td>
+                        <td><input type="submit" value="<spring:message code="label.submit"/>"/></td>
                     </tr>
                 </table>
             </form:form>

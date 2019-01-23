@@ -15,32 +15,7 @@
 </head>
 
 <body>
-<div class="loginContainer">
-
-    <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
-
-    <sec:authorize access="isAnonymous()">
-        <%--2 buttons--%>
-        <div style="display: flex">
-            <a href="<c:url value="/registration"/>">
-                <div class="greenButton" align="right"><spring:message code="label.registration"/></div>
-            </a>
-            <pre>   </pre>
-            <a href="<c:url value="/login"/>">
-                <div class="blueButton" align="right"><spring:message code="label.login"/></div>
-            </a>
-        </div>
-    </sec:authorize>
-
-    <%-- And logout for authenticated users --%>
-    <sec:authorize access="isAuthenticated()">
-        <div style="display: flex">
-            <a href="<c:url value="/logout"/>">
-                <div class="redButton" align="right"><spring:message code="label.logout"/></div>
-            </a>
-        </div>
-    </sec:authorize>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 
 <h2><spring:message code="label.room_info"/></h2>

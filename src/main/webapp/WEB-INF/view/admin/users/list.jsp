@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
 </head>
 <body>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <h2>
     <spring-tag:message code="label.all_users"/>

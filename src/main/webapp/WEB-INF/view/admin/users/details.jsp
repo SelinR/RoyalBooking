@@ -10,14 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
 </head>
 <body>
-<div class="loginContainer">
-    <span style="float: right">
-        <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
-    </span>
-</div>
-
-
-
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 <a href="<c:url value='../..'/>">
     <spring:message code="label.back_to_previous_page"/>
 </a>

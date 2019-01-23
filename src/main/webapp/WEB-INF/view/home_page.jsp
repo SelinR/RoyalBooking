@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
@@ -225,59 +226,7 @@
 </head>
 <body>
 
-<div class="loginContainer">
-    <span style="float: right">
-        <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
-    </span>
-
-    <%--buttons--%>
-    <sec:authorize access="isAnonymous()">
-        <div style="display: flex">
-            <a href="<c:url value="/registration"/>">
-                <div class="greenButton" align="right">
-                    <p><spring:message code="label.registration"/></p>
-                </div>
-            </a>
-            <pre>   </pre>
-            <a href="<c:url value="/login"/>">
-                <div class="blueButton" align="right">
-                    <p><spring:message code="label.login"/></p>
-                </div>
-            </a>
-        </div>
-    </sec:authorize>
-
-    <%-- And logout for authenticated users --%>
-    <sec:authorize access="isAuthenticated()">
-        <div style="display: flex">
-            <a href="<c:url value="/logout"/>">
-                <div class="redButton" align="right">
-                    <p><spring:message code="label.logout"/></p>
-                </div>
-            </a>
-        </div>
-
-        <sec:authorize access="hasAuthority('ADMIN')" >
-            <div style="display: flex">
-                <a href="<c:url value="/admin"/>">
-                    <div class="purpleButton" align="left">
-                        <p><spring:message code="label.admin"/></p>
-                    </div>
-                </a>
-            </div>
-        </sec:authorize>
-
-        <sec:authorize access="hasAuthority('USER')">
-            <div style="display: flex">
-                <a href="<c:url value="/profile"/>">
-                    <div class="purpleButton" align="left">
-                        <p><spring:message code="label.profile"/></p>
-                    </div>
-                </a>
-            </div>
-        </sec:authorize>
-    </sec:authorize>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <%--table with rooms --%>
 <div class="row">

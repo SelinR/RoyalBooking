@@ -11,6 +11,7 @@
 
 </head>
 <body>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <div>
     <h2 align="center"><spring:message code="label.order_details"/></h2>

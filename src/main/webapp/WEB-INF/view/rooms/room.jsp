@@ -15,9 +15,7 @@
 
 </head>
 <body>
-<div class="loginContainer" align="left">
-    <a href="?lang=en">en</a>    |    <a href="?lang=ru">ru</a>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <div>
     <div align="left">

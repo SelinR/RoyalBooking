@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login-form.css"/>
 </head>
 <body>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
+
     <div class="login">
         <c:if test="${param.error != null}">
             <p style='color:red'>
