@@ -56,10 +56,8 @@ public class ProfileController {
         } else {
             if (order.getUserID() == user.getId()) {
                 orderService.delete(id);
-                return "redirect:/profile";
-            } else {
-                return "redirect:/profile";
             }
+            return "redirect:/profile";
         }
     }
 
