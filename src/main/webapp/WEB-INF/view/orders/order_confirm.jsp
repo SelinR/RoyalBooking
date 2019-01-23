@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<c:import url="/WEB-INF/view/header/header.jsp"/>
+<c:import url="/WEB-INF/view/header/header_without_i18n.jsp"/>
 
 <div>
     <h2 align="center"><spring:message code="label.order_details"/></h2>
@@ -57,7 +57,7 @@
     <input type="hidden" name="entryDate" value="${order.entryDate}">
     <input type="hidden" name="leaveDate" value="${order.leaveDate}">
     <input type="hidden" name="userID" value="${order.userID}">
-    <input type="submit" value="Confirm order">
+    <input type="submit" value="<spring:message code="label.order_confirm"/>">
 </form>
 
 </body>

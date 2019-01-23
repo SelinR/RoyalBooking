@@ -62,9 +62,9 @@
 
 
 <div align="center">
-    <form method="GET" action="<c:url value="/order_creation"/>">
-        <input type="hidden" name="roomToBookId" value="${room.id}">
-        <button type="submit" value="book"><spring:message code="label.book_room"/></button>
+    <form method="GET" action="<c:url value="/order_creation/${room.id}"/>">
+        <input type="hidden" name="roomId" value="${room.id}">
+        <button type="submit" value="<spring:message code="label.book_room"/>"><spring:message code="label.book_room"/></button>
     </form>
 </div>
 

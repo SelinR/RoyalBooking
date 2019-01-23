@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<c:import url="/WEB-INF/view/header/header.jsp"/>
+<c:import url="/WEB-INF/view/header/header_without_i18n.jsp"/>
 
 
 <div>
@@ -38,28 +38,28 @@
             <tbody>
             <tr>
                 <td><spring:message code="label.id"/></td>
-                <td><c:out value="${roomToBook.id}"/></td>
+                <td><c:out value="${room.id}"/></td>
             </tr>
             <tr>
                 <td><spring:message code="label.room_type"/></td>
-                <td><c:out value="${roomToBook.roomType}"/></td>
+                <td><c:out value="${room.roomType}"/></td>
 
             </tr>
             <tr>
                 <td><spring:message code="label.room_beds_amount"/></td>
-                <td><c:out value="${roomToBook.bedsAmount}"/></td>
+                <td><c:out value="${room.bedsAmount}"/></td>
             </tr>
             <tr>
                 <td><spring:message code="label.room_area"/></td>
-                <td><c:out value="${roomToBook.area}"/></td>
+                <td><c:out value="${room.area}"/></td>
             </tr>
             <tr>
                 <td><spring:message code="label.room_daily_cost"/></td>
-                <td><c:out value="${roomToBook.dailyCost}"/></td>
+                <td><c:out value="${room.dailyCost}"/></td>
             </tr>
             <tr>
                 <td><spring:message code="label.info"/></td>
-                <td><c:out value="${roomToBook.additionalInfo}"/></td>
+                <td><c:out value="${room.additionalInfo}"/></td>
             </tr>
 
             </tbody>
@@ -97,7 +97,7 @@
     <h3><spring:message code="label.choose_dates"/></h3>
 </div>
 
-<form method="post" action="<c:url value="/order_confirm"/>">
+<form method="post" action="<c:url value="/order_confirm/${room.id}"/>">
 
     <label>
         <spring:message code="label.order_entry_date"/> <br>
@@ -116,11 +116,11 @@
     </label><br>
 
     <p><label>
-        <input type="hidden"  name="bookedRoomID" value="${roomToBook.id}">
+        <input type="hidden"  name="roomId" value="${room.id}">
         <input type="hidden"  name="totalPrice" value="50">
     </label></p>
 
-    <p><input type="submit" value="Create"></p>
+    <p><input type="submit" value="<spring:message code="label.create"/>"></p>
 
 </form>
 </div>

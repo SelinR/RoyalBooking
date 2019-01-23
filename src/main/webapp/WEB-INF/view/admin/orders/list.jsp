@@ -9,7 +9,7 @@
 <head>
     <meta content="text/html" charset="UTF-8"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
-    <title>Orders</title>
+    <title><spring-tags:message code="label.orders"/></title>
 </head>
 
 <body>
@@ -111,7 +111,7 @@
         </tr>
     </table>
     <br>
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="<spring-tags:message code="label.submit"/>"/>
 </form:form>
 </body>
 </html>

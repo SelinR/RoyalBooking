@@ -63,10 +63,14 @@ public class OrderService {
      * @return true if @param order is valid
      */
     public boolean isOrderValid(Order order, int bookingRoomId) {
-        LocalDate entryDate = order.getEntryDate();
-        LocalDate leaveDate = order.getLeaveDate();
-        boolean simpleValid = leaveDate.isAfter(entryDate);
-        return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
+        if (order == null || order.getEntryDate() == null || order.getLeaveDate() == null) {
+            return false;
+        } else {
+            LocalDate entryDate = order.getEntryDate();
+            LocalDate leaveDate = order.getLeaveDate();
+            boolean simpleValid = leaveDate.isAfter(entryDate);
+            return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
+        }
     }
 
     public boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {

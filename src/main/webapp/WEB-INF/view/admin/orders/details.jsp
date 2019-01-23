@@ -2,6 +2,7 @@
 <%@page import="com.epam.royalbooking.enums.OrderStatus" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring-tags" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -100,7 +101,7 @@
         </tr>
     </table>
     <br>
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="<spring-tags:message code="label.submit"/>"/>
 </form:form>
 </body>
 </html>
