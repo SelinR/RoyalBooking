@@ -248,7 +248,7 @@
 
         <sec:authorize access="hasAuthority('ADMIN')" >
             <div style="display: flex">
-                <a href="<c:url value="/adminpage"/>">
+                <a href="<c:url value="/admin"/>">
                     <div class="purpleButton" align="left">Admin</div>
                 </a>
             </div>

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminStartPageController {
 
-    @RequestMapping(value = "/adminpage")
+    @RequestMapping(value = "admin")
     public String goAdmin() {
-        return "adminpage";
+        return "admin/adminpage";
     }
 }

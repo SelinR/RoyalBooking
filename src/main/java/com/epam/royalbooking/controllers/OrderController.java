@@ -66,7 +66,7 @@ public class OrderController {
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderService.getById(id));
         model.addAttribute("orders", orderService.getAll());
-        return "orders/orders";
+        return "/orders";
     }
 
     @RequestMapping(value = "/order_creation")

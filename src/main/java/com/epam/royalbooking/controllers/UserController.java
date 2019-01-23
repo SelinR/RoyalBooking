@@ -14,35 +14,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
     private UserService userService;
 
-    @RequestMapping(value = "users", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/users", method = RequestMethod.GET)
     public String getAll(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", userService.getAll());
-        return "users/list";
+        return "admin/users/list";
     }
 
-    @RequestMapping("user/{id}")
+    @RequestMapping("admin/user/{id}")
     public String getById(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.getById(id));
-        return "users/one";
+        return "admin/users/details";
     }
 
-    @RequestMapping(value = "users/add", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/users/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
-    @RequestMapping(value = "users/delete/{id}")
+    @RequestMapping(value = "admin/users/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
-    @RequestMapping(value = "user/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/user/edit", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "users/one";
+        return "admin/users/details";
     }
 
     @Autowired
