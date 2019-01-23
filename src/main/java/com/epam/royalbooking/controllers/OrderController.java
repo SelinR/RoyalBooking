@@ -56,7 +56,7 @@ public class OrderController {
             User currentUser = userService.getByEmail(email);
             order.setUserID(currentUser.getId());
             orderService.save(order);
-            return "redirect:/orders";
+            return "redirect:/profile";
         } else {
             return "/ErrorPage";
         }

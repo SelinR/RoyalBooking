@@ -53,7 +53,7 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByUserId(int userId) {
-        return orderDao.findOrdersByUserID();
+        return orderDao.findByUserID(userId);
     }
     /**
      * @return true if @param order is valid
@@ -99,11 +99,7 @@ public class OrderService {
 
     private Order createOrder(int id) {
         Optional<Order> optionalOrder = orderDao.findById(id);
-        if (optionalOrder.isPresent()) {
-            return optionalOrder.get();
-        } else {
-            throw new RuntimeException("Could not create order with id: " + id);
-        }
+        return optionalOrder.orElse(null);
     }
 
     @Autowired
