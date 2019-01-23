@@ -99,11 +99,7 @@ public class OrderService {
 
     private Order createOrder(int id) {
         Optional<Order> optionalOrder = orderDao.findById(id);
-        if (optionalOrder.isPresent()) {
-            return optionalOrder.get();
-        } else {
-            throw new RuntimeException("Could not create order with id: " + id);
-        }
+        return optionalOrder.orElse(null);
     }
 
     @Autowired
