@@ -34,19 +34,19 @@ public class OrderController {
     /**
      * Method defines userID from Spring Context using @param principal,
      * and saves order in DataBase
+     * if user fill wrong input dates , then returns wrong_dates_input.jsp page
      * @param order to save in DataBase
      * @param principal need to get user email and id
      */
     @RequestMapping(value = "order_save", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order, Principal principal) {
-        if (orderService.isOrderValid(order)){
+        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
             String email = (principal.getName());
             User currentUser = userService.getByEmail(email);
             order.setUserID(currentUser.getId());
             orderService.save(order);
-            return "redirect:/orders";
-        }
-        else {
+            return "redirect:/profile";
+        } else {
             return "/ErrorPage";
         }
     }
@@ -58,8 +58,9 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/order_creation")
-    public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId){
-        model.addAttribute("roomToBook",roomService.getById(roomToBookId));
+    public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId) {
+        model.addAttribute("list", orderService.getAllBookedDatesByBookedRoomId(roomToBookId));
+        model.addAttribute("roomToBook", roomService.getById(roomToBookId));
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("maxDate", LocalDate.now().plusYears(2));
         return "/order_creation";
@@ -68,16 +69,18 @@ public class OrderController {
     /**
      * Method calculates orders total price, based on dates and daily cost.
      * Refers to page with  order details and order confirmation.
+     * if user fills wrong input dates , then returns wrong_dates_input.jsp page
      * @param order doesn't save in DataBase on this stage, haven't userID
      * @return ModelAndView with refer to order_confirm.jsp, and entity Order with calculated total price
      */
     @RequestMapping(value = "/order_confirm", method = RequestMethod.POST)
     public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order) {
-        if (orderService.isOrderValid(order)){
-            order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),order.getEntryDate(),order.getLeaveDate()));
+        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+            order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
             return new ModelAndView("/order_confirm", "order", order);
-        }
-        else {
+        } else if (!orderService.isOrderValid(order, order.getBookedRoomID())) {
+            return new ModelAndView("/wrong_dates_input", "order", order);
+        } else {
             return new ModelAndView("/ErrorPage");
         }
     }

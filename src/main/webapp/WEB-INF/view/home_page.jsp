@@ -245,6 +245,22 @@
                 <div class="redButton" align="right">Logout</div>
             </a>
         </div>
+
+        <sec:authorize access="hasAuthority('ADMIN')" >
+            <div style="display: flex">
+                <a href="<c:url value="/admin"/>">
+                    <div class="purpleButton" align="left">Admin</div>
+                </a>
+            </div>
+        </sec:authorize>
+
+        <sec:authorize access="hasAuthority('USER')">
+            <div style="display: flex">
+                <a href="<c:url value="/profile"/>">
+                    <div class="purpleButton" align="left">Profile</div>
+                </a>
+            </div>
+        </sec:authorize>
     </sec:authorize>
 </div>
 

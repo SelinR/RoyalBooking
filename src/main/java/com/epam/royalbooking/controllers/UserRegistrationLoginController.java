@@ -2,7 +2,6 @@ package com.epam.royalbooking.controllers;
 
 import com.epam.royalbooking.dto.PasswordValidation;
 import com.epam.royalbooking.entities.User;
-import com.epam.royalbooking.enums.UserType;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
@@ -53,8 +52,7 @@ public class UserRegistrationLoginController {
                                                @ModelAttribute PasswordValidation passwordValidation) {
         ModelAndView modelAndView = new ModelAndView();
         if (user.getPassword().equals(passwordValidation.getPasswordValidation())
-                && userService.isEmailFree(user.getEmail())) {
-            user.setUserType(UserType.USER);
+                && !userService.isEmailExists(user.getEmail())) {
             userService.save(user);
             modelAndView.setViewName("redirect:/login");
         } else {

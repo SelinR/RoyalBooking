@@ -40,13 +40,19 @@ public class AdminOrdersController {
 
     @RequestMapping("admin/order/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
+        List<Room> rooms = roomService.getAll();
+        List<User> users = userService.getAll();
         model.addAttribute("order", orderService.getById(id));
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("users", users);
+        model.addAttribute("minDate", LocalDate.now());
+        model.addAttribute("maxDate", LocalDate.now().plusYears(2));
         return "admin/orders/details";
     }
 
     @RequestMapping(value = "admin/orders/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order) {
-        if (orderService.isOrderValid(order)) {
+        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),
                     order.getEntryDate(), order.getLeaveDate()));
             orderService.save(order);

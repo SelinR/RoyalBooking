@@ -10,11 +10,11 @@
   </body>
   <br>
   <body>
-    <a href="<c:url value="/users"/>" target="_blank">All users</a>
+    <a href="<c:url value="/admin/users"/>" target="_blank">All users</a>
 
   </body>
   <br>
   <body>
-  <a href="<c:url value="/orders"/>" target="_blank">All orders</a>
+  <a href="<c:url value="/admin/orders"/>" target="_blank">All orders</a>
   </body>
 </html>

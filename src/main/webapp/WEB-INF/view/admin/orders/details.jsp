@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.epam.royalbooking.enums.OrderStatus" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -117,6 +118,18 @@
                             <option><c:out value="${user.id}"/></option>
                         </c:forEach>
                     </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Order Status</td>
+            <td>
+                <label>
+                    <form:select path="status" id="status">
+                        <c:forEach var="statusValue" items="${OrderStatus.values()}">
+                            <form:option value="${statusValue}">${statusValue}</form:option>
+                        </c:forEach>
+                    </form:select>
                 </label>
             </td>
         </tr>

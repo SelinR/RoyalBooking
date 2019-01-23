@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+\<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="com.epam.royalbooking.enums.OrderStatus"%>
 <html>
 <head>
     <meta content="text/html" charset="UTF-8"/>
@@ -126,10 +127,11 @@
             <td>Order Status</td>
             <td>
                 <label>
-                    <%--For now isn't working--%>
-                    <select size=1 name="OrderStatus">
-                            <option><c:out value="${order.status}"/></option>
-                    </select>
+                    <form:select path="status" id="status">
+                        <c:forEach var="statusValue" items="${OrderStatus.values()}">
+                            <form:option value="${statusValue}">${statusValue}</form:option>
+                        </c:forEach>
+                    </form:select>
                 </label>
             </td>
         </tr>

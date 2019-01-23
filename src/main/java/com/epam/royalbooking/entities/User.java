@@ -3,9 +3,14 @@ package com.epam.royalbooking.entities;
 import com.epam.royalbooking.enums.UserType;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String surname;
@@ -15,6 +20,8 @@ public class User {
     private String phone;
     private String email;
     private String password;
+    @Column(name = "user_type")
+    @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
     public User() {

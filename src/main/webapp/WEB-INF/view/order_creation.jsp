@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 
     <style type="text/css">
         .tg {
@@ -113,16 +118,35 @@
 </div>
 
 <div align="center">
+    <div>
+        <h4>
+            Calendar with free dates
+        </h4>
+    </div>
+
+    <div><input type="text" name="daterange" value="" />
+        <script>
+            $(function() {
+                $('input[name="daterange"]').daterangepicker({
+                    opens: 'left',
+                    isInvalidDate: function(date) {
+                        <c:forEach var="date" items="${list}">
+                        if (date.format('YYYY-MM-DD') == '${date}') {
+                            return true;
+                        }
+                        </c:forEach>
+                    }
+
+                });
+            });
+        </script>
+    </div>
+
 <div>
     <h3>Choose dates</h3>
 </div>
 
 <form method="post" action="<c:url value="/order_confirm"/>">
-
-    <p><label>
-        <input type="hidden"  name="bookedRoomID" value="${roomToBook.id}">
-        <input type="hidden"  name="totalPrice" value="50">
-    </label></p>
 
     <label>
         Entry Date <br>
@@ -140,10 +164,14 @@
                max="<c:out value="${requestScope.maxDate}"/>">
     </label><br>
 
+    <p><label>
+        <input type="hidden"  name="bookedRoomID" value="${roomToBook.id}">
+        <input type="hidden"  name="totalPrice" value="50">
+    </label></p>
+
     <p><input type="submit" value="Create"></p>
 
 </form>
 </div>
 </body>
-
 </html>
