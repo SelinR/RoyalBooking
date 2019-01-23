@@ -18,7 +18,7 @@
 
 
 
-<a href="<c:url value='..'/>">
+<a href="<c:url value='../..'/>">
     <spring:message code="label.back_to_previous_page"/>
 </a>
 <h1>
@@ -62,13 +62,13 @@
         <td><c:out value="${user.phone}"/></td>
         <td><c:out value="${user.email}"/></td>
         <td><c:out value="${user.userType}"/></td>
-        <td><a href="<c:url value='/users/delete/${user.id}'/>">Delete</a></td>
+        <td><a href="<c:url value='/admin/users/delete/${user.id}'/>">Delete</a></td>
     </tr>
 </table>
 
 <h2> <spring:message code="label.edit"/> </h2>
 
-<c:url var="editAction" value="/user/edit"/>
+<c:url var="editAction" value="/admin/user/edit"/>
 
 <form:form method="POST" action="${editAction}" modelAttribute="user">
     <table>

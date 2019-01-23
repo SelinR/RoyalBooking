@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" content="text/html">
+    <meta charset="UTF-8">
     <title>Royal Booking</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
@@ -25,7 +25,7 @@
                 "use strict";
 
                 $('.search-toggle').click(function () {
-                    if ($('.hiddensearch').css('display') === 'none')
+                    if ($('.hiddensearch').css('display') == 'none')
                         $('.hiddensearch').slideDown();
                     else
                         $('.hiddensearch').slideUp();
@@ -259,7 +259,7 @@
 
         <sec:authorize access="hasAuthority('ADMIN')" >
             <div style="display: flex">
-                <a href="<c:url value="/adminpage"/>">
+                <a href="<c:url value="/admin"/>">
                     <div class="purpleButton" align="left">
                         <p><spring:message code="label.admin"/></p>
                     </div>

@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
 </head>
 <body>
-<a href="<c:url value='..'/>">
-    <spring-tag:message code="label.back_to_previous_page"/>
-</a>
 
 <h2>
     <spring-tag:message code="label.all_users"/>
@@ -62,20 +59,21 @@
             <td><c:out value="${user.phone}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.userType}"/></td>
-            <td><a href="<c:url value='user/${user.id}'/>">
+            <td><a href="<c:url value='/admin/user/${user.id}'/>">
                 <spring-tag:message code="label.edit"/>
             </a></td>
-            <td><a href="<c:url value='users/delete/${user.id}'/>">
+            <td><a href="<c:url value='/admin/users/delete/${user.id}'/>">
                 <spring-tag:message code="label.delete"/>
             </a></td>
         </tr>
     </c:forEach>
 </table>
 
+<h2> Add new user</h2>
+<c:url var="addAction" value="/admin/users/add"/>
 <h2>
     <spring-tag:message code="label.add_new_user"/>
 </h2>
-<c:url var="addAction" value="users/add"/>
 
 <form:form method="POST" action="${addAction}" modelAttribute="user">
     <table>

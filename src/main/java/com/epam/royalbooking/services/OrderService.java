@@ -48,6 +48,10 @@ public class OrderService {
         return bookedDates;
     }
 
+    public void update(Order order) {
+        orderDao.save(order);
+    }
+
     public void delete(int id) {
         orderDao.deleteById(id);
     }
