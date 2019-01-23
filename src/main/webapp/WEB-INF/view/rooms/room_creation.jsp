@@ -72,6 +72,4 @@
     <button>Back to Room list</button>
 </form>
 </body>
-
-</body>
 </html>
