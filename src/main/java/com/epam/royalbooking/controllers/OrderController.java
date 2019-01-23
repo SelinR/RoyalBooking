@@ -33,13 +33,7 @@ public class OrderController {
         model.addAttribute("orders", orders);
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("maxDate", LocalDate.now().plusYears(2));
-        return "/orders";
-    }
-
-    @RequestMapping(value = "/order/{id}")
-    public String getById(@PathVariable("id") int id, Model model){
-        model.addAttribute("order", orderService.getById(id));
-        return "/order";
+        return "orders/orders";
     }
 
     /**
@@ -72,7 +66,7 @@ public class OrderController {
     public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("order", orderService.getById(id));
         model.addAttribute("orders", orderService.getAll());
-        return "/orders";
+        return "orders/orders";
     }
 
     @RequestMapping(value = "/order_creation")
@@ -81,7 +75,7 @@ public class OrderController {
         model.addAttribute("roomToBook", roomService.getById(roomToBookId));
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("maxDate", LocalDate.now().plusYears(2));
-        return "/order_creation";
+        return "orders/order_creation";
     }
 
     /**
@@ -95,7 +89,7 @@ public class OrderController {
     public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order) {
         if (orderService.isOrderValid(order, order.getBookedRoomID())) {
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
-            return new ModelAndView("/order_confirm", "order", order);
+            return new ModelAndView("orders/order_confirm", "order", order);
         } else if (!orderService.isOrderValid(order, order.getBookedRoomID())) {
             return new ModelAndView("/wrong_dates_input", "order", order);
         } else {
