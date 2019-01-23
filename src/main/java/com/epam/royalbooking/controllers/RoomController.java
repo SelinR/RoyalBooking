@@ -55,7 +55,7 @@ public class RoomController {
     @RequestMapping(value = "/room/{roomId}")
     public String getRoomPage(Model model, @PathVariable("roomId") int roomId) {
         model.addAttribute("room", roomService.getById(roomId));
-        return "/room";
+        return "rooms/room";
     }
 
     @Autowired

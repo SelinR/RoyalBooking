@@ -11,5 +11,5 @@ public interface OrderDao extends CrudRepository<Order, Integer> {
 
     List<Order> findAllByBookedRoomID(int id);
 
-    List<Order> findOrdersByUserID();
+    List<Order> findByUserID(int id);
 }

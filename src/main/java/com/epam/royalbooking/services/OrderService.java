@@ -53,7 +53,7 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByUserId(int userId) {
-        return orderDao.findOrdersByUserID();
+        return orderDao.findByUserID(userId);
     }
     /**
      * @return true if @param order is valid
