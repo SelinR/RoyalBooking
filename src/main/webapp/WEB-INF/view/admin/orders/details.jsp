@@ -126,9 +126,9 @@
             <td>
                 <label>
                     <form:select path="status" id="status">
-                        <c:forEach var="statusValue" items="${OrderStatus.values()}">
-                            <form:option value="${statusValue}">${statusValue}</form:option>
-                        </c:forEach>
+                        <form:option value="ACCEPTED">ACCEPTED</form:option>
+                        <form:option value="EXPIRED">EXPIRED</form:option>
+                        <form:option value="DECLINED">DECLINED</form:option>
                     </form:select>
                 </label>
             </td>

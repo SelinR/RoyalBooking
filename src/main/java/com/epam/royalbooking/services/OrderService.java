@@ -30,6 +30,12 @@ public class OrderService {
         orderDao.save(order);
     }
 
+    /*
+    @Transactional
+    public void save(Order order) {
+        orderDao.save(order);
+    } */
+
     public Order getById(int id) {
         return createOrder(id);
     }
@@ -69,7 +75,7 @@ public class OrderService {
         return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
     }
 
-    public boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {
+    private boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {
         List<Order> ordersList = orderDao.findAllByBookedRoomID(bookingRoomId);
         LocalDate entryDateToCheck = orderToCheck.getEntryDate();
         LocalDate leaveDateToCheck = orderToCheck.getLeaveDate();
