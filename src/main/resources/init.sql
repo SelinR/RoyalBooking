@@ -29,15 +29,15 @@ CREATE TABLE users
   birthday DATE NOT NULL,
   phone VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
-  password VARCHAR(20) NOT NULL,
+  password VARCHAR NOT NULL,
   user_type VARCHAR NOT NULL,
   CONSTRAINT user_prim PRIMARY KEY(id)
 );
 INSERT INTO users (name, surname, country, birthday, phone, email, password, user_type) VALUES
-('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', 'password', 'USER'),
-('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', 'password', 'ADMIN'),
-('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', 'password', 'USER'),
-('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', 'password', 'USER');
+('Vasiliy', 'Semenov', 'Russia', '1972-01-17', '+79214232512','semenovVV@mail.ru', '$2a$04$rih1/TCL5sJhFqc.YzY19u9ruelHQTAL7oCDougNaJqTUZs/oIVrO', 'USER'),
+('Jeorge', 'Bush', 'USA', '1946-07-06', '+12345236612','presidentBUSHJR@gmail.com', '$2a$04$x3rEDU510CvdKY6qmX324u9M0ff4RJaMWinhH964Jo4yIKMBG9hrC', 'ADMIN'),
+('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', '$2a$04$c9SdlQ0asYZEyU4gyt.7leqlOJRX7izg2z/Grw226TCAlnb3cvvzu', 'USER'),
+('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', '$2a$04$9zxdZ4RkakshXHgZEJzbve5GrkLJZtsB9NGRDvv8Lw.78IHFqaM82', 'USER');
 
 /* users end */
 /*orders*/

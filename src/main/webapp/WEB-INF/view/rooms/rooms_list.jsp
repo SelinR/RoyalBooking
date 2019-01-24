@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -9,10 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Royal Booking</title>
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
@@ -233,9 +231,7 @@
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">
-                    <spring:message code="label.room_list"/>
-                </span>
+                <span class="table-title"><spring:message code="label.room_list"/> </span>
                 <div class="actions">
                     <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i
                             class="material-icons">person_add</i></a>
@@ -252,6 +248,7 @@
                     <th><spring:message code="label.room_area"/></th>
                     <th><spring:message code="label.room_daily_cost"/></th>
                     <th><spring:message code="label.room_info"/></th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -280,8 +277,13 @@
                         <td><c:out value="${room.additionalInfo}"/>
                         </td>
                         <td>
-                            <form method="GET" action="<c:url value="/room/${room.id}"/>">
-                                <button type="submit" value="book"><spring:message code="label.room_details"/></button>
+                            <form method="GET" action="<c:url value="/admin/room_edit/${room.id}"/>">
+                                <button type="submit" value="book"><spring:message code="label.edit"/></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="GET" action="<c:url value="/admin/rooms/delete/${room.id}"/>">
+                                <button type="submit" value="book"><spring:message code="label.delete"/></button>
                             </form>
                         </td>
                     </tr>
@@ -292,6 +294,12 @@
             </table>
         </div>
     </div>
+</div>
+
+<div align="center">
+    <form method="get" action="<c:url value="/admin/room_creation"/>">
+        <button><spring:message code="label.room_create"/></button>
+    </form>
 </div>
 
 </body>
