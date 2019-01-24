@@ -94,7 +94,6 @@ public class OrderController {
     /**
      * Needed for internationalization.
      */
-    @Deprecated
     @RequestMapping(value = "order_confirm/{roomId}/{entryDate}/{leaveDate}", method = RequestMethod.GET)
     public ModelAndView getOrderConfirmPageGetMethod(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId,
                                                      @PathVariable("entryDate") String entryDateVar, @PathVariable("leaveDate") String leaveDateVar,
