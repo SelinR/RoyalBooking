@@ -25,9 +25,11 @@ public class OrderService {
     }
 
     @Transactional
-    public void save(Order order) {
-        order.setStatus(OrderStatus.ACCEPTED);
-        orderDao.save(order);
+    public void save(Order order, boolean isCreatedByAdmin) {
+        if (!isCreatedByAdmin) {
+            order.setStatus(OrderStatus.ACCEPTED);
+        }
+            orderDao.save(order);
     }
 
     public Order getById(int id) {
@@ -59,6 +61,7 @@ public class OrderService {
     public List<Order> getOrdersByUserId(int userId) {
         return orderDao.findByUserID(userId);
     }
+
     /**
      * @return true if @param order is valid
      */

@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring-tags" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="com.epam.royalbooking.enums.OrderStatus"%>
+<%@page import="com.epam.royalbooking.enums.OrderStatus" %>
 <html>
 <head>
     <meta content="text/html" charset="UTF-8"/>
@@ -102,9 +102,15 @@
             <td>
                 <label>
                     <form:select path="status" id="status">
-                        <c:forEach var="statusValue" items="${OrderStatus.values()}">
-                            <form:option value="${statusValue}">${statusValue}</form:option>
-                        </c:forEach>
+                        <form:option value="ACCEPTED">
+                            <spring-tags:message code="label.order_status_accepted"/>
+                        </form:option>
+                        <form:option value="EXPIRED">
+                            <spring-tags:message code="label.order_status_expired"/>
+                        </form:option>
+                        <form:option value="DECLINED">
+                            <spring-tags:message code="label.order_status_declined"/>
+                        </form:option>
                     </form:select>
                 </label>
             </td>
