@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -11,6 +12,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/part_of_sort_table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
@@ -224,52 +226,16 @@
 </head>
 <body>
 
-<div class="loginContainer">
-    <%--buttons--%>
-    <sec:authorize access="isAnonymous()">
-        <div style="display: flex">
-            <a href="<c:url value="/registration"/>">
-                <div class="greenButton" align="right">Register</div>
-            </a>
-            <pre>   </pre>
-            <a href="<c:url value="/login"/>">
-                <div class="blueButton" align="right">Login</div>
-            </a>
-        </div>
-    </sec:authorize>
-
-    <%-- And logout for authenticated users --%>
-    <sec:authorize access="isAuthenticated()">
-        <div style="display: flex">
-            <a href="<c:url value="/logout"/>">
-                <div class="redButton" align="right">Logout</div>
-            </a>
-        </div>
-
-        <sec:authorize access="hasAuthority('ADMIN')" >
-            <div style="display: flex">
-                <a href="<c:url value="/admin"/>">
-                    <div class="purpleButton" align="left">Admin</div>
-                </a>
-            </div>
-        </sec:authorize>
-
-        <sec:authorize access="hasAuthority('USER')">
-            <div style="display: flex">
-                <a href="<c:url value="/profile"/>">
-                    <div class="purpleButton" align="left">Profile</div>
-                </a>
-            </div>
-        </sec:authorize>
-    </sec:authorize>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <%--table with rooms --%>
 <div class="row">
     <div id="admin" class="col s12">
         <div class="card material-table">
             <div class="table-header">
-                <span class="table-title">Rooms list</span>
+                <span class="table-title">
+                    <spring:message code="label.room_list"/>
+                </span>
                 <div class="actions">
                     <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i
                             class="material-icons">person_add</i></a>
@@ -280,12 +246,12 @@
             <table id="datatable">
                 <thead>
                 <tr>
-                    <th width="50">id</th>
-                    <th>Room type</th>
-                    <th>Beds</th>
-                    <th>Area</th>
-                    <th>Daily cost</th>
-                    <th>Info</th>
+                    <th width="50"><spring:message code="label.id"/></th>
+                    <th><spring:message code="label.room_type"/></th>
+                    <th><spring:message code="label.room_beds_amount"/></th>
+                    <th><spring:message code="label.room_area"/></th>
+                    <th><spring:message code="label.room_daily_cost"/></th>
+                    <th><spring:message code="label.room_info"/></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -294,7 +260,20 @@
                 <c:forEach var="room" items="${requestScope.rooms}">
                     <tr>
                         <td><c:out value="${room.id}"/></td>
-                        <td><c:out value="${room.roomType}"/></td>
+                        <td>
+                            <c:if test="${room.roomType == 'BASIC'}">
+                                <spring:message code="label.room_basic"/>
+                            </c:if>
+                            <c:if test="${room.roomType == 'FAMILY'}">
+                                <spring:message code="label.room_family"/>
+                            </c:if>
+                            <c:if test="${room.roomType == 'LUXURY'}">
+                                <spring:message code="label.room_luxury"/>
+                            </c:if>
+                            <c:if test="${room.roomType == 'PENTHOUSE'}">
+                                <spring:message code="label.room_penthose"/>
+                            </c:if>
+                        </td>
                         <td><c:out value="${room.bedsAmount}"/></td>
                         <td><c:out value="${room.area}"/></td>
                         <td><c:out value="${room.dailyCost}"/></td>
@@ -302,7 +281,7 @@
                         </td>
                         <td>
                             <form method="GET" action="<c:url value="/room/${room.id}"/>">
-                                <button type="submit" value="book">View room</button>
+                                <button type="submit" value="book"><spring:message code="label.room_details"/></button>
                             </form>
                         </td>
                     </tr>

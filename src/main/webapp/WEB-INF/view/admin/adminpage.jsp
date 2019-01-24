@@ -1,20 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Title page</title>
+    <title><spring:message code="label.admin"/></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
   </head>
 
   <body bgcolor="#fff8dc">
-    <a href="<c:url value="/admin/rooms_list"/>" target="_blank">All rooms</a>
-  </body>
-  <br>
-  <body>
-    <a href="<c:url value="/admin/users"/>" target="_blank">All users</a>
+  <c:import url="/WEB-INF/view/header/header.jsp"/>
 
-  </body>
+    <a href="<c:url value="/admin/rooms_list"/>" target="_blank">
+      <p><spring:message code="label.all_rooms"/></p>
+    </a>
   <br>
-  <body>
-  <a href="<c:url value="/admin/orders"/>" target="_blank">All orders</a>
+    <a href="<c:url value="/admin/users"/>" target="_blank">
+      <p><spring:message code="label.all_users"/></p>
+    </a>
+  <br>
+  <a href="<c:url value="/admin/orders"/>" target="_blank">
+    <p><spring:message code="label.all_orders"/></p>
+  </a>
   </body>
 </html>

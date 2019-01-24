@@ -37,6 +37,19 @@ public class OrderController {
     }
 
     /**
+     * Needed for internationalization.
+     */
+    @RequestMapping(value = "order_save/{entryDate}/{leaveDate}", method = RequestMethod.GET)
+    public ModelAndView saveGet(@ModelAttribute("order") Order order,
+                                @PathVariable("entryDate") LocalDate entryDate, @PathVariable("leaveDate") LocalDate leaveDate) {
+        ModelAndView modelAndView = new ModelAndView("orders/order_confirm");
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("entryDate", entryDate);
+        modelAndView.addObject("leaveDate", leaveDate);
+        return modelAndView;
+    }
+
+    /**
      * Method defines userID from Spring Context using @param principal,
      * and saves order in DataBase
      * if user fill wrong input dates , then returns wrong_dates_input.jsp page
@@ -69,13 +82,24 @@ public class OrderController {
         return "/orders";
     }
 
-    @RequestMapping(value = "/order_creation")
-    public String getOrderCreationPage(Model model, @ModelAttribute("roomToBookId") int roomToBookId) {
-        model.addAttribute("list", orderService.getAllBookedDatesByBookedRoomId(roomToBookId));
-        model.addAttribute("roomToBook", roomService.getById(roomToBookId));
+    @RequestMapping(value = "/order_creation/{roomId}")
+    public String getOrderCreationPage(Model model, @PathVariable("roomId") int roomId) {
+        model.addAttribute("list", orderService.getAllBookedDatesByBookedRoomId(roomId));
+        model.addAttribute("room", roomService.getById(roomId));
         model.addAttribute("minDate", LocalDate.now());
         model.addAttribute("maxDate", LocalDate.now().plusYears(2));
         return "orders/order_creation";
+    }
+
+    /**
+     * Needed for internationalization.
+     */
+    @RequestMapping(value = "order_confirm/{roomId}/{entryDate}/{leaveDate}", method = RequestMethod.GET)
+    public ModelAndView getOrderConfirmPageGetMethod(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId,
+                                                     @PathVariable("entryDate") String entryDateVar, @PathVariable("leaveDate") String leaveDateVar,
+                                                     Principal principal) {
+        prepareOrderAfterLocalizationAtConfirmPage(order, entryDateVar, leaveDateVar, principal, roomId);
+        return new ModelAndView("orders/order_confirm", "order", order);
     }
 
     /**
@@ -85,9 +109,10 @@ public class OrderController {
      * @param order doesn't save in DataBase on this stage, haven't userID
      * @return ModelAndView with refer to order_confirm.jsp, and entity Order with calculated total price
      */
-    @RequestMapping(value = "/order_confirm", method = RequestMethod.POST)
-    public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order) {
+    @RequestMapping(value = "/order_confirm/{roomId}", method = RequestMethod.POST)
+    public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId) {
         if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+            order.setBookedRoomID(roomId);
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
             return new ModelAndView("orders/order_confirm", "order", order);
         } else if (!orderService.isOrderValid(order, order.getBookedRoomID())) {
@@ -95,6 +120,18 @@ public class OrderController {
         } else {
             return new ModelAndView("/ErrorPage");
         }
+    }
+
+    private void prepareOrderAfterLocalizationAtConfirmPage(Order order, String entryDateVar, String leaveDateVar,
+                                                            Principal principal, int roomId) {
+        LocalDate entryDate = LocalDate.parse(entryDateVar);
+        LocalDate leaveDate = LocalDate.parse(leaveDateVar);
+        User user = userService.getByEmail(principal.getName());
+        order.setEntryDate(entryDate);
+        order.setUserID(user.getId());
+        order.setLeaveDate(leaveDate);
+        order.setBookedRoomID(roomId);
+        order.setTotalPrice(orderService.calculateTotalPrice(roomId, entryDate, leaveDate));
     }
 
     @Autowired
