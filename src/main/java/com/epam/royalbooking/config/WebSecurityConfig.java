@@ -27,12 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
 
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/", "/registration").permitAll()
-                .antMatchers("/room/*").permitAll()
+                .antMatchers("/css/**", "/",
+                        "/registration",
+                        "/room/*")
+                    .permitAll()
 
-                //this is the example how to restrict access to pages
-                //.antMatchers(HttpMethod.GET, "/users").hasAuthority("ADMIN")
                 .antMatchers("/admin**").hasAuthority("ADMIN")
 
                 .anyRequest().authenticated()
