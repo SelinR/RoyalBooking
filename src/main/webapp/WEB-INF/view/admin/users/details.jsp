@@ -125,7 +125,7 @@
             </td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/></td>
+            <td><input type="submit" value="<spring:message code="label.submit"/>"/></td>
         </tr>
     </table>
 </form:form>

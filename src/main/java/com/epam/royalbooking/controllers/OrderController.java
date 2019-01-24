@@ -37,6 +37,19 @@ public class OrderController {
     }
 
     /**
+     * Needed for internationalization.
+     */
+    @RequestMapping(value = "order_save/{entryDate}/{leaveDate}", method = RequestMethod.GET)
+    public ModelAndView saveGet(@ModelAttribute("order") Order order,
+                                @PathVariable("entryDate") LocalDate entryDate, @PathVariable("leaveDate") LocalDate leaveDate) {
+        ModelAndView modelAndView = new ModelAndView("orders/order_confirm");
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("entryDate", entryDate);
+        modelAndView.addObject("leaveDate", leaveDate);
+        return modelAndView;
+    }
+
+    /**
      * Method defines userID from Spring Context using @param principal,
      * and saves order in DataBase
      * if user fill wrong input dates , then returns wrong_dates_input.jsp page
@@ -80,14 +93,15 @@ public class OrderController {
 
     /**
      * Needed for internationalization.
+     * Deprecated: I couldn't beat this damn data saving. Can't
      */
-    @RequestMapping(value = "order_confirm/{roomId}", method = RequestMethod.GET)
-    public ModelAndView getOrderConfirmPageGetMethod(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("order", order);
-        modelAndView.addObject("roomId", roomId);
-        modelAndView.setViewName("orders/order_confirm");
-        return modelAndView;
+    @Deprecated
+    @RequestMapping(value = "order_confirm/{roomId}/{entryDate}/{leaveDate}", method = RequestMethod.GET)
+    public ModelAndView getOrderConfirmPageGetMethod(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId,
+                                                     @PathVariable("entryDate") String entryDateVar, @PathVariable("leaveDate") String leaveDateVar,
+                                                     Principal principal) {
+        prepareOrderAfterLocalizationAtConfirmPage(order, entryDateVar, leaveDateVar, principal, roomId);
+        return new ModelAndView("orders/order_confirm", "order", order);
     }
 
     /**
@@ -108,6 +122,18 @@ public class OrderController {
         } else {
             return new ModelAndView("/ErrorPage");
         }
+    }
+
+    private void prepareOrderAfterLocalizationAtConfirmPage(Order order, String entryDateVar, String leaveDateVar,
+                                                            Principal principal, int roomId) {
+        LocalDate entryDate = LocalDate.parse(entryDateVar);
+        LocalDate leaveDate = LocalDate.parse(leaveDateVar);
+        User user = userService.getByEmail(principal.getName());
+        order.setEntryDate(entryDate);
+        order.setUserID(user.getId());
+        order.setLeaveDate(leaveDate);
+        order.setBookedRoomID(roomId);
+        order.setTotalPrice(orderService.calculateTotalPrice(roomId, entryDate, leaveDate));
     }
 
     @Autowired

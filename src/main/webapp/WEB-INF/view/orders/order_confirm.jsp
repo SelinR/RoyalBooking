@@ -12,6 +12,11 @@
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header_without_i18n.jsp"/>
+<span style="float: right">
+        <a href="<c:url value="/order_confirm/${order.bookedRoomID}/${order.entryDate}/${order.leaveDate}?lang=en"/>">en</a>
+        |
+        <a href="<c:url value="/order_confirm/${order.bookedRoomID}/${order.entryDate}/${order.leaveDate}?lang=ru"/>">ru</a>
+</span>
 
 <div>
     <h2 align="center"><spring:message code="label.order_details"/></h2>

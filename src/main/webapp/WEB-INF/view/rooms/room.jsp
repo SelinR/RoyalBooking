@@ -33,7 +33,20 @@
             </tr>
             <tr>
                 <td><spring:message code="label.room_type"/></td>
-                <td><c:out value="${room.roomType}"/></td>
+                <td>
+                    <c:if test="${room.roomType == 'BASIC'}">
+                        <spring:message code="label.room_basic"/>
+                    </c:if>
+                    <c:if test="${room.roomType == 'FAMILY'}">
+                        <spring:message code="label.room_family"/>
+                    </c:if>
+                    <c:if test="${room.roomType == 'LUXURY'}">
+                        <spring:message code="label.room_luxury"/>
+                    </c:if>
+                    <c:if test="${room.roomType == 'PENTHOUSE'}">
+                        <spring:message code="label.room_penthose"/>
+                    </c:if>
+                </td>
 
             </tr>
             <tr>

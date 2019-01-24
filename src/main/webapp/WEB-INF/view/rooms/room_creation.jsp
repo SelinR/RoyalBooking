@@ -20,13 +20,13 @@
 <form method="post" action="<c:url value="/admin/room_add"/>">
     <label>
         <spring:message code="label.room_type"/><br>
-        <input type="radio" name="roomType" value="BASIC" checked>
+        <input type="radio" name="roomType" value="<spring:message code="label.room_basic"/>" checked>
         <spring:message code="label.room_basic"/>
-        <input type="radio" name="roomType" value="FAMILY">
+        <input type="radio" name="roomType" value="<spring:message code="label.room_family"/>">
         <spring:message code="label.room_family"/>
-        <input type="radio" name="roomType" value="LUXURY">
+        <input type="radio" name="roomType" value="<spring:message code="label.room_luxury"/>">
         <spring:message code="label.room_luxury"/>
-        <input type="radio" name="roomType" value="PENTHOUSE">
+        <input type="radio" name="roomType" value="<spring:message code="label.room_penthose"/>">
         <spring:message code="label.room_penthose"/>
     </label><br>
     <label>
