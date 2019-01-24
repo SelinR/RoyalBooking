@@ -66,29 +66,30 @@ public class OrderService {
         if (order == null || order.getEntryDate() == null || order.getLeaveDate() == null) {
             return false;
         } else {
-            LocalDate entryDate = order.getEntryDate();
-            LocalDate leaveDate = order.getLeaveDate();
-            boolean simpleValid = leaveDate.isAfter(entryDate);
-            return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
+            LocalDate entryLocalDate = order.getEntryDate();
+            LocalDate leaveLocalDate = order.getLeaveDate();
+            long entryDate = entryLocalDate.toEpochDay();
+            long leaveDate = leaveLocalDate.toEpochDay();
+            boolean isValid = leaveDate >= entryDate;
+            boolean isTodayOrInFuture = entryLocalDate.isAfter(LocalDate.now()) || entryLocalDate.isEqual(LocalDate.now());
+            return isValid && isTodayOrInFuture && !datesCross(order, bookingRoomId);
         }
     }
 
-    public boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {
+    private boolean datesCross(Order orderToCheck, int bookingRoomId) {
         List<Order> ordersList = orderDao.findAllByBookedRoomID(bookingRoomId);
-        LocalDate entryDateToCheck = orderToCheck.getEntryDate();
-        LocalDate leaveDateToCheck = orderToCheck.getLeaveDate();
+        long entryDateToCheck = orderToCheck.getEntryDate().toEpochDay();
+        long leaveDateToCheck = orderToCheck.getLeaveDate().toEpochDay();
         for (Order order : ordersList) {
-            LocalDate existingEntryDate = order.getEntryDate();
-            LocalDate existingLeaveDate = order.getLeaveDate();
-            if (existingEntryDate.isAfter(entryDateToCheck) & existingEntryDate.isBefore(leaveDateToCheck)) {
-                return false;
-            } else if (existingLeaveDate.isAfter(entryDateToCheck) & existingLeaveDate.isBefore(leaveDateToCheck)) {
-                return false;
-            } else if (existingEntryDate.isEqual(entryDateToCheck) || existingLeaveDate.isEqual(leaveDateToCheck)) {
-                return false;
+            long existingEntryDate = order.getEntryDate().toEpochDay();
+            long existingLeaveDate = order.getLeaveDate().toEpochDay();
+            if (entryDateToCheck >= existingEntryDate && entryDateToCheck <= existingLeaveDate) {
+                return true;
+            } else if (leaveDateToCheck >= existingEntryDate && leaveDateToCheck <= existingLeaveDate) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

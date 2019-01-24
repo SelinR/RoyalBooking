@@ -1,5 +1,6 @@
 package com.epam.royalbooking.controllers;
 
+import com.epam.royalbooking.dto.PreOrder;
 import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.entities.Room;
 import com.epam.royalbooking.entities.User;
@@ -7,6 +8,7 @@ import com.epam.royalbooking.services.OrderService;
 import com.epam.royalbooking.services.RoomService;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class OrderController {
@@ -102,23 +107,31 @@ public class OrderController {
         return new ModelAndView("orders/order_confirm", "order", order);
     }
 
+
     /**
      * Method calculates orders total price, based on dates and daily cost.
      * Refers to page with  order details and order confirmation.
-     * if user fills wrong input dates , then returns wrong_dates_input.jsp page
-     * @param order doesn't save in DataBase on this stage, haven't userID
+     * if user fills wrong input dates , then returns a message
+     * Order isn't saved in DataBase on this stage, haven't userID
+     * @param preOrder consisting of the entered dates to order
      * @return ModelAndView with refer to order_confirm.jsp, and entity Order with calculated total price
      */
     @RequestMapping(value = "/order_confirm/{roomId}", method = RequestMethod.POST)
-    public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId) {
-        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+    public ModelAndView getOrderConfirmPage(@ModelAttribute("preOrder") PreOrder preOrder, @PathVariable("roomId") int roomId) {
+        String[] dateRange = preOrder.getDateRange().split(" - ");
+        LocalDate entryDate = createFormattedDate(dateRange, 0);
+        LocalDate leaveDate = createFormattedDate(dateRange, 1);
+        preOrder.setEntryDate(entryDate);
+        preOrder.setLeaveDate(leaveDate);
+        if (orderService.isOrderValid(preOrder, roomId)) {
+            Order order = new Order();
             order.setBookedRoomID(roomId);
+            order.setEntryDate(entryDate);
+            order.setLeaveDate(leaveDate);
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
             return new ModelAndView("orders/order_confirm", "order", order);
-        } else if (!orderService.isOrderValid(order, order.getBookedRoomID())) {
-            return new ModelAndView("/wrong_dates_input", "order", order);
         } else {
-            return new ModelAndView("/ErrorPage");
+            return new ModelAndView("redirect:/order_creation/" + roomId + "?error");
         }
     }
 
@@ -132,6 +145,20 @@ public class OrderController {
         order.setLeaveDate(leaveDate);
         order.setBookedRoomID(roomId);
         order.setTotalPrice(orderService.calculateTotalPrice(roomId, entryDate, leaveDate));
+    }
+
+    /**
+     * @param dateRange Entry string is of type mm/dd/yyyy
+     * @param index a part of a dateRange array
+     * @return Output LocalDate is of type yyyy-mm-dd
+     */
+    private LocalDate createFormattedDate(String[] dateRange, int index) {
+        String date = dateRange[index];
+        String[] chunks = date.split("/");
+        int year = Integer.parseInt(chunks[2]);
+        int month = Integer.parseInt(chunks[0]);
+        int day = Integer.parseInt(chunks[1]);
+        return LocalDate.of(year, month, day);
     }
 
     @Autowired

@@ -84,33 +84,53 @@
 <div align="center">
     <div>
         <h4>
-            <spring:message code="label.calendar_with_free_dats"/>
+            <c:if test="${param.error != null}">
+                <p style='color:red'>
+                    <spring:message code="label.bad_dates"/>
+                </p>
+            </c:if>
+            <p><spring:message code="label.choose_dates"/></p>
         </h4>
     </div>
 
-    <div><input type="text" name="daterange" value="" />
-        <script>
-            $(function() {
-                $('input[name="daterange"]').daterangepicker({
-                    opens: 'left',
-                    isInvalidDate: function(date) {
-                        <c:forEach var="date" items="${list}">
-                        if (date.format('YYYY-MM-DD') == '${date}') {
-                            return true;
-                        }
-                        </c:forEach>
-                    }
+    <div>
+        <form method="post" action="<c:url value="/order_confirm/${room.id}"/>">
+            <label id="dates">
+                <input type="text" name="dateRange" value="" />
+                    <script>
+                        $(function() {
+                            $('input[name="dateRange"]').daterangepicker({
+                                opens: 'left',
+                                isInvalidDate: function(date) {
+                                    <c:forEach var="date" items="${list}">
+                                        if (date.format('YYYY-MM-DD') === '${date}') {
+                                            return true;
+                                        }
+                                    </c:forEach>
+                                }
+                            });
+                        });
+                    </script>
+            </label>
 
-                });
-            });
-        </script>
+                <label>
+                    <input type="hidden"  name="roomId" value="${room.id}">
+                    <input type="hidden"  name="totalPrice" value="50">
+                </label>
+
+                <input type="submit" value="<spring:message code="label.create"/>">
+        </form>
     </div>
 
-<div>
-    <h3><spring:message code="label.choose_dates"/></h3>
-</div>
 
-<form method="post" action="<c:url value="/order_confirm/${room.id}"/>">
+
+
+
+<%--<div>
+    <h3><spring:message code="label.choose_dates"/></h3>
+</div>--%>
+
+<%--<form method="post" action="<c:url value="/order_confirm/${room.id}"/>">
 
     <label>
         <spring:message code="label.order_entry_date"/> <br>
@@ -135,7 +155,7 @@
 
     <p><input type="submit" value="<spring:message code="label.create"/>"></p>
 
-</form>
+</form>--%>
 </div>
 </body>
 </html>
