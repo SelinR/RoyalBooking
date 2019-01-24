@@ -28,10 +28,6 @@
             </thead>
             <tbody>
             <tr>
-                <td><spring:message code="label.id"/></td>
-                <td><c:out value="${room.id}"/></td>
-            </tr>
-            <tr>
                 <td><spring:message code="label.room_type"/></td>
                 <td>
                     <c:if test="${room.roomType == 'BASIC'}">

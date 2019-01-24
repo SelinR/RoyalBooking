@@ -26,6 +26,7 @@ public class ApplicationConfig {
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
+        viewResolver.setContentType("text/html;charset=utf-8");
         return viewResolver;
     }
 

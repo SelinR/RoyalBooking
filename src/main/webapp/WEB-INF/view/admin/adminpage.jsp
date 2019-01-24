@@ -5,6 +5,7 @@
   <head>
     <title><spring:message code="label.admin"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css">
   </head>
 
   <body bgcolor="#fff8dc">
