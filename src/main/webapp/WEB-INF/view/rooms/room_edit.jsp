@@ -1,12 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Room page</title>
+    <title><spring:message code="label.room_page"/></title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/simple-tables-style.css"/>
@@ -14,65 +15,56 @@
 </head>
 
 <body>
-<div class="loginContainer">
-    <sec:authorize access="isAnonymous()">
-        <%--2 buttons--%>
-        <div style="display: flex">
-            <a href="<c:url value="/registration"/>">
-                <div class="greenButton" align="right">Register</div>
-            </a>
-            <pre>   </pre>
-            <a href="<c:url value="/login"/>">
-                <div class="blueButton" align="right">Login</div>
-            </a>
-        </div>
-    </sec:authorize>
-
-    <%-- And logout for authenticated users --%>
-    <sec:authorize access="isAuthenticated()">
-        <div style="display: flex">
-            <a href="<c:url value="/logout"/>">
-                <div class="redButton" align="right">Logout</div>
-            </a>
-        </div>
-    </sec:authorize>
-</div>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 
-<h2>Room info</h2>
+<h2><spring:message code="label.room_info"/></h2>
 <div>
     <div align="left">
         <table id="datatable" class="tg">
             <thead>
             <tr>
-                <th width="100">param</th>
-                <th width="500">Info</th>
+                <th width="100"><spring:message code="label.parameter"/></th>
+                <th width="500"><spring:message code="label.info"/></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>Room id</td>
+                <td><spring:message code="label.id"/></td>
                 <td><c:out value="${room.id}"/></td>
             </tr>
             <tr>
-                <td>Room type</td>
-                <td><c:out value="${room.roomType}"/></td>
+                <td><spring:message code="label.room_type"/></td>
+                <td>
+                    <c:if test="${room.roomType == 'BASIC'}">
+                        <spring:message code="label.room_basic"/>
+                    </c:if>
+                    <c:if test="${room.roomType == 'FAMILY'}">
+                        <spring:message code="label.room_family"/>
+                    </c:if>
+                    <c:if test="${room.roomType == 'LUXURY'}">
+                        <spring:message code="label.room_luxury"/>
+                    </c:if>
+                    <c:if test="${room.roomType == 'PENTHOUSE'}">
+                        <spring:message code="label.room_penthose"/>
+                    </c:if>
+                </td>
 
             </tr>
             <tr>
-                <td>Beds amount</td>
+                <td><spring:message code="label.room_beds_amount"/></td>
                 <td><c:out value="${room.bedsAmount}"/></td>
             </tr>
             <tr>
-                <td>Area</td>
+                <td><spring:message code="label.room_area"/></td>
                 <td><c:out value="${room.area}"/></td>
             </tr>
             <tr>
-                <td>Daily Cost</td>
+                <td><spring:message code="label.room_daily_cost"/></td>
                 <td><c:out value="${room.dailyCost}"/></td>
             </tr>
             <tr>
-                <td>Additional info</td>
+                <td><spring:message code="label.room_info"/></td>
                 <td><c:out value="${room.additionalInfo}"/></td>
             </tr>
 
@@ -87,31 +79,31 @@
 
 
     <label>
-        Room type<br>
+        <spring:message code="label.room_type"/><br>
         <input type="radio" name="roomType" value="BASIC"
-               <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> > Basic
+               <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> > <spring:message code="label.room_basic"/>
         <input type="radio" name="roomType" value="FAMILY"
-               <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> > Family
+               <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> > <spring:message code="label.room_family"/>
         <input type="radio" name="roomType" value="LUXURY"
-               <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> > Luxury
+               <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> > <spring:message code="label.room_luxury"/>
         <input type="radio" name="roomType" value="PENTHOUSE"
-               <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> > Penthouse
+               <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> > <spring:message code="label.room_penthose"/>
 
     </label><br>
     <label>
-        Beds <br>
+        <spring:message code="label.room_beds_amount"/> <br>
         <input type="number" name="bedsAmount" step="1" value="${room.bedsAmount}" required>
     </label><br>
     <label>
-        Area <br>
+        <spring:message code="label.room_area"/> <br>
         <input type="number" name="area" step="0.1" value="${room.area}" required=>
     </label><br>
     <label>
-        Daily cost <br>
+        <spring:message code="label.room_daily_cost"/> <br>
         <input type="number" name="dailyCost" step="0.1" value="${room.dailyCost}" required>
     </label><br>
     <label>
-        Additional info <br>
+        <spring:message code="label.room_info"/> <br>
         <input type="text" name="additionalInfo" value="${room.additionalInfo}">
     </label><br>
     <input type="hidden" name="id" value="${room.id}">
@@ -121,7 +113,7 @@
 
 </pre>
 <form method="get" action="<c:url value="/admin/rooms_list"/>">
-    <button>Back to Room list</button>
+    <button><spring:message code="label.room_back_to_list"/></button>
 </form>
 </body>
 
