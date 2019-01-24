@@ -93,7 +93,6 @@ public class OrderController {
 
     /**
      * Needed for internationalization.
-     * Deprecated: I couldn't beat this damn data saving. Can't
      */
     @Deprecated
     @RequestMapping(value = "order_confirm/{roomId}/{entryDate}/{leaveDate}", method = RequestMethod.GET)
