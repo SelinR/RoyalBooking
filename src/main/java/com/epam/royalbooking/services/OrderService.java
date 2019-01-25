@@ -67,13 +67,10 @@ public class OrderService {
      * @return true if @param order is valid
      */
     public boolean isOrderValid(LocalDate entryDate, LocalDate leaveDate, int bookingRoomId) {
-        if (entryDate == null || leaveDate == null) {
-            return false;
-        } else {
-            return isEntryDateBeforeOrEqualLeaveDate(entryDate, leaveDate)
-                        && isOrderForTodayOrInFuture(entryDate)
-                        && isRoomFreeInSelectedDays(entryDate, leaveDate, bookingRoomId);
-        }
+        return entryDate != null && leaveDate != null
+                && isEntryDateBeforeOrEqualLeaveDate(entryDate, leaveDate)
+                && isOrderForTodayOrInFuture(entryDate)
+                && isRoomFreeInSelectedDays(entryDate, leaveDate, bookingRoomId);
     }
 
     private boolean isEntryDateBeforeOrEqualLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
