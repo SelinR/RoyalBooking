@@ -8,6 +8,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>Ωß
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>

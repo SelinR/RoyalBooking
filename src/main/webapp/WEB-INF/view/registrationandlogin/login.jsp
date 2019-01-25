@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title><spring:message code="label.login"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login-form.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
 </head>
 
 <body>

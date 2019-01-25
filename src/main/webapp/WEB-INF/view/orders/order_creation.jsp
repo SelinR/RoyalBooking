@@ -27,7 +27,7 @@
     <h2 align="center"><spring:message code="label.room_booking"/></h2>
 </div>
 <div>
-    <div align="left">
+    <div align="center">
         <table id="datatable" class="tg">
             <thead>
             <tr>
@@ -78,7 +78,6 @@
             </tbody>
         </table>
     </div>
-    <div align="right"> placeholder for image</div>
 </div>
 
 <div align="center">
@@ -101,6 +100,7 @@
                         $(function() {
                             $('input[name="dateRange"]').daterangepicker({
                                 opens: 'left',
+                                minDate: moment(),
                                 isInvalidDate: function(date) {
                                     <c:forEach var="date" items="${list}">
                                         if (date.format('YYYY-MM-DD') === '${date}') {
@@ -153,7 +153,7 @@
         <input type="hidden"  name="totalPrice" value="50">
     </label></p>
 
-    <p><input type="submit" value="<spring:message code="label.create"/>"></p>
+    <p><input type="submit" class="blueButton" value="<spring:message code="label.create"/>"></p>
 
 </form>--%>
 </div>

@@ -66,7 +66,6 @@
             </tbody>
         </table>
     </div>
-    <div align="right">placeholder for image</div>
 </div>
 
 

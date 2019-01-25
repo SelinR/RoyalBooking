@@ -72,7 +72,6 @@
             </tbody>
         </table>
     </div>
-    <div align="right"> placeholder for image</div>
 </div>
 
 <form method="post" action="<c:url value="/admin/room_update"/>">

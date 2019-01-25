@@ -53,7 +53,6 @@
             </tbody>
         </table>
     </div>
-    <div align="right"> placeholder for image</div>
 </div>
 
 <form method="post" action="<c:url value="/order_save"/>">
@@ -62,7 +61,7 @@
     <input type="hidden" name="entryDate" value="${order.entryDate}">
     <input type="hidden" name="leaveDate" value="${order.leaveDate}">
     <input type="hidden" name="userID" value="${order.userID}">
-    <input type="submit" value="<spring:message code="label.order_confirm"/>">
+    <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
 </form>
 
 </body>

@@ -24,7 +24,7 @@
             <table id="datatable" class="tg">
                 <tr>
                     <th width="140"/>
-                    <th width="200"><spring:message code="label.info"/></th>
+                    <th width="600"><spring:message code="label.info"/></th>
                 </tr>
 
                 <tr>
@@ -64,7 +64,7 @@
                         <td><form:label path="name">
                             <spring:message code="label.user_name"/></form:label>
                         </td>
-                        <td width="200"><form:input path="name"/></td>
+                        <td width="400"><form:input path="name"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="surname">
@@ -103,14 +103,14 @@
                         <td><form:hidden path="userType"/></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="<spring:message code="label.submit"/>"/></td>
+                        <td><input type="submit" class="greenButton" value="<spring:message code="label.submit"/>"/></td>
                     </tr>
                 </table>
             </form:form>
         </td>
     </tr>
 </table>
-<br><button onclick="location.href='delete'">
+<br><button onclick="location.href='delete'" class="redButton">
     <spring:message code="label.delete_your_profile"/>
 </button>
 </body>

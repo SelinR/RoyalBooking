@@ -14,11 +14,11 @@
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
-<p align="center"> <c:url value="/"> <spring:message code="label.main_page"/> </c:url> </p>
+<p align="center"><c:url value="/"> <spring:message code="label.main_page"/> </c:url></p>
 <table>
     <tr>
         <td valign="top">
-            <h2> <spring:message code="label.profile_details"/> </h2>
+            <h2><spring:message code="label.profile_details"/></h2>
             <table id="datatable" class="tg">
                 <tr>
                     <th width="140"></th>
@@ -48,10 +48,10 @@
                 </tr>
             </table>
             <br>
-            <button onclick="location.href='profile/edit'">
+            <button onclick="location.href='profile/edit'" class="blueButton">
                 <spring:message code="label.edit"/>
             </button>
-        </td >
+        </td>
         <td width="100"/>
         <td valign="top">
             <h2><spring:message code="label.user_your_orders"/></h2>
@@ -73,7 +73,10 @@
                         <td><c:out value="${order.leaveDate}"/></td>
                         <td><c:out value="${order.totalPrice}"/></td>
                         <td><a href="/room/${order.bookedRoomID}"><c:out value="${order.bookedRoomID}"/></a></td>
-                        <td><button onclick="location.href='profile/cancel/${order.id}'"><spring:message code="label.cancel"/></button></td>
+                        <td>
+                            <button class="greenButton" onclick="location.href='profile/cancel/${order.id}'">
+                                <spring:message code="label.cancel"/></button>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
