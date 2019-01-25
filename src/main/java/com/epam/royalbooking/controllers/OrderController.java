@@ -8,7 +8,6 @@ import com.epam.royalbooking.services.OrderService;
 import com.epam.royalbooking.services.RoomService;
 import com.epam.royalbooking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,11 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class OrderController {
@@ -63,7 +59,7 @@ public class OrderController {
      */
     @RequestMapping(value = "order_save", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order, Principal principal) {
-        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+        if (orderService.isOrderValid(order.getEntryDate(), order.getLeaveDate(), order.getBookedRoomID())) {
             String email = (principal.getName());
             User currentUser = userService.getByEmail(email);
             order.setUserID(currentUser.getId());
@@ -118,12 +114,10 @@ public class OrderController {
      */
     @RequestMapping(value = "/order_confirm/{roomId}", method = RequestMethod.POST)
     public ModelAndView getOrderConfirmPage(@ModelAttribute("preOrder") PreOrder preOrder, @PathVariable("roomId") int roomId) {
-        String[] dateRange = preOrder.getDateRange().split(" - ");
-        LocalDate entryDate = createFormattedDate(dateRange, 0);
-        LocalDate leaveDate = createFormattedDate(dateRange, 1);
-        preOrder.setEntryDate(entryDate);
-        preOrder.setLeaveDate(leaveDate);
-        if (orderService.isOrderValid(preOrder, roomId)) {
+        preOrder.setEntryAndLeaveDate();
+        LocalDate entryDate = preOrder.getEntryDate();
+        LocalDate leaveDate = preOrder.getLeaveDate();
+        if (orderService.isOrderValid(entryDate, leaveDate, roomId)) {
             Order order = new Order();
             order.setBookedRoomID(roomId);
             order.setEntryDate(entryDate);
@@ -145,20 +139,6 @@ public class OrderController {
         order.setLeaveDate(leaveDate);
         order.setBookedRoomID(roomId);
         order.setTotalPrice(orderService.calculateTotalPrice(roomId, entryDate, leaveDate));
-    }
-
-    /**
-     * @param dateRange Entry string is of type mm/dd/yyyy
-     * @param index a part of a dateRange array
-     * @return Output LocalDate is of type yyyy-mm-dd
-     */
-    private LocalDate createFormattedDate(String[] dateRange, int index) {
-        String date = dateRange[index];
-        String[] chunks = date.split("/");
-        int year = Integer.parseInt(chunks[2]);
-        int month = Integer.parseInt(chunks[0]);
-        int day = Integer.parseInt(chunks[1]);
-        return LocalDate.of(year, month, day);
     }
 
     @Autowired

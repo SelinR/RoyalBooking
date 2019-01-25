@@ -52,7 +52,7 @@ public class AdminOrdersController {
 
     @RequestMapping(value = "admin/orders/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order) {
-        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+        if (orderService.isOrderValid(order.getEntryDate(), order.getLeaveDate(), order.getBookedRoomID())) {
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(),
                     order.getEntryDate(), order.getLeaveDate()));
             orderService.save(order, true);
