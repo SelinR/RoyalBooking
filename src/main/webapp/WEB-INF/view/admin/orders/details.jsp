@@ -8,6 +8,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>Ωß
 </head>
 <body>
@@ -95,13 +96,13 @@
                     <form:select path="status" id="status">
                         <form:option value="ACCEPTED">
                             <spring-tags:message code="label.order_status_accepted"/>
-                        </form:option>
+                        </form:option> <br>
                         <form:option value="EXPIRED">
                             <spring-tags:message code="label.order_status_expired"/>
-                        </form:option>
+                        </form:option> <br>
                         <form:option value="DECLINED">
                             <spring-tags:message code="label.order_status_declined"/>
-                        </form:option>
+                        </form:option> <br>
                     </form:select>
                 </label>
             </td>

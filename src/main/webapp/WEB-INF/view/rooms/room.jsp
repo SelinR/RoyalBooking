@@ -18,7 +18,7 @@
 <c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <div>
-    <div align="left">
+    <div align="center">
         <table id="datatable" class="tg">
             <thead>
             <tr>

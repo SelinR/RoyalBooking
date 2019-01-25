@@ -21,11 +21,11 @@
     <form method="post" action="<c:url value="/login"/>">
         <label>
             <spring:message code="label.user_email"/><br>
-            <input type="email" name="username">
+            <input type="email" name="username" class="input_login">
         </label><br>
         <label>
             <spring:message code="label.user_password"/><br>
-            <input type="password" name="password">
+            <input type="password" name="password" class="input_login">
         </label><br>
         <br>
         <input type="submit" value="OK" name="Ok">

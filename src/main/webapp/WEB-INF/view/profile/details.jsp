@@ -14,7 +14,6 @@
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
-<p align="center"><c:url value="/"> <spring:message code="label.main_page"/> </c:url></p>
 <table>
     <tr>
         <td valign="top">

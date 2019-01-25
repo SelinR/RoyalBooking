@@ -25,38 +25,38 @@
 
                 <label>
                     <spring:message code="label.user_name"/><br>
-                    <input type="text" name="name" value="${param.get("name")}" required>
+                    <input class="input_login" type="text" name="name" value="${param.get("name")}" required>
                 </label><br>
                 <label>
                     <spring:message code="label.user_surname"/><br>
-                    <input type="text" name="surname" value="${param.get("surname")}" required>
+                    <input class="input_login" type="text" name="surname" value="${param.get("surname")}" required>
                 </label><br>
                 <label>
                     <spring:message code="label.user_country"/><br>
-                    <input type="text" name="country" value="${param.get("country")}" required>
+                    <input class="input_login" type="text" name="country" value="${param.get("country")}" required>
                 </label><br>
                 <label>
                     <spring:message code="label.user_birthday"/><br>
-                    <input type="date" name="birthday" value="${param.get("birthday")}" required>
+                    <input class="input_login" type="date" name="birthday" value="${param.get("birthday")}" required>
                 </label><br>
             </div>
             <div>
 
                 <label>
                     <spring:message code="label.user_phone"/><br>
-                    <input type="text" name="phone" value="${param.get("phone")}" required>
+                    <input class="input_login" type="text" name="phone" value="${param.get("phone")}" required>
                 </label><br>
                 <label>
                     <spring:message code="label.user_email"/><br>
-                    <input type="text" name="email" value="${param.get("email")}" required>
+                    <input class="input_login" type="text" name="email" value="${param.get("email")}" required>
                 </label><br>
                 <label>
                     <spring:message code="label.user_password"/><br>
-                    <input type="password" name="password" required>
+                    <input class="input_login" type="password" name="password" required>
                 </label><br>
                 <label>
                     <spring:message code="label.repeat_password"/><br>
-                    <input type="password" name="passwordValidation" required>
+                    <input class="input_login" type="password" name="passwordValidation" required>
                 </label>
 
             </div>
