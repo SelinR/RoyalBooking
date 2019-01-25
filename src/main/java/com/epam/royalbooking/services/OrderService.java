@@ -66,19 +66,28 @@ public class OrderService {
     /**
      * @return true if @param order is valid
      */
-    public boolean isOrderValid(LocalDate entryLocalDate, LocalDate leaveLocalDate, int bookingRoomId) {
-        if (entryLocalDate == null || leaveLocalDate == null) {
+    public boolean isOrderValid(LocalDate entryDate, LocalDate leaveDate, int bookingRoomId) {
+        if (entryDate == null || leaveDate == null) {
             return false;
         } else {
-            long entryDate = entryLocalDate.toEpochDay();
-            long leaveDate = leaveLocalDate.toEpochDay();
-            boolean isValid = leaveDate >= entryDate;
-            boolean isTodayOrInFuture = entryLocalDate.isAfter(LocalDate.now()) || entryLocalDate.isEqual(LocalDate.now());
-            return isValid && isTodayOrInFuture && !isDatesCross(entryDate, leaveDate, bookingRoomId);
+            return isEntryDateBeforeLeaveDate(entryDate, leaveDate)
+                        && isOrderForTodayOrInFuture(entryDate)
+                        && isRoomFreeInSelectedDays(entryDate, leaveDate, bookingRoomId);
         }
     }
 
-    private boolean isDatesCross(long entryDate, long leaveDate, int bookingRoomId) {
+    private boolean isEntryDateBeforeLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
+        return entryDate.isBefore(leaveDate);
+    }
+
+    private boolean isOrderForTodayOrInFuture(LocalDate entryDate) {
+        LocalDate today = LocalDate.now();
+        return entryDate.isEqual(today) || entryDate.isAfter(today);
+    }
+
+    private boolean isRoomFreeInSelectedDays(LocalDate entryLocalDate, LocalDate leaveLocalDate, int bookingRoomId) {
+        long entryDate = entryLocalDate.toEpochDay();
+        long leaveDate = leaveLocalDate.toEpochDay();
         List<Order> ordersList = orderDao.findAllByBookedRoomID(bookingRoomId);
         for (Order order : ordersList) {
             long existingEntryDate = order.getEntryDate().toEpochDay();
