@@ -100,6 +100,7 @@
                         $(function() {
                             $('input[name="dateRange"]').daterangepicker({
                                 opens: 'left',
+                                minDate: moment(),
                                 isInvalidDate: function(date) {
                                     <c:forEach var="date" items="${list}">
                                         if (date.format('YYYY-MM-DD') === '${date}') {
