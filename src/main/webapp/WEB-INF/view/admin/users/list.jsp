@@ -9,7 +9,11 @@
     <title>
         <spring-tag:message code="label.all_users"/>
     </title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css"/>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
@@ -70,13 +74,10 @@
     </c:forEach>
 </table>
 
-<h2> Add new user</h2>
+<h2> <spring-tag:message code="label.add_new_user"/> </h2>
 <c:url var="addAction" value="/admin/users/add"/>
-<h2>
-    <spring-tag:message code="label.add_new_user"/>
-</h2>
-
 <form:form method="POST" action="${addAction}" modelAttribute="user">
+    <div>
     <table>
         <tr>
             <td><form:label path="name">
@@ -126,9 +127,9 @@
             </form:label></td>
             <td>
                 <form:radiobutton path="userType" value="USER"/>
-                <spring-tag:message code="label.title_user"/>
+                <spring-tag:message code="label.title_user"/> <br>
                 <form:radiobutton path="userType" value="ADMIN"/>
-                <spring-tag:message code="label.admin"/>
+                <spring-tag:message code="label.admin"/> <br>
             </td>
         </tr>
         <tr>
@@ -136,5 +137,6 @@
         </tr>
     </table>
 </form:form>
+    </div>
 </body>
 </html>

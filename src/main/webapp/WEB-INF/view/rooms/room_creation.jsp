@@ -10,6 +10,7 @@
     <title><spring:message code="label.room_page"/></title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 </head>
 
@@ -19,15 +20,15 @@
 <h2><spring:message code="label.room_create"/></h2><br/>
 <form method="post" action="<c:url value="/admin/room_add"/>">
     <label>
-        <spring:message code="label.room_type"/><br>
+        <spring:message code="label.room_type"/> <br>
         <input type="radio" name="roomType" value="<spring:message code="label.room_basic"/>" checked>
-        <spring:message code="label.room_basic"/>
+        <spring:message code="label.room_basic"/> <br>
         <input type="radio" name="roomType" value="<spring:message code="label.room_family"/>">
-        <spring:message code="label.room_family"/>
+        <spring:message code="label.room_family"/> <br>
         <input type="radio" name="roomType" value="<spring:message code="label.room_luxury"/>">
-        <spring:message code="label.room_luxury"/>
+        <spring:message code="label.room_luxury"/> <br>
         <input type="radio" name="roomType" value="<spring:message code="label.room_penthose"/>">
-        <spring:message code="label.room_penthose"/>
+        <spring:message code="label.room_penthose"/> <br>
     </label><br>
     <label>
         <spring:message code="label.room_beds_amount"/> <br>
@@ -46,7 +47,7 @@
         <input type="text" name="additionalInfo">
     </label><br>
 
-    <input type="submit" value="Create"><br>
+    <input type="submit" value="<spring:message code="label.submit"/> "><br>
 </form>
 <pre>
 

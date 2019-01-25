@@ -43,7 +43,7 @@ public class OrderService {
         for (Order order : orderDao.findAllByBookedRoomID(id)) {
             LocalDate entryDate = order.getEntryDate();
             LocalDate leaveDate = order.getLeaveDate();
-            while (!entryDate.equals(leaveDate)) {
+            while (entryDate.isBefore(leaveDate.plusDays(1))) {
                 bookedDates.add(entryDate);
                 entryDate = entryDate.plusDays(1);
             }
@@ -70,14 +70,14 @@ public class OrderService {
         if (entryDate == null || leaveDate == null) {
             return false;
         } else {
-            return isEntryDateBeforeLeaveDate(entryDate, leaveDate)
+            return isEntryDateBeforeOrEqualLeaveDate(entryDate, leaveDate)
                         && isOrderForTodayOrInFuture(entryDate)
                         && isRoomFreeInSelectedDays(entryDate, leaveDate, bookingRoomId);
         }
     }
 
-    private boolean isEntryDateBeforeLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
-        return entryDate.isBefore(leaveDate);
+    private boolean isEntryDateBeforeOrEqualLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
+        return entryDate.isBefore(leaveDate) || entryDate.isEqual(leaveDate);
     }
 
     private boolean isOrderForTodayOrInFuture(LocalDate entryDate) {
@@ -94,10 +94,10 @@ public class OrderService {
             long existingLeaveDate = order.getLeaveDate().toEpochDay();
             if ((entryDate >= existingEntryDate && entryDate <= existingLeaveDate)
                     || (leaveDate >= existingEntryDate && leaveDate <= existingLeaveDate)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**

@@ -79,14 +79,14 @@
 
     <label>
         <spring:message code="label.room_type"/><br>
-        <input type="radio" name="roomType" value="BASIC"
-               <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> > <spring:message code="label.room_basic"/>
+        <input width="50" type="radio" name="roomType" value="BASIC"
+               <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> > <spring:message code="label.room_basic"/> <br>
         <input type="radio" name="roomType" value="FAMILY"
-               <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> > <spring:message code="label.room_family"/>
+               <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> > <spring:message code="label.room_family"/> <br>
         <input type="radio" name="roomType" value="LUXURY"
-               <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> > <spring:message code="label.room_luxury"/>
+               <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> > <spring:message code="label.room_luxury"/> <br>
         <input type="radio" name="roomType" value="PENTHOUSE"
-               <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> > <spring:message code="label.room_penthose"/>
+               <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> > <spring:message code="label.room_penthose"/> <br>
 
     </label><br>
     <label>
@@ -106,7 +106,7 @@
         <input type="text" name="additionalInfo" value="${room.additionalInfo}">
     </label><br>
     <input type="hidden" name="id" value="${room.id}">
-    <input type="submit" value="Save changes"><br>
+    <input type="submit" value="<spring:message code="label.submit"/> "><br>
 </form>
 <pre>
 
