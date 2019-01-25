@@ -6,6 +6,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <title><spring:message code="label.room_page"/></title>
 
@@ -13,9 +14,94 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>
+        $(window).on('load', function() {
+
+            let nbImg = 0;
+            $('.slider .container-images img').each(function() {
+                nbImg += 1;
+            });
+
+            $('.slider .arrow').click(function() {
+                let n = imageActive();
+
+                $('.slider').removeClass('right left');
+
+                if($(this).hasClass('left')) {
+                    n -= 1;
+                    $('.slider').addClass('left');
+                    setTimeout(function() {
+                        $('.slider .container-images img.active').addClass('to_left');
+                    }, 50)
+                }
+                else if($(this).hasClass('right')) {
+                    n += 1;
+                    $('.slider').addClass('right');
+                    setTimeout(function() {
+                        $('.slider .container-images img.active').addClass('to_right');
+                    }, 50)
+                }
+
+                if(n > nbImg) n = 1;
+                if(n < 1) n = nbImg;
+
+                setTimeout(function() {
+                    $('.slider .container-images img').removeClass('active');
+                    $('.slider .container-images img:nth-child('+n+')').addClass('active');
+
+                    setTimeout(function() {
+                        $('.slider .container-images img').removeClass('to_left');
+                        $('.slider .container-images img').removeClass('to_right');
+                    }, 500)
+                }, 50)
+            });
+
+            function imageActive() {
+                let n = 1;
+                $('.slider .container-images img').each(function(index) {
+                    if($(this).hasClass('active')) {
+                        n += index;
+                    }
+                });
+                return n;
+            }
+
+        });
+    </script>
+
 </head>
 <body>
+
 <c:import url="/WEB-INF/view/header/header.jsp"/>
+
+<div class="wrapper" >
+    <div class="slider right">
+
+        <div class="arrow left" >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292.359 292.359">
+                <path d="M222.979 5.424C219.364 1.807 215.08 0 210.132 0c-4.949 0-9.233 1.807-12.848 5.424L69.378 133.331c-3.615 3.617-5.424 7.898-5.424 12.847s1.809 9.233 5.424 12.847l127.906 127.907c3.614 3.617 7.898 5.428 12.848 5.428 4.948 0 9.232-1.811 12.847-5.428 3.617-3.614 5.427-7.898 5.427-12.847V18.271c-.001-4.949-1.81-9.229-5.427-12.847z" fill="#FFFFFF"></path>
+            </svg>
+        </div>
+
+        <div  class="container-images">
+
+            <img class="active" src="${pageContext.request.contextPath}/media/pent1.jpg">
+            <img src="${pageContext.request.contextPath}/media/pent2.jpg">
+            <img src="${pageContext.request.contextPath}/media/pent3.jpg">
+
+        </div>
+
+        <div class="arrow right">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292.359 292.359">
+                <path d="M222.979 5.424C219.364 1.807 215.08 0 210.132 0c-4.949 0-9.233 1.807-12.848 5.424L69.378 133.331c-3.615 3.617-5.424 7.898-5.424 12.847s1.809 9.233 5.424 12.847l127.906 127.907c3.614 3.617 7.898 5.428 12.848 5.428 4.948 0 9.232-1.811 12.847-5.428 3.617-3.614 5.427-7.898 5.427-12.847V18.271c-.001-4.949-1.81-9.229-5.427-12.847z" fill="#FFFFFF"></path>
+            </svg>
+        </div>
+
+    </div>
+</div>
 
 <div>
     <div align="left">
@@ -67,7 +153,6 @@
         </table>
     </div>
 </div>
-
 
 <div align="center">
     <form method="GET" action="<c:url value="/order_creation/${room.id}"/>">
