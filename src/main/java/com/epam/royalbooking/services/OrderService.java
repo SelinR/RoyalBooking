@@ -1,5 +1,6 @@
 package com.epam.royalbooking.services;
 
+import util.DateFormatter;
 import com.epam.royalbooking.dao.OrderDao;
 import com.epam.royalbooking.dao.RoomDao;
 import com.epam.royalbooking.entities.Order;
@@ -65,33 +66,38 @@ public class OrderService {
     /**
      * @return true if @param order is valid
      */
-    public boolean isOrderValid(Order order, int bookingRoomId) {
-        if (order == null || order.getEntryDate() == null || order.getLeaveDate() == null) {
+    public boolean isOrderValid(LocalDate entryDate, LocalDate leaveDate, int bookingRoomId) {
+        if (entryDate == null || leaveDate == null) {
             return false;
         } else {
-            LocalDate entryDate = order.getEntryDate();
-            LocalDate leaveDate = order.getLeaveDate();
-            boolean simpleValid = leaveDate.isAfter(entryDate);
-            return simpleValid & isOrderDatesNotCrosses(order, bookingRoomId);
+            return isEntryDateBeforeLeaveDate(entryDate, leaveDate)
+                        && isOrderForTodayOrInFuture(entryDate)
+                        && isRoomFreeInSelectedDays(entryDate, leaveDate, bookingRoomId);
         }
     }
 
-    private boolean isOrderDatesNotCrosses(Order orderToCheck, int bookingRoomId) {
+    private boolean isEntryDateBeforeLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
+        return entryDate.isBefore(leaveDate);
+    }
+
+    private boolean isOrderForTodayOrInFuture(LocalDate entryDate) {
+        LocalDate today = LocalDate.now();
+        return entryDate.isEqual(today) || entryDate.isAfter(today);
+    }
+
+    private boolean isRoomFreeInSelectedDays(LocalDate entryLocalDate, LocalDate leaveLocalDate, int bookingRoomId) {
+        long entryDate = entryLocalDate.toEpochDay();
+        long leaveDate = leaveLocalDate.toEpochDay();
         List<Order> ordersList = orderDao.findAllByBookedRoomID(bookingRoomId);
-        LocalDate entryDateToCheck = orderToCheck.getEntryDate();
-        LocalDate leaveDateToCheck = orderToCheck.getLeaveDate();
         for (Order order : ordersList) {
-            LocalDate existingEntryDate = order.getEntryDate();
-            LocalDate existingLeaveDate = order.getLeaveDate();
-            if (existingEntryDate.isAfter(entryDateToCheck) & existingEntryDate.isBefore(leaveDateToCheck)) {
-                return false;
-            } else if (existingLeaveDate.isAfter(entryDateToCheck) & existingLeaveDate.isBefore(leaveDateToCheck)) {
-                return false;
-            } else if (existingEntryDate.isEqual(entryDateToCheck) || existingLeaveDate.isEqual(leaveDateToCheck)) {
-                return false;
+            long existingEntryDate = order.getEntryDate().toEpochDay();
+            long existingLeaveDate = order.getLeaveDate().toEpochDay();
+            if ((entryDate >= existingEntryDate && entryDate <= existingLeaveDate)
+                    || (leaveDate >= existingEntryDate && leaveDate <= existingLeaveDate)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -102,7 +108,7 @@ public class OrderService {
         if (room.isPresent()) {
             double dailyCost = room.get().getDailyCost();
             long days = ChronoUnit.DAYS.between(entryDate, leaveDate);
-            return dailyCost * days;
+            return days == 0 ? dailyCost : days * dailyCost;
         } else {
             throw new RuntimeException("No room with such ID found: " + bookedRoomId);
         }

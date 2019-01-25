@@ -1,5 +1,6 @@
 package com.epam.royalbooking.controllers;
 
+import com.epam.royalbooking.dto.PreOrder;
 import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.entities.Room;
 import com.epam.royalbooking.entities.User;
@@ -58,7 +59,7 @@ public class OrderController {
      */
     @RequestMapping(value = "order_save", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order, Principal principal) {
-        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+        if (orderService.isOrderValid(order.getEntryDate(), order.getLeaveDate(), order.getBookedRoomID())) {
             String email = (principal.getName());
             User currentUser = userService.getByEmail(email);
             order.setUserID(currentUser.getId());
@@ -102,23 +103,29 @@ public class OrderController {
         return new ModelAndView("orders/order_confirm", "order", order);
     }
 
+
     /**
      * Method calculates orders total price, based on dates and daily cost.
      * Refers to page with  order details and order confirmation.
-     * if user fills wrong input dates , then returns wrong_dates_input.jsp page
-     * @param order doesn't save in DataBase on this stage, haven't userID
+     * if user fills wrong input dates , then returns a message
+     * Order isn't saved in DataBase on this stage, haven't userID
+     * @param preOrder consisting of the entered dates to order
      * @return ModelAndView with refer to order_confirm.jsp, and entity Order with calculated total price
      */
     @RequestMapping(value = "/order_confirm/{roomId}", method = RequestMethod.POST)
-    public ModelAndView getOrderConfirmPage(@ModelAttribute("order") Order order, @PathVariable("roomId") int roomId) {
-        if (orderService.isOrderValid(order, order.getBookedRoomID())) {
+    public ModelAndView getOrderConfirmPage(@ModelAttribute("preOrder") PreOrder preOrder, @PathVariable("roomId") int roomId) {
+        preOrder.setEntryAndLeaveDate();
+        LocalDate entryDate = preOrder.getEntryDate();
+        LocalDate leaveDate = preOrder.getLeaveDate();
+        if (orderService.isOrderValid(entryDate, leaveDate, roomId)) {
+            Order order = new Order();
             order.setBookedRoomID(roomId);
+            order.setEntryDate(entryDate);
+            order.setLeaveDate(leaveDate);
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
             return new ModelAndView("orders/order_confirm", "order", order);
-        } else if (!orderService.isOrderValid(order, order.getBookedRoomID())) {
-            return new ModelAndView("/wrong_dates_input", "order", order);
         } else {
-            return new ModelAndView("/ErrorPage");
+            return new ModelAndView("redirect:/order_creation/" + roomId + "?error");
         }
     }
 

@@ -92,9 +92,15 @@
             <td>
                 <label>
                     <form:select path="status" id="status">
-                        <form:option value="ACCEPTED">ACCEPTED</form:option>
-                        <form:option value="EXPIRED">EXPIRED</form:option>
-                        <form:option value="DECLINED">DECLINED</form:option>
+                        <form:option value="ACCEPTED">
+                            <spring-tags:message code="label.order_status_accepted"/>
+                        </form:option>
+                        <form:option value="EXPIRED">
+                            <spring-tags:message code="label.order_status_expired"/>
+                        </form:option>
+                        <form:option value="DECLINED">
+                            <spring-tags:message code="label.order_status_declined"/>
+                        </form:option>
                     </form:select>
                 </label>
             </td>
