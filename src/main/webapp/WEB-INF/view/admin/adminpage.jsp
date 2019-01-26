@@ -4,22 +4,23 @@
 <html>
   <head>
     <title><spring:message code="label.admin"/></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
   </head>
 
   <body bgcolor="#fff8dc">
   <c:import url="/WEB-INF/view/header/header.jsp"/>
 
-    <a href="<c:url value="/admin/rooms_list"/>" target="_blank">
+    <a href="<c:url value="/admin/rooms_list"/>">
       <p><spring:message code="label.all_rooms"/></p>
     </a>
   <br>
-    <a href="<c:url value="/admin/users"/>" target="_blank">
+    <a href="<c:url value="/admin/users"/>">
       <p><spring:message code="label.all_users"/></p>
     </a>
   <br>
-  <a href="<c:url value="/admin/orders"/>" target="_blank">
+  <a href="<c:url value="/admin/orders"/>">
     <p><spring:message code="label.all_orders"/></p>
   </a>
   </body>

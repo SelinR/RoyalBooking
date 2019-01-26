@@ -8,7 +8,10 @@
 <html>
 <head>
     <meta content="text/html" charset="UTF-8"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css"/>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <title><spring-tags:message code="label.orders"/></title>
 </head>
 

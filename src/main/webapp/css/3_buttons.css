@@ -160,6 +160,23 @@ input {
     text-align: center;
 }
 
+.input_login {
+    padding: 5px;
+    border-radius: 3px;
+    width: 25%;
+    text-align: left;
+}
+
+input[type="date"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
 .redButton:hover {
     background-color: rgb(211, 71, 8);
     border: 1px solid rgb(211, 71, 8);

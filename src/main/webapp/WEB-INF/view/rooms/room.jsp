@@ -104,7 +104,7 @@
 </div>
 
 <div>
-    <div align="left">
+    <div align="center">
         <table id="datatable" class="tg">
             <thead>
             <tr>
