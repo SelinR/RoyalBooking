@@ -6,6 +6,12 @@ body {
   scrollbar-shadow-color: #d2691e;
   scrollbar-3dlight-color: #ffebcd;
   scrollbar-darkshadow-color: #8b0000;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  alignment: center;
+  text-align: center;
+
 }
 
 .wrapper {
@@ -30,6 +36,10 @@ body {
   scrollbar-shadow-color: #d2691e;
   scrollbar-3dlight-color: #ffebcd;
   scrollbar-darkshadow-color: #8b0000;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  alignment: center;
 }
 .slider .arrow:hover {
   opacity: .8;

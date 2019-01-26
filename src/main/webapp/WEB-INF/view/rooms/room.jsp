@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -75,9 +76,11 @@
 </head>
 <body>
 
-<c:import url="/WEB-INF/view/header/header.jsp"/>
+<div class="Menu" align="center">
+    <c:import url="/WEB-INF/view/header/header.jsp"/>
+</div>
 
-<div class="wrapper" >
+<div class="wrapper" align="center">
     <div class="slider right">
 
         <div class="arrow left" >
@@ -88,9 +91,9 @@
 
         <div  class="container-images">
 
-            <img class="active" src="${pageContext.request.contextPath}/media/pent1.jpg">
-            <img src="${pageContext.request.contextPath}/media/pent2.jpg">
-            <img src="${pageContext.request.contextPath}/media/pent3.jpg">
+            <img class="active" src="${pageContext.request.contextPath}${imageUrl_1}">
+            <img src="${pageContext.request.contextPath}${imageUrl_2}">
+            <img src="${pageContext.request.contextPath}${imageUrl_3}">
 
         </div>
 
