@@ -80,7 +80,7 @@
     <c:import url="/WEB-INF/view/header/header.jsp"/>
 </div>
 
-<div class="wrapper" align="center">
+<div class="wrapper">
     <div class="slider right">
 
         <div class="arrow left" >
