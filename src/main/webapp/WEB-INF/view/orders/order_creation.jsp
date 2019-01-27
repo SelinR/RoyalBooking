@@ -112,50 +112,9 @@
                         });
                     </script>
             </label>
-
-                <label>
-                    <input type="hidden"  name="roomId" value="${room.id}">
-                    <input type="hidden"  name="totalPrice" value="50">
-                </label>
-
                 <input type="submit" value="<spring:message code="label.create"/>">
         </form>
     </div>
-
-
-
-
-
-<%--<div>
-    <h3><spring:message code="label.choose_dates"/></h3>
-</div>--%>
-
-<%--<form method="post" action="<c:url value="/order_confirm/${room.id}"/>">
-
-    <label>
-        <spring:message code="label.order_entry_date"/> <br>
-        <input type="date" id="entryDate" name="entryDate"
-               value="<c:out value="${requestScope.minDate}"/>"
-               min="<c:out value="${requestScope.minDate}"/>"
-               max="<c:out value="${requestScope.maxDate}"/>">
-    </label><br>
-
-    <label>
-        <spring:message code="label.order_leave_date"/> <br>
-        <input type="date" name="leaveDate"
-               value="<c:out value="${requestScope.minDate}"/>"
-               min="<c:out value="${requestScope.minDate}"/>"
-               max="<c:out value="${requestScope.maxDate}"/>">
-    </label><br>
-
-    <p><label>
-        <input type="hidden"  name="roomId" value="${room.id}">
-        <input type="hidden"  name="totalPrice" value="50">
-    </label></p>
-
-    <p><input type="submit" class="blueButton" value="<spring:message code="label.create"/>"></p>
-
-</form>--%>
 </div>
 </body>
 </html>

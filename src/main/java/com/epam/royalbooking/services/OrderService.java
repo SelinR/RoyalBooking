@@ -1,6 +1,5 @@
 package com.epam.royalbooking.services;
 
-import util.DateFormatter;
 import com.epam.royalbooking.dao.OrderDao;
 import com.epam.royalbooking.dao.RoomDao;
 import com.epam.royalbooking.entities.Order;
@@ -73,25 +72,33 @@ public class OrderService {
                 && isRoomFreeInSelectedDays(entryDate, leaveDate, bookingRoomId);
     }
 
-    private boolean isEntryDateBeforeOrEqualLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
+    public boolean isEntryDateBeforeOrEqualLeaveDate(LocalDate entryDate, LocalDate leaveDate) {
         return entryDate.isBefore(leaveDate) || entryDate.isEqual(leaveDate);
     }
 
-    private boolean isOrderForTodayOrInFuture(LocalDate entryDate) {
+    public boolean isOrderForTodayOrInFuture(LocalDate entryDate) {
         LocalDate today = LocalDate.now();
         return entryDate.isEqual(today) || entryDate.isAfter(today);
     }
 
-    private boolean isRoomFreeInSelectedDays(LocalDate entryLocalDate, LocalDate leaveLocalDate, int bookingRoomId) {
+    public boolean isRoomFreeInSelectedDays(LocalDate entryLocalDate, LocalDate leaveLocalDate, int bookingRoomId) {
         long entryDate = entryLocalDate.toEpochDay();
         long leaveDate = leaveLocalDate.toEpochDay();
         List<Order> ordersList = orderDao.findAllByBookedRoomID(bookingRoomId);
         for (Order order : ordersList) {
-            long existingEntryDate = order.getEntryDate().toEpochDay();
-            long existingLeaveDate = order.getLeaveDate().toEpochDay();
+            LocalDate existingEntryLocalDate = order.getEntryDate();
+            LocalDate existingLeaveLocalDate = order.getLeaveDate();
+            long existingEntryDate = existingEntryLocalDate.toEpochDay();
+            long existingLeaveDate = existingLeaveLocalDate.toEpochDay();
             if ((entryDate >= existingEntryDate && entryDate <= existingLeaveDate)
                     || (leaveDate >= existingEntryDate && leaveDate <= existingLeaveDate)) {
                 return false;
+            }
+            List<LocalDate> allUnavailableDates = getAllDaysBetween(existingEntryLocalDate, existingLeaveLocalDate);
+            for (LocalDate date : allUnavailableDates) {
+                if (entryLocalDate.equals(date) || leaveLocalDate.equals(date)) {
+                    return false;
+                }
             }
         }
         return true;
@@ -114,6 +121,19 @@ public class OrderService {
     private Order createOrder(int id) {
         Optional<Order> optionalOrder = orderDao.findById(id);
         return optionalOrder.orElse(null);
+    }
+
+    private List<LocalDate> getAllDaysBetween(LocalDate in, LocalDate out) {
+        if (in == null || out == null || in.isAfter(out)) {
+            return new ArrayList<>();
+        }
+        List<LocalDate> allDays = new ArrayList<>();
+        while (in.isBefore(out)) {
+            allDays.add(in);
+            in = in.plusDays(1);
+        }
+        allDays.add(in);
+        return allDays;
     }
 
     @Autowired

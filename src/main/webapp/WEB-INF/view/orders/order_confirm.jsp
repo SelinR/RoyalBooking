@@ -32,10 +32,6 @@
             </thead>
             <tbody>
             <tr>
-                <td><spring:message code="label.order_booked_room_id"/></td>
-                <td><c:out value="${order.bookedRoomID}"/></td>
-            </tr>
-            <tr>
                 <td><spring:message code="label.order_entry_date"/></td>
                 <td><c:out value="${order.entryDate}"/></td>
 
