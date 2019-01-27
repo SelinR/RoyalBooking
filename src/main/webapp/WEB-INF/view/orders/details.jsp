@@ -53,7 +53,7 @@
         </table>
     </div>
 </div>
-
+<div>
 <form name=card_form method="post" action="<c:url value="/order/save"/>">
     <table>
         <tr>
@@ -65,7 +65,7 @@
                         <option>Mastercard</option>
                     </select>
                 </label>
-            </td> <br>
+            </td>
         </tr>
         <tr>
             <td>
@@ -73,7 +73,7 @@
             </td>
             <td>
                 <label>
-                    <input name=card_number type="text" size="100"/>
+                    <input name=card_number type="text" size="80"/>
                     <script>
                         var cc = card_form.card_number,
                             events  = ['input', 'change', 'blur', 'keyup'];
@@ -95,7 +95,7 @@
             </td>
             <td>
                 <label>
-                    <input name=card_cvv type="text" size="100">
+                    <input name=card_cvv type="text" size="80">
                     <script>
                         var cc = card_form.card_cvv,
                             events  = ['input', 'change', 'blur', 'keyup'];
@@ -107,7 +107,6 @@
                             this.value = cardCode;
                         }
                     </script>
-
                 </label>
             </td>
         </tr>
@@ -117,7 +116,7 @@
             </td>
             <td>
                 <label>
-                    <input type="date" size="100"/>
+                    <input type="month" min="2019-02" size="60"/>
                 </label>
             </td>
         </tr>
@@ -129,6 +128,6 @@
     <input type="hidden" name="userID" value="${order.userID}"> <br>
     <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
 </form>
-
+</div>
 </body>
 </html>
