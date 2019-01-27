@@ -1,5 +1,6 @@
 package com.epam.royalbooking.controllers;
 
+import com.epam.royalbooking.dto.OrderTransporter;
 import com.epam.royalbooking.dto.PreOrder;
 import com.epam.royalbooking.entities.Order;
 import com.epam.royalbooking.entities.User;
@@ -97,6 +98,7 @@ public class OrderController {
             order.setEntryDate(entryDate);
             order.setLeaveDate(leaveDate);
             order.setTotalPrice(orderService.calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(), order.getLeaveDate()));
+            OrderTransporter.setOrder(order);
             return new ModelAndView("orders/details", "order", order);
         } else {
             return new ModelAndView("redirect:/order_creation/" + roomId + "?error");

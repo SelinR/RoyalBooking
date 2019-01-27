@@ -53,81 +53,30 @@
         </table>
     </div>
 </div>
+
 <div>
-<form name=card_form method="post" action="<c:url value="/order/save"/>">
-    <table>
-        <tr>
-            <td width="200"><spring:message code="label.card_type"/></td>
-            <td width="200">
-                <label>
-                    <select>
-                        <option>VISA</option>
-                        <option>Mastercard</option>
-                    </select>
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <spring:message code="label.card_number"/>
-            </td>
-            <td>
-                <label>
-                    <input name=card_number type="text" size="80"/>
-                    <script>
-                        var cc = card_form.card_number,
-                            events  = ['input', 'change', 'blur', 'keyup'];
-                        for (var i in events) {
-                            cc.addEventListener(events[i], formatCardCode, false);
-                        }
-                        function formatCardCode() {
-                            var cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
-                            cardCode = cardCode !== '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
-                            this.value = cardCode;
-                        }
-                    </script>
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p>CVV</p>
-            </td>
-            <td>
-                <label>
-                    <input name=card_cvv type="text" size="80">
-                    <script>
-                        var cc = card_form.card_cvv,
-                            events  = ['input', 'change', 'blur', 'keyup'];
-                        for (var i in events) {
-                            cc.addEventListener(events[i], formatCardCode, false);
-                        }
-                        function formatCardCode() {
-                            var cardCode = this.value.replace(/[^\d]/g, '').substring(0,3);
-                            this.value = cardCode;
-                        }
-                    </script>
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <spring:message code="label.expiration_date"/>
-            </td>
-            <td>
-                <label>
-                    <input type="month" min="2019-02" size="60"/>
-                </label>
-            </td>
-        </tr>
-    </table>
-    <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
-    <input type="hidden" name="totalPrice" value="${order.totalPrice}">
-    <input type="hidden" name="entryDate" value="${order.entryDate}">
-    <input type="hidden" name="leaveDate" value="${order.leaveDate}">
-    <input type="hidden" name="userID" value="${order.userID}"> <br>
-    <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
-</form>
+    <form method="post" action="<c:url value="/order/save"/>">
+        <spring:message code="label.prepayment"/>
+        <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
+        <input type="hidden" name="totalPrice" value="${order.totalPrice}">
+        <input type="hidden" name="entryDate" value="${order.entryDate}">
+        <input type="hidden" name="leaveDate" value="${order.leaveDate}">
+        <input type="hidden" name="userID" value="${order.userID}"> <br>
+        <table>
+            <tr>
+                <td>
+                    <a href="<c:url value="/order/payment"/>">
+                        <div class="blueButton" align="left">
+                            <p><spring:message code="label.prepayment_agree"/></p>
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    <input type="submit" class="blueButton" value="<spring:message code="label.prepayment_refuse"/>">
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 </body>
 </html>
