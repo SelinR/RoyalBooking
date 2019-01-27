@@ -14,6 +14,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 public class OrderService {
@@ -94,9 +95,10 @@ public class OrderService {
                     || (leaveDate >= existingEntryDate && leaveDate <= existingLeaveDate)) {
                 return false;
             }
+            List<LocalDate> allBookingDates = getAllDaysBetween(entryLocalDate, leaveLocalDate);
             List<LocalDate> allUnavailableDates = getAllDaysBetween(existingEntryLocalDate, existingLeaveLocalDate);
-            for (LocalDate date : allUnavailableDates) {
-                if (entryLocalDate.equals(date) || leaveLocalDate.equals(date)) {
+            for (LocalDate bookingDate : allBookingDates) {
+                if (allUnavailableDates.stream().anyMatch(date -> date.equals(bookingDate))) {
                     return false;
                 }
             }

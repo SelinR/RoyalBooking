@@ -1,23 +1,26 @@
 package com.epam.royalbooking.services;
 
+import com.epam.royalbooking.config.ApplicationConfig;
 import com.epam.royalbooking.dao.OrderDaoTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ApplicationConfig.class)
 public class OrderServiceTest {
-    private static OrderService orderService;
-    private static OrderDaoTest orders;
 
-    @BeforeClass
-    public static void setUp() {
-        orderService = new OrderService();
-        orders = new OrderDaoTest();
-    }
+    @Autowired
+    private static OrderService orderService;
 
     @Test
     public void testIsOrderValid() {
@@ -73,5 +76,10 @@ public class OrderServiceTest {
     @Test
     public void testCalculateTotalPrice() {
 
+    }
+
+    @Autowired
+    public static void setOrderService(OrderService orderService) {
+        OrderServiceTest.orderService = orderService;
     }
 }

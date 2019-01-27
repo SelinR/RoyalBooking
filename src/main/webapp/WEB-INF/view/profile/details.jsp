@@ -67,7 +67,17 @@
                 <c:forEach var="order" items="${requestScope.orders}">
                     <tr>
                         <td align="center"><c:out value="${order.id}"/></td>
-                        <td><c:out value="${order.status}"/></td>
+                        <td>
+                        <c:if test="${order.status == 'ACCEPTED'}">
+                            <spring:message code="label.order_status_accepted"/>
+                        </c:if>
+                        <c:if test="${order.status == 'DECLINED'}">
+                            <spring:message code="label.order_status_declined"/>
+                        </c:if>
+                        <c:if test="${order.status == 'EXPIRED'}">
+                            <spring:message code="label.order_status_expired"/>
+                        </c:if>
+                        </td>
                         <td><c:out value="${order.entryDate}"/></td>
                         <td><c:out value="${order.leaveDate}"/></td>
                         <td><c:out value="${order.totalPrice}"/></td>

@@ -1,6 +1,5 @@
 package com.epam.royalbooking.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.view.JstlView;
 @EntityScan({"com.epam.royalbooking.entities"})
 @EnableJpaRepositories({"com.epam.royalbooking.dao"})
 public class ApplicationConfig {
-    private static OrderInitialChecker orderInitialChecker;
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -34,10 +32,5 @@ public class ApplicationConfig {
 
     public static void main(String[] args) {
         SpringApplication.run(ApplicationConfig.class, args);
-    }
-
-    @Autowired
-    public void setOrderInitialChecker(OrderInitialChecker orderInitialChecker) {
-        this.orderInitialChecker = orderInitialChecker;
     }
 }
