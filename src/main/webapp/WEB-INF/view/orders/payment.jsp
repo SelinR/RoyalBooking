@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -48,7 +49,7 @@
     </div>
 </div>
 <div>
-    <form name=card_form method="post" action="<c:url value="/order/confirm"/>">
+    <form name=card_form method="post" action="<c:url value="/order/save"/>">
         <spring:message code="label.enter_card_info"/>
         <table>
             <tr>
@@ -121,7 +122,7 @@
         <input type="hidden" name="entryDate" value="${order.entryDate}">
         <input type="hidden" name="leaveDate" value="${order.leaveDate}">
         <input type="hidden" name="userID" value="${order.userID}">
-        <input type="hidden" name="prepaid" value="${order.prepaid}"> <br>
+        <input type="hidden" name="prepaid" value="true"> <br>
         <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
     </form>
 </div>

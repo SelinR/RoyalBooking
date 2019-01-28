@@ -28,12 +28,4 @@ public class PaymentController {
         return "orders/payment";
     }
 
-    @RequestMapping(value = "order/confirm", method = RequestMethod.POST)
-    public ModelAndView getConfirmationPage(@ModelAttribute("order") Order order) {
-        ModelAndView modelAndView = new ModelAndView("forward:/order/save");
-        order.setPrepaid(true);
-        modelAndView.addObject("order", order);
-        return modelAndView;
-        //TODO fix prepayment
-    }
 }
