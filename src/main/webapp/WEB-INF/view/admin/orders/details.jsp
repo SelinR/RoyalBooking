@@ -9,11 +9,12 @@
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>Ωß
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
+    Ωß
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
-<h1> <spring-tags:message code="label.order_details"/> </h1>
+<h1><spring-tags:message code="label.order_details"/></h1>
 <table class="tg">
     <tr>
         <th width="60"><spring-tags:message code="label.id"/></th>
@@ -23,6 +24,7 @@
         <th width="60"><spring-tags:message code="label.order_total_price"/></th>
         <th width="60"><spring-tags:message code="label.order_user_id"/></th>
         <th width="60"><spring-tags:message code="label.order_booked_room_id"/></th>
+        <th width="60"><spring-tags:message code="label.prepaid"/></th>
         <th width="60"><spring-tags:message code="label.delete"/></th>
     </tr>
     <tr align="center">
@@ -33,10 +35,15 @@
         <td><c:out value="${order.totalPrice}"/></td>
         <td><c:out value="${order.userID}"/></td>
         <td><c:out value="${order.bookedRoomID}"/></td>
-        <td><a href="<c:url value='/admin/orders/delete/${order.id}'/>"><spring-tags:message code="label.delete"/></a></td>
+        <td>
+            <c:if test="${order.prepaid==false}"><spring-tags:message code="label.prepayment_refuse"/> </c:if>
+            <c:if test="${order.prepaid==true}"><spring-tags:message code="label.prepayment_agree"/></c:if>
+        </td>
+        <td><a href="<c:url value='/admin/orders/delete/${order.id}'/>"><spring-tags:message code="label.delete"/></a>
+        </td>
     </tr>
 </table>
-<h2> <spring-tags:message code="label.edit"/> </h2>
+<h2><spring-tags:message code="label.edit"/></h2>
 
 <c:url var="editAction" value="/admin/orders/edit"/>
 
@@ -102,10 +109,25 @@
                         </form:option> <br>
                         <form:option value="DECLINED">
                             <spring-tags:message code="label.order_status_declined"/>
-                        </form:option> <br>
+                        </form:option>
                     </form:select>
                 </label>
             </td>
+        </tr>
+        <tr>
+            <td><spring-tags:message code="label.prepaid"/></td>
+            <label>
+                <td>
+                    <form:select path="prepaid" id="prepaid">
+                        <form:option value="Yes">
+                            <spring-tags:message code="label.prepayment_agree"/>
+                        </form:option>
+                        <form:option value="No">
+                            <spring-tags:message code="label.prepayment_refuse"/>
+                        </form:option>
+                    </form:select>
+                </td>
+            </label>
         </tr>
     </table>
     <br>

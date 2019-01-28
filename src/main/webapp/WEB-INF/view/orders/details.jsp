@@ -61,7 +61,8 @@
         <input type="hidden" name="totalPrice" value="${order.totalPrice}">
         <input type="hidden" name="entryDate" value="${order.entryDate}">
         <input type="hidden" name="leaveDate" value="${order.leaveDate}">
-        <input type="hidden" name="userID" value="${order.userID}"> <br>
+        <input type="hidden" name="userID" value="${order.userID}">
+        <input type="hidden" name="prepaid" value="${order.prepaid}"> <br>
         <table>
             <tr>
                 <td>

@@ -11,12 +11,7 @@
 
 </head>
 <body>
-<c:import url="/WEB-INF/view/header/header_without_i18n.jsp"/>
-<span style="float: right">
-        <a href="<c:url value="/order/confirm/${order.bookedRoomID}/${order.entryDate}/${order.leaveDate}?lang=en"/>">en</a>
-        |
-        <a href="<c:url value="/order/confirm/${order.bookedRoomID}/${order.entryDate}/${order.leaveDate}?lang=ru"/>">ru</a>
-</span>
+<c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <div>
     <h2 align="center"><spring:message code="label.order_details"/></h2>
@@ -125,7 +120,8 @@
         <input type="hidden" name="totalPrice" value="${order.totalPrice}">
         <input type="hidden" name="entryDate" value="${order.entryDate}">
         <input type="hidden" name="leaveDate" value="${order.leaveDate}">
-        <input type="hidden" name="userID" value="${order.userID}"> <br>
+        <input type="hidden" name="userID" value="${order.userID}">
+        <input type="hidden" name="prepaid" value="${order.prepaid}"> <br>
         <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
     </form>
 </div>
