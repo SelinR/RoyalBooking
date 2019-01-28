@@ -70,7 +70,7 @@
 
 
 <div align="center">
-    <form method="GET" action="<c:url value="/order_creation/${room.id}"/>">
+    <form method="GET" action="<c:url value="/order/creation/${room.id}"/>">
         <button type="submit" value="<spring:message code="label.book_room"/>">
             <spring:message code="label.book_room"/>
         </button>

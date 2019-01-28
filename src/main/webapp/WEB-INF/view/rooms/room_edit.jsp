@@ -74,7 +74,7 @@
     </div>
 </div>
 
-<form method="post" action="<c:url value="/admin/room_update"/>">
+<form method="post" action="<c:url value="/admin/room/update"/>">
 
 
     <label>
@@ -111,7 +111,7 @@
 <pre>
 
 </pre>
-<form method="get" action="<c:url value="/admin/rooms_list"/>">
+<form method="get" action="<c:url value="/admin/rooms"/>">
     <button><spring:message code="label.room_back_to_list"/></button>
 </form>
 </body>

@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RoomController {
     private RoomService roomService;
 
-    @RequestMapping(value = "/admin/rooms_list", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/rooms", method = RequestMethod.GET)
     public String getListForAdmin(Model model) {
         model.addAttribute("rooms", roomService.getAll());
         return "/rooms/rooms_list";
     }
 
-    @RequestMapping(value = "/admin/room_add", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/room/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
         roomService.save(room);
         return "redirect:/admin/rooms_list";
@@ -32,19 +32,19 @@ public class RoomController {
         return "redirect:/admin/rooms_list";
     }
 
-    @RequestMapping(value = "/admin/room_edit/{id}")
+    @RequestMapping(value = "/admin/room/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("room", roomService.getById(id));
         return "/rooms/room_edit";
     }
 
-    @RequestMapping(value = "/admin/room_update", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/room/update", method = RequestMethod.POST)
     public String update(@ModelAttribute("room") Room room) {
         roomService.update(room);
         return "/rooms/room_edit";
     }
 
-    @RequestMapping(value = "/admin/room_creation")
+    @RequestMapping(value = "/admin/room/creation")
     public String getCreationPage() {
         return "/rooms/room_creation";
     }

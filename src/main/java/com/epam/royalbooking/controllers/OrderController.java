@@ -41,7 +41,7 @@ public class OrderController {
     /**
      * Needed for internationalization.
      */
-    @RequestMapping(value = "order_save/{entryDate}/{leaveDate}", method = RequestMethod.GET)
+    @RequestMapping(value = "order/save/{entryDate}/{leaveDate}", method = RequestMethod.GET)
     public ModelAndView saveGet(@ModelAttribute("order") Order order,
                                 @PathVariable("entryDate") LocalDate entryDate, @PathVariable("leaveDate") LocalDate leaveDate) {
         ModelAndView modelAndView = new ModelAndView("orders/order_confirm");
@@ -58,7 +58,7 @@ public class OrderController {
      * @param order to save in DataBase
      * @param principal need to get user email and id
      */
-    @RequestMapping(value = "order_save", method = RequestMethod.POST)
+    @RequestMapping(value = "order/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("order") Order order, Principal principal) {
         if (orderService.isOrderValid(order.getEntryDate(), order.getLeaveDate(), order.getBookedRoomID())) {
             String email = (principal.getName());
@@ -84,7 +84,7 @@ public class OrderController {
         return "/orders";
     }
 
-    @RequestMapping(value = "/order_creation/{roomId}")
+    @RequestMapping(value = "/order/creation/{roomId}")
     public String getOrderCreationPage(Model model, @PathVariable("roomId") int roomId) {
         model.addAttribute("list", orderService.getAllBookedDatesByBookedRoomId(roomId));
         model.addAttribute("room", roomService.getById(roomId));
