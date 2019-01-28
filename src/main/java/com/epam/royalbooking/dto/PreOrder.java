@@ -1,6 +1,6 @@
 package com.epam.royalbooking.dto;
 
-import util.DateFormatter;
+import com.epam.royalbooking.util.DateFormatter;
 
 import java.time.LocalDate;
 

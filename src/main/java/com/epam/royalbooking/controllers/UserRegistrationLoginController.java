@@ -51,7 +51,8 @@ public class UserRegistrationLoginController {
                                                @ModelAttribute("passwordValidation") String passwordValidation) {
         ModelAndView modelAndView = new ModelAndView();
         if (user.getPassword().equals(passwordValidation)
-                && !userService.isEmailExists(user.getEmail())) {
+                && !userService.isEmailExists(user.getEmail())
+                && userService.isUserDataValid(user)) {
             userService.save(user);
             modelAndView.setViewName("redirect:/login");
         } else {

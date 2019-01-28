@@ -40,6 +40,15 @@ public class User {
         this.userType = userType;
     }
 
+    public User(String name, String surname, String country, String phone, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.country = country;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

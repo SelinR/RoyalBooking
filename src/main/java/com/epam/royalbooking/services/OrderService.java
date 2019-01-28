@@ -51,10 +51,12 @@ public class OrderService {
         return bookedDates;
     }
 
+    @Transactional
     public void update(Order order) {
         orderDao.save(order);
     }
 
+    @Transactional
     public void delete(int id) {
         orderDao.deleteById(id);
     }
