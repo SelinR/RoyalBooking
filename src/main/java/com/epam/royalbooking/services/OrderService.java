@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 @Service
 public class OrderService {
@@ -95,8 +95,11 @@ public class OrderService {
                     || (leaveDate >= existingEntryDate && leaveDate <= existingLeaveDate)) {
                 return false;
             }
-            List<LocalDate> allBookingDates = getAllDaysBetween(entryLocalDate, leaveLocalDate);
-            List<LocalDate> allUnavailableDates = getAllDaysBetween(existingEntryLocalDate, existingLeaveLocalDate);
+            List<LocalDate> allBookingDates = getAllDaysBetweenIncludingLastDay(entryLocalDate, leaveLocalDate);
+            List<LocalDate> allUnavailableDates = getAllDaysBetweenIncludingLastDay(existingEntryLocalDate, existingLeaveLocalDate);
+            if (allBookingDates.equals(Collections.EMPTY_LIST) || allUnavailableDates.equals(Collections.EMPTY_LIST)) {
+                return false;
+            }
             for (LocalDate bookingDate : allBookingDates) {
                 if (allUnavailableDates.stream().anyMatch(date -> date.equals(bookingDate))) {
                     return false;
@@ -107,14 +110,16 @@ public class OrderService {
     }
 
     /**
+     * We need to add one day to leave date while calculating, because ChronoUnit.DAYS.between(first, second)
+     * second parameter is exclusive.
      * @return Double - total price of order
      */
     public double calculateTotalPrice(int bookedRoomId, LocalDate entryDate, LocalDate leaveDate) {
         Optional<Room> room = roomDao.findById(bookedRoomId);
         if (room.isPresent()) {
             double dailyCost = room.get().getDailyCost();
-            long days = ChronoUnit.DAYS.between(entryDate, leaveDate);
-            return days == 0 ? dailyCost : days * dailyCost;
+            long days = ChronoUnit.DAYS.between(entryDate, leaveDate.plusDays(1));
+            return days * dailyCost;
         } else {
             throw new RuntimeException("No room with such ID found: " + bookedRoomId);
         }
@@ -125,7 +130,7 @@ public class OrderService {
         return optionalOrder.orElse(null);
     }
 
-    private List<LocalDate> getAllDaysBetween(LocalDate in, LocalDate out) {
+    public List<LocalDate> getAllDaysBetweenIncludingLastDay(LocalDate in, LocalDate out) {
         if (in == null || out == null || in.isAfter(out)) {
             return new ArrayList<>();
         }
