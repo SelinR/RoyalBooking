@@ -62,6 +62,7 @@
                     <th width="80"><spring:message code="label.order_leave_date"/></th>
                     <th width="60"><spring:message code="label.order_total_price"/></th>
                     <th width="60"><spring:message code="label.order_booked_room_id"/></th>
+                    <th width="60"><spring:message code="label.prepaid"/></th>
                     <th width="60"><spring:message code="label.cancel"/></th>
                 </tr>
                 <c:forEach var="order" items="${requestScope.orders}">
@@ -72,6 +73,10 @@
                         <td><c:out value="${order.leaveDate}"/></td>
                         <td><c:out value="${order.totalPrice}"/></td>
                         <td><a href="/room/${order.bookedRoomID}"><c:out value="${order.bookedRoomID}"/></a></td>
+                        <td>
+                            <c:if test="${order.prepaid==false}"><spring:message code="label.prepayment_refuse"/> </c:if>
+                            <c:if test="${order.prepaid==true}"><spring:message code="label.prepayment_agree"/></c:if>
+                        </td>
                         <td>
                             <button class="greenButton" onclick="location.href='profile/cancel/${order.id}'">
                                 <spring:message code="label.cancel"/></button>
