@@ -9,18 +9,18 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
   </head>
 
-  <body bgcolor="#fff8dc">
+  <body>
   <c:import url="/WEB-INF/view/header/header.jsp"/>
 
-    <a href="<c:url value="/admin/rooms_list"/>">
+    <a class=redButton href="<c:url value="/admin/rooms_list"/>">
       <p><spring:message code="label.all_rooms"/></p>
     </a>
   <br>
-    <a href="<c:url value="/admin/users"/>">
+    <a class=greenButton href="<c:url value="/admin/users"/>">
       <p><spring:message code="label.all_users"/></p>
     </a>
   <br>
-  <a href="<c:url value="/admin/orders"/>">
+  <a class=purpleButton href="<c:url value="/admin/orders"/>">
     <p><spring:message code="label.all_orders"/></p>
   </a>
   </body>
