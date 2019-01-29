@@ -19,6 +19,7 @@ public class UserService {
     private PasswordEncoder encoder;
     //private Pattern nameRegEx;
     private Pattern countryRegEx;
+    private Pattern birthdayRegEx;
     private Pattern emailRegEx;
     private Pattern phoneRegEx;
     private Pattern passwordRegEx;
@@ -76,6 +77,9 @@ public class UserService {
      * userregex.email=^(([0-9A-Za-z]{1}[-0-9A-z.]{1,}[0-9A-Za-z]{1})@([-A-Za-z]{1,}.){1,2}[-A-Za-z]{2,6})
      *  Checks for correct e-mail syntax and allows only "\\w", "-" and "." symbols in between
      *
+     * userregex.birthday=[\\d]{4,4}-[0-1]?[0-9]?-[0-3]?[0-9]?    (yyyy-mm-dd)
+     *  Simple date check so that year cannot be more than 4 digits length.
+     *
      * userregex.phone=(([\\+]?[\\d]?)[\\d]{10,10})|[\\d]?[\\d]{10,10}
      *  Allows only (+0123456789) or (01234567890) formats.
      *
@@ -88,14 +92,15 @@ public class UserService {
         boolean name = Pattern.matches("[A-Z]{1,1}[a-zA-Z'.-]{1,15}", user.getName());
         boolean surname = Pattern.matches("[A-Z]{1,1}[a-zA-Z'.-]{1,15}", user.getSurname());
         boolean country = countryRegEx.matcher(user.getCountry()).matches();
+        boolean birthday = birthdayRegEx.matcher(user.getBirthday().toString()).matches();
         boolean email = emailRegEx.matcher(user.getEmail()).matches();
         boolean phone = phoneRegEx.matcher(user.getPhone()).matches();
         boolean password = passwordRegEx.matcher(user.getPassword()).matches();
-        return name && surname && country && email && phone && password;
+        return name && surname && country && birthday && email && phone && password;
     }
 
     /**
-     * I have occurred some weird bug here: compiler doesn't compile this regex, although it's almost
+     * I have encountered some weird bug here: compiler doesn't compile this regex, although it's almost
      * identical to others. Had to move it to the method.
      * Leaving it here to check it later sometime.
      */
@@ -107,6 +112,11 @@ public class UserService {
     @Value("#{T(java.util.regex.Pattern).compile('${userregex.country}')}")
     public void setCountryRegEx(Pattern countryRegEx) {
         this.countryRegEx = countryRegEx;
+    }
+
+    @Value("#{T(java.util.regex.Pattern).compile('${userregex.birthday}')}")
+    public void setBirthdayRegEx(Pattern birthdayRegEx) {
+        this.birthdayRegEx = birthdayRegEx;
     }
 
     @Value("#{T(java.util.regex.Pattern).compile('${userregex.email}')}")
