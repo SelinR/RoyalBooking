@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/css/**", "/",
                         "/registration",
-                        "/room/*")
+                        "/room/*", "/media/**")
                     .permitAll()
 
                 .antMatchers("/admin**").hasAuthority("ADMIN")

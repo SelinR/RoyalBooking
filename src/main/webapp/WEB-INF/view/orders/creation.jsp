@@ -89,7 +89,7 @@
     </div>
 
     <div>
-        <form method="post" action="<c:url value="/order_confirm/${room.id}"/>">
+        <form method="post" action="<c:url value="/order/confirm/${room.id}"/>">
             <label id="dates">
                 <input type="text" name="dateRange" value="" />
                     <script>

@@ -33,6 +33,9 @@ CREATE TABLE orders (
   entry_date date NOT NULL,
   leave_date date NOT NULL,
   total_price REAL NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  prepaid BOOLEAN NOT NULL
+);
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -58,11 +61,11 @@ INSERT INTO users (name, surname, country, birthday, phone, email, password, use
 ('Yulia', 'Kim', 'South Korea', '1998-11-07', '+829431234123','YKimSempai@southkoreanmail.com', '$2a$04$c9SdlQ0asYZEyU4gyt.7leqlOJRX7izg2z/Grw226TCAlnb3cvvzu', 'USER'),
 ('Mysterious', 'Stranger', 'Secret', CURRENT_DATE, '0','MySterMysterious@mystery.org', '$2a$04$9zxdZ4RkakshXHgZEJzbve5GrkLJZtsB9NGRDvv8Lw.78IHFqaM82', 'USER');
 
-INSERT INTO orders(status, booked_room_id, entry_date, leave_date, total_price, user_id) VALUES
-('ACCEPTED', 1, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 100.0, 1),
-('ACCEPTED', 2, CURRENT_DATE, CURRENT_DATE + INTERVAL '2 DAY', 240.0, 2),
-('ACCEPTED', 3, CURRENT_DATE, CURRENT_DATE + INTERVAL '3 DAY', 400.0, 3),
-('ACCEPTED', 4, CURRENT_DATE, CURRENT_DATE + INTERVAL '4 DAY', 600.0, 4),
-('ACCEPTED', 5, CURRENT_DATE + INTERVAL '2 DAY', CURRENT_DATE + INTERVAL '4 DAY', 300.0, 1),
-('ACCEPTED', 6, CURRENT_DATE + INTERVAL '3 DAY', CURRENT_DATE + INTERVAL '7 DAY', 650.0, 2),
-('ACCEPTED', 6, CURRENT_DATE - INTERVAL '2 DAY', CURRENT_DATE - INTERVAL '1 DAY', 260.0, 2);
+INSERT INTO orders(status, booked_room_id, entry_date, leave_date, total_price, user_id, prepaid) VALUES
+('ACCEPTED', 1, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 100.0, 1, 'no'),
+('ACCEPTED', 2, CURRENT_DATE, CURRENT_DATE + INTERVAL '2 DAY', 240.0, 2, 'no'),
+('ACCEPTED', 3, CURRENT_DATE, CURRENT_DATE + INTERVAL '3 DAY', 400.0, 3, 'no'),
+('ACCEPTED', 4, CURRENT_DATE, CURRENT_DATE + INTERVAL '4 DAY', 600.0, 4, 'yes'),
+('ACCEPTED', 5, CURRENT_DATE + INTERVAL '2 DAY', CURRENT_DATE + INTERVAL '4 DAY', 300.0, 1, 'no'),
+('ACCEPTED', 6, CURRENT_DATE + INTERVAL '3 DAY', CURRENT_DATE + INTERVAL '7 DAY', 650.0, 2, 'no'),
+('ACCEPTED', 6, CURRENT_DATE - INTERVAL '2 DAY', CURRENT_DATE - INTERVAL '1 DAY', 260.0, 2, 'yes');
