@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
-    Ωß
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
@@ -29,7 +28,11 @@
     </tr>
     <tr align="center">
         <td><c:out value="${order.id}"/></td>
-        <td><c:out value="${order.status}"/></td>
+        <td>
+            <c:if test="${order.status=='ACCEPTED'}"><spring-tags:message code="label.order_status_accepted"/> </c:if>
+            <c:if test="${order.status=='DECLINED'}"><spring-tags:message code="label.order_status_declined"/> </c:if>
+            <c:if test="${order.status=='EXPIRED'}"><spring-tags:message code="label.order_status_expired"/> </c:if>
+        </td>
         <td><c:out value="${order.entryDate}"/></td>
         <td><c:out value="${order.leaveDate}"/></td>
         <td><c:out value="${order.totalPrice}"/></td>
