@@ -54,6 +54,16 @@ public class Order {
         this.status = status;
     }
 
+    public Order(Order order) {
+        this.id = order.id;
+        this.bookedRoomID = order.bookedRoomID;
+        this.entryDate = order.entryDate;
+        this.leaveDate = order.leaveDate;
+        this.totalPrice = order.totalPrice;
+        this.userID = order.userID;
+        this.status = order.status;
+    }
+
     public double getTotalPrice() {
         return totalPrice;
     }

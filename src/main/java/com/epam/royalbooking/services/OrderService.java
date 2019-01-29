@@ -53,7 +53,13 @@ public class OrderService {
 
     @Transactional
     public void update(Order order) {
-        orderDao.save(order);
+        Order temporalOrder = getById(order.getId());
+        delete(order.getId());
+        if (isOrderValid(order.getEntryDate(), order.getEntryDate(), order.getBookedRoomID())) {
+            orderDao.save(order);
+        } else {
+            orderDao.save(temporalOrder);
+        }
     }
 
     @Transactional

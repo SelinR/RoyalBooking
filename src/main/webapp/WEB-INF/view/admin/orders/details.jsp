@@ -119,8 +119,8 @@
         </tr>
         <tr>
             <td><spring-tags:message code="label.prepaid"/></td>
-            <label>
                 <td>
+                    <label>
                     <form:select path="prepaid" id="prepaid">
                         <form:option value="Yes">
                             <spring-tags:message code="label.prepayment_agree"/>
@@ -129,11 +129,15 @@
                             <spring-tags:message code="label.prepayment_refuse"/>
                         </form:option>
                     </form:select>
+                    </label>
                 </td>
-            </label>
         </tr>
     </table>
     <br>
+    <label>
+        <input name="id" id="id" hidden value="${order.id}">
+        <input name="totalPrice" id="totalPrice" hidden value="${order.totalPrice}">
+    </label>
     <input type="submit" value="<spring-tags:message code="label.submit"/>"/>
 </form:form>
 </body>

@@ -63,7 +63,7 @@ public class AdminOrdersController {
     }
 
     @RequestMapping(value = "admin/orders/edit", method = RequestMethod.POST)
-    public String update(Order order) {
+    public String update(@ModelAttribute("order") Order order) {
         orderService.update(order);
         return "admin/orders/details";
     }
