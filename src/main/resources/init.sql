@@ -36,8 +36,6 @@ CREATE TABLE orders (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
   prepaid BOOLEAN NOT NULL
 );
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES
 ('BASIC', 1, 20, 50, 'Room #1'),
