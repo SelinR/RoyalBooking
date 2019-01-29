@@ -26,12 +26,15 @@ public class Order {
     private int userID;
     @Column(name = "booked_room_id")
     private int bookedRoomID;
+    @Column(name = "prepaid")
+    private boolean prepaid = false;
 
     public Order() {
 
     }
 
-    public Order (int id, int bookedRoomID, LocalDate entryDate, LocalDate leaveDate, double totalPrice, int userID, OrderStatus status){
+    public Order (int id, int bookedRoomID, LocalDate entryDate, LocalDate leaveDate, double totalPrice, int userID,
+                  OrderStatus status){
         this.id = id;
         this.bookedRoomID = bookedRoomID;
         this.entryDate = entryDate;
@@ -41,7 +44,8 @@ public class Order {
         this.status = status;
     }
 
-    public Order ( int bookedRoomID, LocalDate entryDate, LocalDate leaveDate, double totalPrice, int userID, OrderStatus status){
+    public Order (int bookedRoomID, LocalDate entryDate, LocalDate leaveDate, double totalPrice, int userID,
+                   OrderStatus status){
         this.bookedRoomID = bookedRoomID;
         this.entryDate = entryDate;
         this.leaveDate = leaveDate;
@@ -104,5 +108,13 @@ public class Order {
 
     public void setBookedRoomID(int bookedRoomID) {
         this.bookedRoomID = bookedRoomID;
+    }
+
+    public boolean isPrepaid() {
+        return prepaid;
+    }
+
+    public void setPrepaid(boolean prepaid) {
+        this.prepaid = prepaid;
     }
 }

@@ -27,6 +27,7 @@
         <th width="60"><spring-tags:message code="label.order_total_price"/></th>
         <th width="60"><spring-tags:message code="label.order_user_id"/></th>
         <th width="60"><spring-tags:message code="label.order_booked_room_id"/></th>
+        <th width="60"><spring-tags:message code="label.prepaid"/></th>
         <th width="60"><spring-tags:message code="label.edit"/></th>
         <th width="60"><spring-tags:message code="label.delete"/></th>
     </tr>
@@ -39,6 +40,10 @@
             <td><c:out value="${order.totalPrice}"/></td>
             <td><c:out value="${order.userID}"/></td>
             <td><c:out value="${order.bookedRoomID}"/></td>
+            <td>
+                <c:if test="${order.prepaid==false}"><spring-tags:message code="label.prepayment_refuse"/> </c:if>
+                <c:if test="${order.prepaid==true}"><spring-tags:message code="label.prepayment_agree"/></c:if>
+            </td>
             <td><a href="<c:url value='/admin/order/${order.id}'/>">
                 <spring-tags:message code="label.edit"/>
             </a></td>

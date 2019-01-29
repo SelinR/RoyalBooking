@@ -86,7 +86,7 @@ textarea {
     width: calc(100% + 16px);
     margin-top: -8px;
     margin-left: -8px;
-    margin-bottom: 40px;
+    margin-bottom: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }

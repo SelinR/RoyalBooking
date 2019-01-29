@@ -1,5 +1,6 @@
 package com.epam.royalbooking.controllers;
 
+import com.epam.royalbooking.enums.RoomType;
 import com.epam.royalbooking.services.RoomService;
 import com.epam.royalbooking.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,8 @@ public class RoomController {
     @RequestMapping(value = "/room/{roomId}")
     public String getRoomPage(Model model, @PathVariable("roomId") int roomId) {
         model.addAttribute("room", roomService.getById(roomId));
+        RoomType roomType = roomService.getById(roomId).getRoomType();
+        roomService.imageSwitcher(roomType, model);
         return "rooms/room";
     }
 

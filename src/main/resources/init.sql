@@ -50,13 +50,13 @@ CREATE TABLE orders (
   entry_date date NOT NULL,
   leave_date date NOT NULL,
   total_price REAL NOT NULL,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
-
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  prepaid BOOLEAN NOT NULL
 );
 
-INSERT INTO orders(status, booked_room_id, entry_date, leave_date, total_price, user_id) VALUES
-('ACCEPTED', 1, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.0, 1),
-('ACCEPTED', 2, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.0, 1),
-('ACCEPTED', 3, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.1, 1),
-('ACCEPTED', 4, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.5, 1);
+INSERT INTO orders(status, booked_room_id, entry_date, leave_date, total_price, user_id, prepaid) VALUES
+('ACCEPTED', 1, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.0, 1, 'no'),
+('ACCEPTED', 2, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.0, 1, 'no'),
+('ACCEPTED', 3, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.1, 1, 'no'),
+('ACCEPTED', 4, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 555.5, 1, 'yes');
 /*orders*/
