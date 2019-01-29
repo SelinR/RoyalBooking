@@ -24,13 +24,13 @@ public class RoomController {
     @RequestMapping(value = "/admin/room/add", method = RequestMethod.POST)
     public String save(@ModelAttribute("room") Room room) {
         roomService.save(room);
-        return "redirect:/admin/rooms_list";
+        return "redirect:/admin/rooms";
     }
 
     @RequestMapping(value = "/admin/rooms/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         roomService.delete(id);
-        return "redirect:/admin/rooms_list";
+        return "redirect:/admin/rooms";
     }
 
     @RequestMapping(value = "/admin/room/edit/{id}")
@@ -50,6 +50,7 @@ public class RoomController {
         return "/rooms/room_creation";
     }
 
+    //TODO test urls
     /**
      * Mapping for user room's single page
      */

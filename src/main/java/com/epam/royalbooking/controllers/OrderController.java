@@ -101,7 +101,7 @@ public class OrderController {
             OrderTransporter.setOrder(order);
             return new ModelAndView("orders/details", "order", order);
         } else {
-            return new ModelAndView("redirect:/order_creation/" + roomId + "?error");
+            return new ModelAndView("redirect:/order/creation/" + roomId + "?error");
         }
     }
 
