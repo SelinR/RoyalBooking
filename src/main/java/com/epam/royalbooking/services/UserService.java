@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class UserService {
     private UserDao dao;
     private PasswordEncoder encoder;
-    private Pattern nameRegEx;
+    //private Pattern nameRegEx;
     private Pattern countryRegEx;
     private Pattern emailRegEx;
     private Pattern phoneRegEx;
@@ -66,9 +66,27 @@ public class UserService {
         }
     }
 
+    /**
+     * userregex.name=^[A-Z][a-z'\.-]{1,15}
+     *  Means first letter is uppercase "A-Z", then up to 15 letters "a-zA-Z", "." or "-"
+     *
+     * userregex.country=[A-Z]{1,1}[ a-zA-Z]{1,29}
+     *  Same but with possible whitespace. Issue: multiple whitespaces possible.
+     *
+     * userregex.email=^(([0-9A-Za-z]{1}[-0-9A-z.]{1,}[0-9A-Za-z]{1})@([-A-Za-z]{1,}.){1,2}[-A-Za-z]{2,6})
+     *  Checks for correct e-mail syntax and allows only "\\w", "-" and "." symbols in between
+     *
+     * userregex.phone=(([\\+]?[\\d]?)[\\d]{10,10})|[\\d]?[\\d]{10,10}
+     *  Allows only (+0123456789) or (01234567890) formats.
+     *
+     * userregex.password=[\\w]{8,20}
+     *  Any "\\w" characters, from 8 to 20
+     * @param user user registration data
+     * @return  result of a validation check
+     */
     public boolean isUserDataValid(User user) {
-        boolean name = nameRegEx.matcher(user.getName()).matches();
-        boolean surname = nameRegEx.matcher(user.getSurname()).matches();
+        boolean name = Pattern.matches("[A-Z]{1,1}[a-zA-Z'.-]{1,15}", user.getName());
+        boolean surname = Pattern.matches("[A-Z]{1,1}[a-zA-Z'.-]{1,15}", user.getSurname());
         boolean country = countryRegEx.matcher(user.getCountry()).matches();
         boolean email = emailRegEx.matcher(user.getEmail()).matches();
         boolean phone = phoneRegEx.matcher(user.getPhone()).matches();
@@ -76,10 +94,15 @@ public class UserService {
         return name && surname && country && email && phone && password;
     }
 
-    @Value("#{T(java.util.regex.Pattern).compile('${userregex.name}')}")
+    /**
+     * I have occurred some weird bug here: compiler doesn't compile this regex, although it's almost
+     * identical to others. Had to move it to the method.
+     * Leaving it here to check it later sometime.
+     */
+    /*@Value("#{T(java.util.regex.Pattern).compile('${userregex.name}')}")
     public void setNameRegEx(Pattern nameRegEx) {
         this.nameRegEx = nameRegEx;
-    }
+    }*/
 
     @Value("#{T(java.util.regex.Pattern).compile('${userregex.country}')}")
     public void setCountryRegEx(Pattern countryRegEx) {
