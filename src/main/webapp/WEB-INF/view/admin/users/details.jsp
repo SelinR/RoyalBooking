@@ -4,16 +4,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>
-        <spring:message code="label.title_user"/>
-    </title>
+<title>
+    <spring:message code="label.title_user"/>
+</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common_style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css"/>
+
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
-<a href="<c:url value='../..'/>">
-    <spring:message code="label.back_to_previous_page"/>
-</a>
 <h1>
     <spring:message code="label.user_details"/></h1>
 <table class="tg">
@@ -108,10 +108,7 @@
             <td><form:input path="email"/></td>
         </tr>
         <tr>
-            <td><form:label path="password">
-                <spring:message code="label.user_password"/>
-            </form:label></td>
-            <td><form:input path="password" readonly="true"/></td>
+            <td><form:hidden path="password" readonly="true"/></td>
         </tr>
         <tr>
             <td><form:label path="userType">

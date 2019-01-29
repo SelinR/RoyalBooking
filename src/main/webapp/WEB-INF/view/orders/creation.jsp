@@ -32,7 +32,7 @@
             <thead>
             <tr>
                 <th width="100"><spring:message code="label.parameter"/></th>
-                <th width="500"><spring:message code="label.info"/></th>
+                <th width="250"><spring:message code="label.info"/></th>
             </tr>
             </thead>
             <tbody>
@@ -108,7 +108,7 @@
                         });
                     </script>
             </label>
-                <input type="submit" value="<spring:message code="label.create"/>">
+                <input type="submit" class="blueButton" value="<spring:message code="label.create"/>">
         </form>
     </div>
 </div>

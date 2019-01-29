@@ -61,8 +61,8 @@
                     <th width="80"><spring:message code="label.order_entry_date"/></th>
                     <th width="80"><spring:message code="label.order_leave_date"/></th>
                     <th width="60"><spring:message code="label.order_total_price"/></th>
-                    <th width="60"><spring:message code="label.prepaid"/></th>
                     <th width="60"><spring:message code="label.room_number"/></th>
+                    <th width="60"><spring:message code="label.prepaid"/></th>
                     <th width="60"><spring:message code="label.cancel"/></th>
                 </tr>
                 <c:forEach var="order" items="${requestScope.orders}">

@@ -112,7 +112,7 @@
             <thead>
             <tr>
                 <th width="100"><spring:message code="label.parameter"/></th>
-                <th width="500"><spring:message code="label.info"/></th>
+                <th width="250"><spring:message code="label.info"/></th>
             </tr>
             </thead>
             <tbody>
@@ -159,7 +159,7 @@
 
 <div align="center">
     <form method="GET" action="<c:url value="/order_creation/${room.id}"/>">
-        <button type="submit" value="<spring:message code="label.book_room"/>">
+        <button type="submit" class="blueButton" value="<spring:message code="label.book_room"/>">
             <spring:message code="label.book_room"/>
         </button>
     </form>

@@ -23,7 +23,7 @@
             <thead>
             <tr>
                 <th width="100"><spring:message code="label.parameter"/></th>
-                <th width="500"><spring:message code="label.info"/></th>
+                <th width="250"><spring:message code="label.info"/></th>
             </tr>
             </thead>
             <tbody>
@@ -48,13 +48,14 @@
         </table>
     </div>
 </div>
+<br>
 <div>
     <form name=card_form method="post" action="<c:url value="/order/save"/>">
         <spring:message code="label.enter_card_info"/>
         <table>
             <tr>
-                <td width="200"><spring:message code="label.card_type"/></td>
-                <td width="200">
+                <td><spring:message code="label.card_type"/></td>
+                <td>
                     <label>
                         <select>
                             <option>VISA</option>
@@ -69,7 +70,7 @@
                 </td>
                 <td>
                     <label>
-                        <input name=card_number type="text" size="80" required/>
+                        <input width="200" name=card_number type="text" size="80" required/>
                         <script>
                             var cc = card_form.card_number,
                                 events  = ['input', 'change', 'blur', 'keyup'];
@@ -91,7 +92,7 @@
                 </td>
                 <td>
                     <label>
-                        <input name=card_cvv type="text" size="80" required>
+                        <input width="50" name=card_cvv type="password" size="80" required>
                         <script>
                             var cc = card_form.card_cvv,
                                 events  = ['input', 'change', 'blur', 'keyup'];
