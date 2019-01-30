@@ -18,114 +18,117 @@
     <h2 align="center"><spring:message code="label.order_details"/></h2>
 </div>
 <div>
-    <div align="left">
-        <table id="datatable" class="tg">
-            <thead>
-            <tr>
-                <th width="100"><spring:message code="label.parameter"/></th>
-                <th width="250"><spring:message code="label.info"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><spring:message code="label.order_booked_room_id"/></td>
-                <td><c:out value="${order.bookedRoomID}"/></td>
-            </tr>
-            <tr>
-                <td><spring:message code="label.order_entry_date"/></td>
-                <td><c:out value="${order.entryDate}"/></td>
+    <div>
+        <div>
+            <table id="datatable" class="tg">
+                <thead>
+                <tr>
+                    <th width="100"><spring:message code="label.parameter"/></th>
+                    <th width="250"><spring:message code="label.info"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><spring:message code="label.order_booked_room_id"/></td>
+                    <td><c:out value="${order.bookedRoomID}"/></td>
+                </tr>
+                <tr>
+                    <td><spring:message code="label.order_entry_date"/></td>
+                    <td><c:out value="${order.entryDate}"/></td>
 
-            </tr>
-            <tr>
-                <td><spring:message code="label.order_leave_date"/></td>
-                <td><c:out value="${order.leaveDate}"/></td>
-            </tr>
-            <tr>
-                <td><spring:message code="label.order_total_price"/></td>
-                <td><c:out value="${order.totalPrice}"/></td>
-            </tr>
-            </tbody>
-        </table>
+                </tr>
+                <tr>
+                    <td><spring:message code="label.order_leave_date"/></td>
+                    <td><c:out value="${order.leaveDate}"/></td>
+                </tr>
+                <tr>
+                    <td><spring:message code="label.order_total_price"/></td>
+                    <td><c:out value="${order.totalPrice}"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<br>
-<div>
-    <form name=card_form method="post" action="<c:url value="/order/save"/>">
-        <spring:message code="label.enter_card_info"/>
-        <table>
-            <tr>
-                <td><spring:message code="label.card_type"/></td>
-                <td>
-                    <label>
-                        <select>
-                            <option>VISA</option>
-                            <option>Mastercard</option>
-                        </select>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <spring:message code="label.card_number"/>
-                </td>
-                <td>
-                    <label>
-                        <input width="200" name=card_number type="text" size="80" required/>
-                        <script>
-                            var cc = card_form.card_number,
-                                events  = ['input', 'change', 'blur', 'keyup'];
-                            for (var i in events) {
-                                cc.addEventListener(events[i], formatCardCode, false);
-                            }
-                            function formatCardCode() {
-                                var cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
-                                cardCode = cardCode !== '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
-                                this.value = cardCode;
-                            }
-                        </script>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>CVV</p>
-                </td>
-                <td>
-                    <label>
-                        <input width="50" name=card_cvv type="password" size="80" required>
-                        <script>
-                            var cc = card_form.card_cvv,
-                                events  = ['input', 'change', 'blur', 'keyup'];
-                            for (var i in events) {
-                                cc.addEventListener(events[i], formatCardCode, false);
-                            }
-                            function formatCardCode() {
-                                var cardCode = this.value.replace(/[^\d]/g, '').substring(0,3);
-                                this.value = cardCode;
-                            }
-                        </script>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <spring:message code="label.expiration_date"/>
-                </td>
-                <td>
-                    <label>
-                        <input type="month" min="2019-02" size="80" required/>
-                    </label>
-                </td>
-            </tr>
-        </table>
-        <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
-        <input type="hidden" name="totalPrice" value="${order.totalPrice}">
-        <input type="hidden" name="entryDate" value="${order.entryDate}">
-        <input type="hidden" name="leaveDate" value="${order.leaveDate}">
-        <input type="hidden" name="userID" value="${order.userID}">
-        <input type="hidden" name="prepaid" value="true"> <br>
-        <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
-    </form>
+    <br>
+    <div>
+        <form style="alignment: center" name="card_form" method="post" action="<c:url value="/order/save"/>">
+            <br>
+            <spring:message code="label.enter_card_info"/>
+            <table>
+                <tr>
+                    <td><spring:message code="label.card_type"/></td>
+                    <td>
+                        <label>
+                            <select>
+                                <option>VISA</option>
+                                <option>Mastercard</option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <spring:message code="label.card_number"/>
+                    </td>
+                    <td>
+                        <label>
+                            <input width="200" name="card_number" type="text" size="80" required/>
+                            <script>
+                                var cc = card_form.card_number,
+                                    events  = ['input', 'change', 'blur', 'keyup'];
+                                for (var i in events) {
+                                    cc.addEventListener(events[i], formatCardCode, false);
+                                }
+                                function formatCardCode() {
+                                    var cardCode = this.value.replace(/[^\d]/g, '').substring(0,16);
+                                    cardCode = cardCode !== '' ? cardCode.match(/.{1,4}/g).join(' ') : '';
+                                    this.value = cardCode;
+                                }
+                            </script>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>CVV</p>
+                    </td>
+                    <td>
+                        <label>
+                            <input width="50" name=card_cvv type="password" size="80" required>
+                            <script>
+                                var cc = card_form.card_cvv,
+                                    events  = ['input', 'change', 'blur', 'keyup'];
+                                for (var i in events) {
+                                    cc.addEventListener(events[i], formatCardCode, false);
+                                }
+                                function formatCardCode() {
+                                    var cardCode = this.value.replace(/[^\d]/g, '').substring(0,3);
+                                    this.value = cardCode;
+                                }
+                            </script>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <spring:message code="label.expiration_date"/>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="month" min="2019-02" size="80" required/>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
+            <input type="hidden" name="totalPrice" value="${order.totalPrice}">
+            <input type="hidden" name="entryDate" value="${order.entryDate}">
+            <input type="hidden" name="leaveDate" value="${order.leaveDate}">
+            <input type="hidden" name="userID" value="${order.userID}">
+            <input type="hidden" name="prepaid" value="true"> <br>
+            <input type="submit" class="blueButton" value="<spring:message code="label.order_confirm"/>">
+        </form>
+    </div>
 </div>
 </body>
 </html>

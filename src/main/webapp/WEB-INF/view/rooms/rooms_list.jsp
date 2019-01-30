@@ -232,12 +232,6 @@
         <div class="card material-table">
             <div class="table-header">
                 <span class="table-title"><spring:message code="label.room_list"/> </span>
-                <div class="actions">
-                    <a href="#add_users" class="modal-trigger waves-effect btn-flat nopadding"><i
-                            class="material-icons">person_add</i></a>
-                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i
-                            class="material-icons">search</i></a>
-                </div>
             </div>
             <table id="datatable">
                 <thead>

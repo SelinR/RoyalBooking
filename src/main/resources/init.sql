@@ -36,8 +36,6 @@ CREATE TABLE orders (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
   prepaid BOOLEAN NOT NULL
 );
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 INSERT INTO rooms (room_type, beds_amount, area, daily_cost, additional_info) VALUES
 ('BASIC', 1, 20, 50, 'Room #1'),
@@ -63,6 +61,7 @@ INSERT INTO users (name, surname, country, birthday, phone, email, password, use
 
 INSERT INTO orders(status, booked_room_id, entry_date, leave_date, total_price, user_id, prepaid) VALUES
 ('ACCEPTED', 1, CURRENT_DATE, CURRENT_DATE + INTERVAL '1 DAY', 100.0, 1, 'no'),
+('ACCEPTED', 1, CURRENT_DATE + INTERVAL '2 DAY', CURRENT_DATE + INTERVAL '3 DAY', 100.0, 1, 'no'),
 ('ACCEPTED', 2, CURRENT_DATE, CURRENT_DATE + INTERVAL '2 DAY', 240.0, 2, 'no'),
 ('ACCEPTED', 3, CURRENT_DATE, CURRENT_DATE + INTERVAL '3 DAY', 400.0, 3, 'no'),
 ('ACCEPTED', 4, CURRENT_DATE, CURRENT_DATE + INTERVAL '4 DAY', 600.0, 4, 'yes'),

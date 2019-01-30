@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -63,9 +64,17 @@ public class AdminOrdersController {
     }
 
     @RequestMapping(value = "admin/orders/edit", method = RequestMethod.POST)
-    public String update(Order order) {
-        orderService.update(order);
-        return "admin/orders/details";
+    public ModelAndView update(@ModelAttribute("order") Order order, ModelAndView modelAndView) {
+        Order oldOrder = orderService.getById(order.getId());
+        if (orderService.update(order)) {
+            modelAndView.addObject("order", order);
+            modelAndView.setViewName("redirect:/admin/order/" + order.getId());
+            return modelAndView;
+        } else {
+            modelAndView.addObject("order", oldOrder);
+            modelAndView.setViewName("redirect:/admin/orders/");
+            return modelAndView;
+        }
     }
 
     @RequestMapping("admin/orders/delete/{id}")

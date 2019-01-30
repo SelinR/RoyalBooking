@@ -51,9 +51,22 @@ public class OrderService {
         return bookedDates;
     }
 
-    @Transactional
-    public void update(Order order) {
-        orderDao.save(order);
+    /**
+     * @Transactional doesn't let to delete the old order inside this method.
+     * @param order updated order
+     */
+    public boolean update(Order order) {
+        Order temporalOrder = getById(order.getId());
+        delete(order.getId());
+        if (isOrderValid(order.getEntryDate(), order.getLeaveDate(), order.getBookedRoomID())) {
+            order.setTotalPrice(calculateTotalPrice(order.getBookedRoomID(), order.getEntryDate(),
+                    order.getLeaveDate()));
+            orderDao.save(order);
+            return true;
+        } else {
+            orderDao.save(temporalOrder);
+            return false;
+        }
     }
 
     @Transactional
