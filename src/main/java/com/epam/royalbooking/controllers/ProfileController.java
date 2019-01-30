@@ -32,7 +32,7 @@ public class ProfileController {
     @RequestMapping(value = "profile/delete")
     public String delete(Principal principal) {
         userService.delete(getCurrentUser(principal).getId());
-        return "redirect:/";
+        return "redirect:/logout";
     }
 
     @RequestMapping("profile/edit")
