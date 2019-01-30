@@ -125,14 +125,14 @@
                         </label>
                     </td>
                 </tr>
-                <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
-                <input type="hidden" name="totalPrice" value="${order.totalPrice}">
-                <input type="hidden" name="entryDate" value="${order.entryDate}">
-                <input type="hidden" name="leaveDate" value="${order.leaveDate}">
-                <input type="hidden" name="userID" value="${order.userID}">
-                <input type="hidden" name="prepaid" value="true"> <br>
-                <input type="submit" class="blueFlexButton" value="<spring:message code="label.order_confirm"/>">
             </table>
+            <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
+            <input type="hidden" name="totalPrice" value="${order.totalPrice}">
+            <input type="hidden" name="entryDate" value="${order.entryDate}">
+            <input type="hidden" name="leaveDate" value="${order.leaveDate}">
+            <input type="hidden" name="userID" value="${order.userID}">
+            <input type="hidden" name="prepaid" value="true"> <br>
+            <input type="submit" class="blueFlexButton" value="<spring:message code="label.order_confirm"/>">
         </form>
     </div>
 </div>
