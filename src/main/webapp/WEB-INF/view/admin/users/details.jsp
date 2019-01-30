@@ -55,7 +55,7 @@
         <td><c:out value="${user.phone}"/></td>
         <td><c:out value="${user.email}"/></td>
         <td><c:out value="${user.userType}"/></td>
-        <td><a href="<c:url value='/admin/users/delete/${user.id}'/>">Delete</a></td>
+        <td><a href="<c:url value='/admin/users/delete/${user.id}'/>"><spring:message code="label.delete"/></a></td>
     </tr>
 </table>
 
