@@ -1,4 +1,4 @@
-package util;
+package com.epam.royalbooking.util;
 
 import java.time.LocalDate;
 

@@ -13,29 +13,20 @@
 </head>
 <body>
 <c:import url="/WEB-INF/view/header/header_without_i18n.jsp"/>
-<span style="float: right">
-        <a href="<c:url value="/order/confirm/${order.bookedRoomID}/${order.entryDate}/${order.leaveDate}?lang=en"/>">en</a>
-        |
-        <a href="<c:url value="/order/confirm/${order.bookedRoomID}/${order.entryDate}/${order.leaveDate}?lang=ru"/>">ru</a>
-</span>
 
 <div>
     <h2 align="center"><spring:message code="label.order_details"/></h2>
 </div>
-<div>
-    <div align="left">
+<div align="center">
+    <div>
         <table id="datatable" class="tg">
             <thead>
             <tr>
                 <th width="100"><spring:message code="label.parameter"/></th>
-                <th width="500"><spring:message code="label.info"/></th>
+                <th width="250"><spring:message code="label.info"/></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><spring:message code="label.order_booked_room_id"/></td>
-                <td><c:out value="${order.bookedRoomID}"/></td>
-            </tr>
             <tr>
                 <td><spring:message code="label.order_entry_date"/></td>
                 <td><c:out value="${order.entryDate}"/></td>
@@ -53,8 +44,9 @@
         </table>
     </div>
 </div>
+<br>
 
-<div>
+<div align="center">
     <form method="post" action="<c:url value="/order/save"/>">
         <spring:message code="label.prepayment"/>
         <input type="hidden" name="bookedRoomID" value="${order.bookedRoomID}">
@@ -73,7 +65,7 @@
                     </a>
                 </td>
                 <td>
-                    <input type="submit" class="blueButton" value="<spring:message code="label.prepayment_refuse"/>">
+                    <input type="submit" class="redButton" value="<spring:message code="label.prepayment_refuse"/>">
                 </td>
             </tr>
         </table>

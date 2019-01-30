@@ -61,18 +61,28 @@
                     <th width="80"><spring:message code="label.order_entry_date"/></th>
                     <th width="80"><spring:message code="label.order_leave_date"/></th>
                     <th width="60"><spring:message code="label.order_total_price"/></th>
-                    <th width="60"><spring:message code="label.order_booked_room_id"/></th>
+                    <th width="60"><spring:message code="label.room_number"/></th>
                     <th width="60"><spring:message code="label.prepaid"/></th>
                     <th width="60"><spring:message code="label.cancel"/></th>
                 </tr>
                 <c:forEach var="order" items="${requestScope.orders}">
                     <tr>
-                        <td><c:out value="${order.id}"/></td>
-                        <td><c:out value="${order.status}"/></td>
+                        <td align="center"><c:out value="${order.id}"/></td>
+                        <td>
+                        <c:if test="${order.status == 'ACCEPTED'}">
+                            <spring:message code="label.order_status_accepted"/>
+                        </c:if>
+                        <c:if test="${order.status == 'DECLINED'}">
+                            <spring:message code="label.order_status_declined"/>
+                        </c:if>
+                        <c:if test="${order.status == 'EXPIRED'}">
+                            <spring:message code="label.order_status_expired"/>
+                        </c:if>
+                        </td>
                         <td><c:out value="${order.entryDate}"/></td>
                         <td><c:out value="${order.leaveDate}"/></td>
                         <td><c:out value="${order.totalPrice}"/></td>
-                        <td><a href="/room/${order.bookedRoomID}"><c:out value="${order.bookedRoomID}"/></a></td>
+                        <td align="center"><a href="/room/${order.bookedRoomID}"><c:out value="${order.bookedRoomID}"/></a></td>
                         <td>
                             <c:if test="${order.prepaid==false}"><spring:message code="label.prepayment_refuse"/> </c:if>
                             <c:if test="${order.prepaid==true}"><spring:message code="label.prepayment_agree"/></c:if>

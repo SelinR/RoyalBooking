@@ -10,6 +10,7 @@
     <title><spring:message code="label.room_page"/></title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/3_buttons.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-tables.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/simple-tables-style.css"/>
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 </head>
@@ -18,14 +19,14 @@
 <c:import url="/WEB-INF/view/header/header.jsp"/>
 
 
-<h2><spring:message code="label.room_info"/></h2>
-<div>
-    <div align="left">
+<h2 align="center"><spring:message code="label.room_info"/></h2>
+<div align="center">
+    <div>
         <table id="datatable" class="tg">
             <thead>
             <tr>
                 <th width="100"><spring:message code="label.parameter"/></th>
-                <th width="500"><spring:message code="label.info"/></th>
+                <th width="250"><spring:message code="label.info"/></th>
             </tr>
             </thead>
             <tbody>
@@ -76,41 +77,63 @@
 
 <form method="post" action="<c:url value="/admin/room/update"/>">
 
+<div align="center">
+    <br>
+    <table>
+        <spring:message code="label.room_type"/>
+        <br>
+        <tr>
+            <label>
+                <input width="50" type="radio" name="roomType" value="BASIC"
+                       <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> >
+            </label> <spring:message code="label.room_basic"/>
+        </tr>
+        <br>
+        <tr>
+            <label>
+                <input type="radio" name="roomType" value="FAMILY"
+                       <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> >
+            </label> <spring:message code="label.room_family"/>
+        </tr>
+        <br>
+        <tr>
+            <label>
+                <input type="radio" name="roomType" value="LUXURY"
+                       <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> >
+            </label> <spring:message code="label.room_luxury"/>
+        </tr>
+        <br>
+        <tr>
+            <label>
+                <input type="radio" name="roomType" value="PENTHOUSE"
+                       <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> >
+            </label> <spring:message code="label.room_penthose"/>
+        </tr>
+        <br>
+    </table>
 
-    <label>
-        <spring:message code="label.room_type"/><br>
-        <input width="50" type="radio" name="roomType" value="BASIC"
-               <c:if test="${room.roomType.toString() == 'BASIC'}">checked</c:if> > <spring:message code="label.room_basic"/> <br>
-        <input type="radio" name="roomType" value="FAMILY"
-               <c:if test="${room.roomType.toString() == 'FAMILY'}">checked</c:if> > <spring:message code="label.room_family"/> <br>
-        <input type="radio" name="roomType" value="LUXURY"
-               <c:if test="${room.roomType.toString() == 'LUXURY'}">checked</c:if> > <spring:message code="label.room_luxury"/> <br>
-        <input type="radio" name="roomType" value="PENTHOUSE"
-               <c:if test="${room.roomType.toString() == 'PENTHOUSE'}">checked</c:if> > <spring:message code="label.room_penthose"/> <br>
-
-    </label><br>
+    <br>
     <label>
         <spring:message code="label.room_beds_amount"/> <br>
-        <input type="number" name="bedsAmount" step="1" value="${room.bedsAmount}" required>
+        <input width="100" type="number" name="bedsAmount" step="1" value="${room.bedsAmount}" required>
     </label><br>
     <label>
         <spring:message code="label.room_area"/> <br>
-        <input type="number" name="area" step="0.1" value="${room.area}" required=>
+        <input width="100" type="number" name="area" step="0.1" value="${room.area}" required=>
     </label><br>
     <label>
         <spring:message code="label.room_daily_cost"/> <br>
-        <input type="number" name="dailyCost" step="0.1" value="${room.dailyCost}" required>
+        <input width="100" type="number" name="dailyCost" step="0.1" value="${room.dailyCost}" required>
     </label><br>
     <label>
         <spring:message code="label.room_info"/> <br>
-        <input type="text" name="additionalInfo" value="${room.additionalInfo}">
+        <input width="150" type="text" name="additionalInfo" value="${room.additionalInfo}">
     </label><br>
     <input type="hidden" name="id" value="${room.id}">
-    <input type="submit" value="<spring:message code="label.submit"/> "><br>
+    <input type="submit" class="blueButton" value="<spring:message code="label.submit"/> "><br>
+</div>
 </form>
-<pre>
-
-</pre>
+<br>
 <form method="get" action="<c:url value="/admin/rooms"/>">
     <button><spring:message code="label.room_back_to_list"/></button>
 </form>

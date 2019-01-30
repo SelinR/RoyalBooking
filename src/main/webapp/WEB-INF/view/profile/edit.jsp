@@ -64,37 +64,37 @@
                         <td><form:label path="name">
                             <spring:message code="label.user_name"/></form:label>
                         </td>
-                        <td width="400"><form:input path="name"/></td>
+                        <td><form:input cssStyle="width: 180px;" path="name"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="surname">
                             <spring:message code="label.user_surname"/>
                         </form:label></td>
-                        <td><form:input path="surname"/></td>
+                        <td><form:input cssStyle="width: 180px;" path="surname"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="country">
                             <spring:message code="label.user_country"/>
                         </form:label></td>
-                        <td><form:input path="country"/></td>
+                        <td><form:input cssStyle="width: 180px;" path="country"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="birthday">
                             <spring:message code="label.user_birthday"/>
                         </form:label></td>
-                        <td><form:input path="birthday"/></td>
+                        <td><form:input cssStyle="width: 180px;" path="birthday"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="phone">
                             <spring:message code="label.user_phone"/>
                         </form:label></td>
-                        <td><form:input path="phone"/></td>
+                        <td><form:input cssStyle="width: 180px;" path="phone"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="email">
                             <spring:message code="label.user_email"/>
                         </form:label></td>
-                        <td><form:input path="email"/></td>
+                        <td><form:input cssStyle="width: 180px;" path="email"/></td>
                     </tr>
                     <tr>
                         <td><form:hidden path="password"/></td>
@@ -103,7 +103,7 @@
                         <td><form:hidden path="userType"/></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" class="greenButton" value="<spring:message code="label.submit"/>"/></td>
+                        <td align="center"><input type="submit" class="greenButton" value="<spring:message code="label.submit"/>"/></td>
                     </tr>
                 </table>
             </form:form>
