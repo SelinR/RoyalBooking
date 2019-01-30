@@ -50,7 +50,6 @@ public class RoomController {
         return "/rooms/room_creation";
     }
 
-    //TODO test urls
     /**
      * Mapping for user room's single page
      */
