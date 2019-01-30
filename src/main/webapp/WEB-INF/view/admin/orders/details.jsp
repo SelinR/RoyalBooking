@@ -51,6 +51,14 @@
 <c:url var="editAction" value="/admin/orders/edit"/>
 
 
+<div>
+    <c:if test="${param.error != null}">
+        <p style='color:red'>
+            <spring-tags:message code="label.bad_dates"/>
+        </p>
+    </c:if>
+</div>
+
 <form:form method="post" action="${editAction}" modelAttribute="order">
     <table class="tg">
         <tr>
@@ -71,7 +79,7 @@
                 <label>
                     <input type="date" id="entryDate" name="entryDate"
                            value="<c:out value="${order.entryDate}"/>"
-                           min="<c:out value="${requestScope.minDate}"/>"
+                           min="<c:out value="${order.entryDate}"/>"
                            max="<c:out value="${requestScope.maxDate}"/>">
                 </label>
             </td>
@@ -82,7 +90,7 @@
                 <label>
                     <input type="date" name="leaveDate"
                            value="<c:out value="${order.leaveDate}"/>"
-                           min="<c:out value="${requestScope.minDate}"/>"
+                           min="<c:out value="${order.entryDate}"/>"
                            max="<c:out value="${requestScope.maxDate}"/>">
                 </label>
             </td>
