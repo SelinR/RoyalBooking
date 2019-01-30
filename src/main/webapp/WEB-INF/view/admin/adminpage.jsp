@@ -12,7 +12,7 @@
 <body>
 <c:import url="/WEB-INF/view/header/header.jsp"/>
 <div>
-    <a href="<c:url value="/admin/rooms_list"/>">
+    <a href="<c:url value="/admin/rooms"/>">
         <div class="redButton">
             <p><spring:message code="label.all_rooms"/></p>
         </div>

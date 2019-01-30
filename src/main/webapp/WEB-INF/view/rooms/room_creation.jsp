@@ -18,7 +18,7 @@
 <c:import url="/WEB-INF/view/header/header.jsp"/>
 
 <h2><spring:message code="label.room_create"/></h2><br/>
-<form method="post" action="<c:url value="/admin/room_add"/>">
+<form method="post" action="<c:url value="/admin/room/add"/>">
     <label>
         <spring:message code="label.room_type"/> <br>
         <input type="radio" name="roomType" value="BASIC" checked>
@@ -52,7 +52,7 @@
 <pre>
 
 </pre>
-<form method="get" action="<c:url value="/admin/rooms_list"/>">
+<form method="get" action="<c:url value="/admin/rooms"/>">
     <button><spring:message code="label.room_back_to_list"/></button>
 </form>
 </body>

@@ -59,7 +59,7 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/order_creation/{roomId}")
+    @RequestMapping(value = "/order/creation/{roomId}")
     public String getOrderCreationPage(Model model, @PathVariable("roomId") int roomId) {
         model.addAttribute("list", orderService.getAllBookedDatesByBookedRoomId(roomId));
         model.addAttribute("room", roomService.getById(roomId));
@@ -101,7 +101,7 @@ public class OrderController {
             OrderTransporter.setOrder(order);
             return new ModelAndView("orders/details", "order", order);
         } else {
-            return new ModelAndView("redirect:/order_creation/" + roomId + "?error");
+            return new ModelAndView("redirect:/order/creation/" + roomId + "?error");
         }
     }
 
