@@ -142,7 +142,23 @@ p {
     border: 1px solid rgb(4, 212, 254);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+.blueFlexButton{
+    color: #fff;
+    background-color: rgb(2, 191, 229);
+    border: 1px solid rgb(2, 191, 229);
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+    width: fit-content;
+    font-size: 20px;
+    max-height: 30px;
+}
 
+.blueFlexButton:hover {
+    background-color: rgb(4, 212, 254);
+    border: 1px solid rgb(4, 212, 254);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 .redButton {
     color: #fff;
     background-color: rgb(191, 51, 4);

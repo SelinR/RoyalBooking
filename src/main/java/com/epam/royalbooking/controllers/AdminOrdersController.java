@@ -68,7 +68,7 @@ public class AdminOrdersController {
         Order oldOrder = orderService.getById(order.getId());
         if (orderService.update(order)) {
             modelAndView.addObject("order", order);
-            modelAndView.setViewName("redirect:/admin/order/" + order.getId());
+            modelAndView.setViewName("redirect:/admin/orders/");
             return modelAndView;
         } else {
             modelAndView.addObject("order", oldOrder);
